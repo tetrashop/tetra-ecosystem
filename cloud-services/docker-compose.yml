@@ -1,0 +1,5 @@
+version: '3'
+services:
+  tetra-cloud:
+    image: alpine:latest
+    command: echo "سرویس‌های ابری راه‌اندازی شد"

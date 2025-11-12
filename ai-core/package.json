@@ -1,0 +1,12 @@
+{
+  "name": "tetra-ai-core",
+  "version": "1.0.0",
+  "description": "هسته مرکزی هوش مصنوعی TetraEcosystem",
+  "type": "commonjs",
+  "scripts": {
+    "deploy:production": "node ai-core-launcher.js",
+    "start": "node ai-core-launcher.js",
+    "test": "echo 'تست AI انجام شد'"
+  },
+  "dependencies": {}
+}

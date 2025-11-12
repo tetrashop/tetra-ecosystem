@@ -1,0 +1,11 @@
+{
+  "name": "tetra-business-layer",
+  "version": "1.0.0",
+  "description": "لایه مدیریت کسب‌وکار TetraEcosystem",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'ساخت لایه کسب‌وکار تکمیل شد'",
+    "deploy": "node unified-management.js",
+    "start": "node unified-management.js"
+  }
+}
