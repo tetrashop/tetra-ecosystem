@@ -1,73 +1,28 @@
 {
-  "version": 3,
-  "name": "tetra-shop-ecosystem",
-  "scope": "tetrashop",
+  "version": 2,
+  "name": "tetra-ecosystem",
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "."
-      }
+      "use": "@vercel/static-build"
     },
     {
-      "src": "ai-core/**/*.js",
-      "use": "@vercel/node"
+      "src": "**/*.html",
+      "use": "@vercel/static"
     },
     {
-      "src": "blockchain/**/*.js", 
-      "use": "@vercel/node"
+      "src": "**/*.js",
+      "use": "@vercel/static"
     },
     {
-      "src": "cloud-services/**/*.js",
-      "use": "@vercel/node"
+      "src": "**/*.css",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/",
+      "src": "/(.*)",
       "dest": "/index.html"
-    },
-    {
-      "src": "/ai-core/(.*)",
-      "dest": "/ai-core/$1"
-    },
-    {
-      "src": "/blockchain/(.*)",
-      "dest": "/blockchain/$1"
-    },
-    {
-      "src": "/cloud-services/(.*)",
-      "dest": "/cloud-services/$1"
-    },
-    {
-      "src": "/business-layer/(.*)",
-      "dest": "/business-layer/$1"
-    },
-    {
-      "src": "/shared-libs/(.*)",
-      "dest": "/shared-libs/$1"
-    },
-    {
-      "src": "/(.*\\.html)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*\\.css)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*\\.js)",
-      "dest": "/$1"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production",
-    "ECOSYSTEM_VERSION": "1.0.0"
-  },
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    }
-  }
+  ]
 }
