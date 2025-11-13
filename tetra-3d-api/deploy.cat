@@ -1,0 +1,44 @@
+#!/bin/bash
+echo "🚀 شروع استقرار Tetra 3D API روی Vercel..."
+
+# حذف فایل‌های موقت و cache
+rm -rf .vercel
+rm -rf __pycache__
+rm -rf converters/__pycache__
+rm -rf */__pycache__
+
+# بررسی وجود Vercel CLI
+if ! command -v vercel &> /dev/null; then
+    echo "📦 نصب Vercel CLI..."
+    npm install -g vercel
+fi
+
+# بررسی وجود فایل‌های ضروری
+echo "🔍 بررسی فایل‌های ضروری..."
+if [ ! -f "app/main.py" ]; then
+    echo "❌ فایل app/main.py یافت نشد"
+    exit 1
+fi
+
+if [ ! -f "requirements.txt" ]; then
+    echo "❌ فایل requirements.txt یافت نشد"
+    exit 1
+fi
+
+if [ ! -f "vercel.json" ]; then
+    echo "❌ فایل vercel.json یافت نشد"
+    exit 1
+fi
+
+echo "✅ همه فایل‌های ضروری موجود هستند"
+
+# استقرار روی Vercel
+echo "🌐 در حال استقرار..."
+vercel --prod --yes
+
+echo "🎉 استقرار تکمیل شد!"
+echo "📝 نکات مهم:"
+echo "   - API روی آدرس https://tetra-3d-api.vercel.app در دسترس است"
+echo "   - برای تست از endpoint /health استفاده کنید"
+echo "   - برای تبدیل تصویر از POST /convert استفاده کنید"
+echo "   - برای بررسی وضعیت از GET /status/{job_id} استفاده کنید"

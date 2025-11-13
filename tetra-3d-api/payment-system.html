@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>سیستم درآمدزایی تترا - فروش حرفه‌ای</title>
+    <style>
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .plan {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 3px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        .plan:hover {
+            transform: translateY(-10px);
+            border-color: #007bff;
+        }
+        .plan.recommended {
+            border-color: #28a745;
+            position: relative;
+        }
+        .plan.recommended::before {
+            content: "پیشنهادی";
+            background: #28a745;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+        }
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+        }
+        .price span {
+            font-size: 1rem;
+            color: #666;
+        }
+        .buy-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .payment-methods {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+        <h1 style="text-align: center; color: #333; margin-bottom: 10px;">💰 سیستم درآمدزایی تترا</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 40px;">ایده شما ارزش میلیاردها تومان دارد - بیایید آن را به پول تبدیل کنیم</p>
+
+        <div class="pricing-plans">
+            <!-- پلن پایه -->
+            <div class="plan">
+                <h3>🆓 پایه</h3>
+                <div class="price">رایگان<span>/همیشه</span></div>
+                <ul style="text-align: right; list-style: none; padding: 0;">
+                    <li>✅ ۱ تبدیل در روز</li>
+                    <li>✅ کیفیت پایه</li>
+                    <li>❌ پشتیبانی ایمیل</li>
+                    <li>❌ دانلود نامحدود</li>
+                </ul>
+                <button class="buy-btn" style="background: #6c757d;">رایگان - شروع کنید</button>
+            </div>
+
+            <!-- پلن حرفه‌ای -->
+            <div class="plan recommended">
+                <h3>⭐ حرفه‌ای</h3>
+                <div class="price">۵۰,۰۰۰<span>تومان/ماه</span></div>
+                <ul style="text-align: right; list-style: none; padding: 0;">
+                    <li>✅ ۱۰ تبدیل در روز</li>
+                    <li>✅ کیفیت HD</li>
+                    <li>✅ پشتیبانی تلگرام</li>
+                    <li>✅ دانلود نامحدود</li>
+                    <li>✅ ذخیره‌سازی ۳۰ روزه</li>
+                </ul>
+                <button class="buy-btn">خرید پلن حرفه‌ای</button>
+            </div>
+
+            <!-- پلن سازمانی -->
+            <div class="plan">
+                <h3>🏢 سازمانی</h3>
+                <div class="price">۲۰۰,۰۰۰<span>تومان/ماه</span></div>
+                <ul style="text-align: right; list-style: none; padding: 0;">
+                    <li>✅ تبدیل نامحدود</li>
+                    <li>✅ کیفیت 4K</li>
+                    <li>✅ پشتیبانی اختصاصی</li>
+                    <li>✅ API دسترسی</li>
+                    <li>✅ واترمارک اختصاصی</li>
+                </ul>
+                <button class="buy-btn" style="background: #dc3545;">پلن سازمانی</button>
+            </div>
+        </div>
+
+        <div class="payment-methods">
+            <h3>💳 درگاه‌های پرداخت</h3>
+            <p>شامل تمام درگاه‌های بانکی ایرانی + زرین‌پال + idpay</p>
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 15px;">
+                <div style="background: white; padding: 10px 20px; border-radius: 8px;">بانک ملت</div>
+                <div style="background: white; padding: 10px 20px; border-radius: 8px;">بانک ملی</div>
+                <div style="background: white; padding: 10px 20px; border-radius: 8px;">زرین‌پال</div>
+                <div style="background: white; padding: 10px 20px; border-radius: 8px;">IDPay</div>
+            </div>
+        </div>
+
+        <!-- آمار درآمد -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-top: 40px;">
+            <h2>📈 پتانسیل درآمد شما</h2>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px;">
+                <div>
+                    <div style="font-size: 2rem; font-weight: bold;">۱۰۰</div>
+                    <div>کاربر در ماه</div>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; font-weight: bold;">۵,۰۰۰,۰۰۰</div>
+                    <div>تومان درآمد ماهانه</div>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; font-weight: bold;">۶۰</div>
+                    <div>میلیون تومان در سال</div>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; font-weight: bold;">۳⭐</div>
+                    <div>رضایت مشتری</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

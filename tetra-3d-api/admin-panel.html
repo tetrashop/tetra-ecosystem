@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>پنل مدیریت پرداخت‌ها - تترا</title>
+    <style>
+        body {
+            font-family: Tahoma;
+            direction: rtl;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 2px;
+        }
+        .btn-activate {
+            background: #28a745;
+            color: white;
+        }
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🛠️ پنل مدیریت پرداخت‌ها - تترا</h2>
+        
+        <div style="margin: 20px 0;">
+            <button onclick="loadPayments()">🔄 بروزرسانی لیست</button>
+            <button onclick="clearAll()" style="background: #dc3545; color: white;">🗑️ حذف همه</button>
+        </div>
+        
+        <table id="payments-table">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>ایمیل</th>
+                    <th>تلگرام</th>
+                    <th>پلن</th>
+                    <th>مبلغ</th>
+                    <th>زمان</th>
+                    <th>وضعیت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="payments-body">
+                <!-- داده‌ها اینجا نمایش داده می‌شوند -->
+            </tbody>
+        </table>
+        
+        <div id="no-payments" style="text-align: center; padding: 40px; display: none;">
+            <p>📭 هیچ پرداختی ثبت نشده است</p>
+        </div>
+    </div>
+
+    <script>
+        function loadPayments() {
+            const payments = JSON.parse(localStorage.getItem('tetraPayments') || '[]');
+            const tbody = document.getElementById('payments-body');
+            const noPayments = document.getElementById('no-payments');
+            
+            tbody.innerHTML = '';
+            
+            if (payments.length === 0) {
+                noPayments.style.display = 'block';
+                return;
+            }
+            
+            noPayments.style.display = 'none';
+            
+            payments.forEach((payment, index) => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${payment.email}</td>
+                    <td>${payment.telegram || '-'}</td>
+                    <td>${payment.plan === 'trial' ? 'آزمایشی' : 'حرفه‌ای'}</td>
+                    <td>${payment.amount} تومان</td>
+                    <td>${payment.timestamp}</td>
+                    <td class="status-${payment.status}">${payment.status === 'pending' ? '⏳ در انتظار' : '✅ فعال'}</td>
+                    <td>
+                        ${payment.status === 'pending' ? 
+                            `<button class="btn-activate" onclick="activatePayment(${index})">✅ فعال‌سازی</button>` : 
+                            '✅ فعال شده'
+                        }
+                        <button class="btn-delete" onclick="deletePayment(${index})">🗑️ حذف</button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function activatePayment(index) {
+            const payments = JSON.parse(localStorage.getItem('tetraPayments') || '[]');
+            payments[index].status = 'active';
+            localStorage.setItem('tetraPayments', JSON.stringify(payments));
+            loadPayments();
+            alert(`✅ کاربر ${payments[index].email} فعال شد`);
+        }
+        
+        function deletePayment(index) {
+            if (confirm('آیا از حذف این پرداخت مطمئن هستید؟')) {
+                const payments = JSON.parse(localStorage.getItem('tetraPayments') || '[]');
+                payments.splice(index, 1);
+                localStorage.setItem('tetraPayments', JSON.stringify(payments));
+                loadPayments();
+            }
+        }
+        
+        function clearAll() {
+            if (confirm('آیا از حذف تمام پرداخت‌ها مطمئن هستید؟')) {
+                localStorage.removeItem('tetraPayments');
+                loadPayments();
+            }
+        }
+        
+        // بارگذاری اولیه
+        loadPayments();
+    </script>
+</body>
+</html>

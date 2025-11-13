@@ -1,0 +1,16 @@
+#!/bin/bash
+echo "🔄 در حال راه‌اندازی سرویس Tetra 3D API..."
+
+# ایجاد پوشه‌های لازم
+mkdir -p converters models temp
+
+# نصب وابستگی‌های پایتون
+echo "📦 نصب کتابخانه‌های پایتون..."
+pip install fastapi uvicorn python-multipart pillow numpy python-dateutil
+
+# دادن مجوز اجرا
+chmod +x app/main.py
+
+echo "✅ سرویس Tetra 3D API آماده است!"
+echo "🌐 برای اجرا: cd tetra-3d-api && uvicorn app.main:app --reload"
+echo "📡 آدرس API: http://localhost:8000"
