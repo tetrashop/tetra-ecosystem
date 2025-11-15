@@ -5,54 +5,218 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پروفایل شخصی - Tetra Ecosystem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        body { background: #f8f9fa; }
-        .hero { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .profile-hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 4rem 0;
+            padding: 3rem 0;
             text-align: center;
         }
-        .card { 
-            margin: 1rem 0; 
-            transition: transform 0.3s;
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
         }
-        .card:hover { 
-            transform: translateY(-5px); 
+        .link-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        .link-management { border-left-color: #6366f1; }
+        .link-monitoring { border-left-color: #10b981; }
+        .link-wallet { border-left-color: #f59e0b; }
+        .link-services { border-left-color: #ef4444; }
     </style>
 </head>
-<body>
-    <div class="hero">
+<body class="bg-light">
+    <!-- هدر پروفایل -->
+    <div class="profile-hero">
         <div class="container">
-            <h1 class="display-4">پنل شخصی Tetra Ecosystem</h1>
-            <p class="lead">دسترسی سریع به تمام سرویس‌ها</p>
+            <div class="profile-image">
+                <i class="bi bi-person-gear"></i>
+            </div>
+            <h1 class="h3 fw-bold mb-2">مدیریت اکوسیستم تترا</h1>
+            <p class="mb-3">دسترسی سریع به تمام پنل‌های مدیریتی و سرویس‌ها</p>
         </div>
     </div>
 
-    <div class="container py-5">
+    <div class="container py-4">
         <div class="row">
-            <div class="col-md-4">
-                <div class="card">
+            <!-- لینک‌های اصلی -->
+            <div class="col-md-8">
+                <!-- مدیریت و نظارت -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <a href="admin-real-data.html" class="link-card link-management">
+                            <div class="d-flex align-items-center">
+                                <div class="text-primary me-3">
+                                    <i class="bi bi-speedometer2" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">پنل مدیریت اصلی</h6>
+                                    <p class="text-muted mb-0 small">مدیریت کامل داده‌ها و کاربران</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="enhanced-monitoring.html" class="link-card link-monitoring">
+                            <div class="d-flex align-items-center">
+                                <div class="text-success me-3">
+                                    <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">نظارت Real-time</h6>
+                                    <p class="text-muted mb-0 small">مانیتورینگ زنده عملکرد سیستم</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- مالی و کیف پول -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <a href="tetra-wallet.html" class="link-card link-wallet">
+                            <div class="d-flex align-items-center">
+                                <div class="text-warning me-3">
+                                    <i class="bi bi-wallet2" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">کیف پول تترا</h6>
+                                    <p class="text-muted mb-0 small">مدیریت مالی با سود روزانه</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="analytics-dashboard.html" class="link-card link-management">
+                            <div class="d-flex align-items-center">
+                                <div class="text-info me-3">
+                                    <i class="bi bi-bar-chart" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">آنالیتیکس پیشرفته</h6>
+                                    <p class="text-muted mb-0 small">تحلیل داده‌ها و گزارش‌گیری</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- سرویس‌های اصلی -->
+                <div class="card shadow-sm mb-3">
+                    <div class="card-header bg-primary text-white py-2">
+                        <h6 class="mb-0">🚀 سرویس‌های اصلی تترا</h6>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">🏠 صفحه اصلی</h5>
-                        <a href="tetra-ecosystem.html" class="btn btn-primary">ورود</a>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <a href="tetra-ecosystem.html" class="link-card link-services">
+                                    <i class="bi bi-house-door me-2"></i>
+                                    صفحه اصلی اکوسیستم
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <a href="image-3d-converter.html" class="link-card link-services">
+                                    <i class="bi bi-arrow-repeat me-2"></i>
+                                    تبدیل تصاویر 2D به 3D
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <a href="ai-writer.html" class="link-card link-services">
+                                    <i class="bi bi-pencil-square me-2"></i>
+                                    نویسنده هوشمند
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <a href="quantum-writer.html" class="link-card link-services">
+                                    <i class="bi bi-cpu me-2"></i>
+                                    نویسنده کوانتومی
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <a href="chess-ai.html" class="link-card link-services">
+                                    <i class="bi bi-plus-square me-2"></i>
+                                    شطرنج هوشمند
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <a href="speech-system.html" class="link-card link-services">
+                                    <i class="bi bi-mic me-2"></i>
+                                    نطق مصطلح
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- سایدبار -->
             <div class="col-md-4">
-                <div class="card">
+                <!-- وضعیت سیستم -->
+                <div class="card shadow-sm mb-3">
+                    <div class="card-header bg-success text-white py-2">
+                        <h6 class="mb-0">✅ وضعیت سیستم</h6>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">📊 پنل مدیریت</h5>
-                        <a href="admin-real-data.html" class="btn btn-success">ورود</a>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small">همه سرویس‌ها</span>
+                            <span class="badge bg-success small">فعال</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small">پایگاه داده</span>
+                            <span class="badge bg-success small">آنلاین</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small">API ها</span>
+                            <span class="badge bg-success small">پاسخگو</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="small">امنیت</span>
+                            <span class="badge bg-success small">فعال</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
+
+                <!-- لینک‌های مفید -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white py-2">
+                        <h6 class="mb-0">🔗 لینک‌های مفید</h6>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">💰 کیف پول</h5>
-                        <a href="tetra-wallet.html" class="btn btn-warning">ورود</a>
+                        <a href="social-care.html" class="d-block mb-2 small text-decoration-none">
+                            <i class="bi bi-heart me-2"></i>سیستم محرومین
+                        </a>
+                        <a href="donation-system.html" class="d-block mb-2 small text-decoration-none">
+                            <i class="bi bi-cash-coin me-2"></i>سیستم کمک مالی
+                        </a>
+                        <a href="anti-fragmentation.html" class="d-block mb-2 small text-decoration-none">
+                            <i class="bi bi-shield-check me-2"></i>سامانه ضد چندپارگی
+                        </a>
+                        <a href="quantum-design.html" class="d-block small text-decoration-none">
+                            <i class="bi bi-brush me-2"></i>نگار کوانتوم
+                        </a>
                     </div>
                 </div>
             </div>
