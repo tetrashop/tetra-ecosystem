@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت واقعی Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+        .admin-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .api-status {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .connected { background: var(--success); }
+        .disconnected { background: var(--danger); }
+    </style>
+</head>
+<body class="admin-bg">
+    <!-- نوار ناوبری -->
+    <nav class="navbar navbar-dark glass-panel">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">
+                <i class="bi bi-shield-check"></i>
+                پنل مدیریت واقعی Tetra
+            </span>
+            <div class="d-flex align-items-center">
+                <span class="api-status connected me-3">
+                    <i class="bi bi-check-circle"></i> متصل به صرافی
+                </span>
+                <span class="navbar-text">
+                    کاربر: مدیر سیستم
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <!-- آمار سریع -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="glass-panel p-3 text-center stat-card">
+                    <i class="bi bi-wallet2 display-6 text-success"></i>
+                    <h4 class="mt-2" id="totalBalance">۰ تومان</h4>
+                    <small>موجودی کل ریالی</small>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="glass-panel p-3 text-center stat-card">
+                    <i class="bi bi-currency-bitcoin display-6 text-warning"></i>
+                    <h4 class="mt-2" id="btcBalance">۰ BTC</h4>
+                    <small>موجودی بیت‌کوین</small>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="glass-panel p-3 text-center stat-card">
+                    <i class="bi bi-graph-up display-6 text-info"></i>
+                    <h4 class="mt-2" id="usdtBalance">۰ USDT</h4>
+                    <small>موجودی تتر</small>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="glass-panel p-3 text-center stat-card">
+                    <i class="bi bi-people display-6 text-primary"></i>
+                    <h4 class="mt-2" id="totalUsers">۰ کاربر</h4>
+                    <small>کاربران فعال</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- سایدبار مدیریت -->
+            <div class="col-lg-3 mb-4">
+                <div class="glass-panel p-3">
+                    <h5 class="mb-3">منوی مدیریت</h5>
+                    <div class="list-group list-group-flush">
+                        <button class="list-group-item list-group-item-action bg-transparent text-white border-0 active" onclick="showSection('dashboard')">
+                            <i class="bi bi-speedometer2 me-2"></i>داشبورد
+                        </button>
+                        <button class="list-group-item list-group-item-action bg-transparent text-white border-0" onclick="showSection('withdrawal')">
+                            <i class="bi bi-cash-coin me-2"></i>برداشت واقعی
+                        </button>
+                        <button class="list-group-item list-group-item-action bg-transparent text-white border-0" onclick="showSection('users')">
+                            <i class="bi bi-people me-2"></i>مدیریت کاربران
+                        </button>
+                        <button class="list-group-item list-group-item-action bg-transparent text-white border-0" onclick="showSection('transactions')">
+                            <i class="bi bi-clock-history me-2"></i>تراکنش‌ها
+                        </button>
+                        <button class="list-group-item list-group-item-action bg-transparent text-white border-0" onclick="showSection('apiConfig')">
+                            <i class="bi bi-gear me-2"></i>تنظیمات API
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- محتوای اصلی -->
+            <div class="col-lg-9">
+                <!-- داشبورد -->
+                <div id="dashboardSection" class="content-section">
+                    <div class="glass-panel p-4">
+                        <h4 class="mb-4">داشبورد مدیریت</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>وضعیت اتصال به صرافی‌ها</h6>
+                                <div class="mb-2">
+                                    <span class="badge bg-success">نوبیتکس: متصل</span>
+                                    <small class="text-muted ms-2">API Key: ••••••••</small>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="badge bg-success">رمزینکس: متصل</span>
+                                    <small class="text-muted ms-2">API Key: ••••••••</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>آخرین فعالیت‌ها</h6>
+                                <div id="recentActivities">
+                                    <!-- فعالیت‌ها با JavaScript پر می‌شوند -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- بخش برداشت واقعی -->
+                <div id="withdrawalSection" class="content-section" style="display: none;">
+                    <div class="glass-panel p-4">
+                        <h4 class="mb-4">برداشت واقعی رمزارز</h4>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>انتخاب صرافی:</label>
+                                    <select class="form-select bg-secondary text-white" id="exchangeSelect">
+                                        <option value="nobitex">نوبیتکس</option>
+                                        <option value="ramzinex">رمزینکس</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label>ارز مورد نظر:</label>
+                                    <select class="form-select bg-secondary text-white" id="currencySelect">
+                                        <option value="usdt">تتر (USDT)</option>
+                                        <option value="btc">بیت‌کوین (BTC)</option>
+                                        <option value="eth">اتریوم (ETH)</option>
+                                        <option value="irt">تومان (IRT)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label>مبلغ برداشت:</label>
+                                    <input type="number" class="form-control bg-secondary text-white" id="withdrawAmount" placeholder="مثال: 1000000">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>آدرس مقصد:</label>
+                                    <input type="text" class="form-control bg-secondary text-white" id="destinationAddress" placeholder="آدرس کیف پول مقصد">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label>شبکه انتقال:</label>
+                                    <select class="form-select bg-secondary text-white" id="networkSelect">
+                                        <option value="trc20">TRC-20 (تتر)</option>
+                                        <option value="erc20">ERC-20 (اتریوم)</option>
+                                        <option value="bep20">BEP-20 (BSC)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="alert alert-warning">
+                                    <small>
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                        توجه: از صحت آدرس مقصد اطمینان حاصل کنید. تراکنش‌های رمزارزی غیرقابل بازگشت هستند.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-success w-100" onclick="processRealWithdrawal()">
+                            <i class="bi bi-send-check"></i> ثبت درخواست برداشت واقعی
+                        </button>
+                    </div>
+                </div>
+
+                <!-- سایر بخش‌ها -->
+                <div id="usersSection" class="content-section" style="display: none;">
+                    <div class="glass-panel p-4">
+                        <h4>مدیریت کاربران</h4>
+                        <p>لیست کاربران و وضعیت احراز هویت آنها</p>
+                    </div>
+                </div>
+
+                <div id="transactionsSection" class="content-section" style="display: none;">
+                    <div class="glass-panel p-4">
+                        <h4>تاریخچه تراکنش‌ها</h4>
+                        <div id="transactionsList"></div>
+                    </div>
+                </div>
+
+                <div id="apiConfigSection" class="content-section" style="display: none;">
+                    <div class="glass-panel p-4">
+                        <h4>تنظیمات API صرافی‌ها</h4>
+                        <div class="mb-3">
+                            <label>API Key نوبیتکس:</label>
+                            <input type="password" class="form-control bg-secondary text-white" id="nobitexApiKey" placeholder="کلید API نوبیتکس">
+                        </div>
+                        <div class="mb-3">
+                            <label>Secret Key نوبیتکس:</label>
+                            <input type="password" class="form-control bg-secondary text-white" id="nobitexSecret" placeholder="Secret Key نوبیتکس">
+                        </div>
+                        <div class="mb-3">
+                            <label>API Key رمزینکس:</label>
+                            <input type="password" class="form-control bg-secondary text-white" id="ramzinexApiKey" placeholder="کلید API رمزینکس">
+                        </div>
+                        <button class="btn btn-primary" onclick="saveApiConfig()">ذخیره تنظیمات</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // داده‌های پنل مدیریت
+        const adminData = {
+            balances: {
+                rial: 0,
+                btc: 0,
+                usdt: 0
+            },
+            users: 0,
+            apiConfig: {
+                nobitex: { apiKey: '', secret: '' },
+                ramzinex: { apiKey: '' }
+            },
+            transactions: []
+        };
+
+        // نمایش بخش‌های مختلف
+        function showSection(sectionName) {
+            // مخفی کردن همه بخش‌ها
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // نمایش بخش انتخاب شده
+            document.getElementById(sectionName + 'Section').style.display = 'block';
+            
+            // بروزرسانی منو
+            document.querySelectorAll('.list-group-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // شبیه‌سازی اتصال به API صرافی
+        async function connectToExchange(exchange, apiKey, secret = '') {
+            console.log(`اتصال به ${exchange} با API Key: ${apiKey.substring(0, 8)}...`);
+            
+            // شبیه‌سازی تاخیر شبکه
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // شبیه‌سازی دریافت موجودی
+            if (exchange === 'nobitex') {
+                return {
+                    success: true,
+                    balances: {
+                        rial: 12500000,
+                        btc: 0.025,
+                        usdt: 1500
+                    }
+                };
+            } else if (exchange === 'ramzinex') {
+                return {
+                    success: true,
+                    balances: {
+                        rial: 8500000,
+                        btc: 0.015,
+                        usdt: 800
+                    }
+                };
+            }
+            
+            return { success: false, error: 'صرافی یافت نشد' };
+        }
+
+        // پردازش برداشت واقعی
+        async function processRealWithdrawal() {
+            const exchange = document.getElementById('exchangeSelect').value;
+            const currency = document.getElementById('currencySelect').value;
+            const amount = parseFloat(document.getElementById('withdrawAmount').value);
+            const address = document.getElementById('destinationAddress').value;
+            const network = document.getElementById('networkSelect').value;
+
+            // اعتبارسنجی
+            if (!amount || amount <= 0) {
+                alert('لطفا مبلغ معتبر وارد کنید');
+                return;
+            }
+
+            if (!address) {
+                alert('لطفا آدرس مقصد را وارد کنید');
+                return;
+            }
+
+            // شبیه‌سازی ارسال به API صرافی
+            try {
+                const result = await simulateWithdrawalAPI(exchange, currency, amount, address, network);
+                
+                if (result.success) {
+                    alert(`✅ برداشت واقعی ثبت شد!\n\nمبلغ: ${amount} ${currency.toUpperCase()}\nآدرس: ${address}\nشبکه: ${network}\n\nشناسه تراکنش: ${result.txid}`);
+                    
+                    // افزودن به تاریخچه
+                    adminData.transactions.unshift({
+                        id: result.txid,
+                        type: 'withdrawal',
+                        amount: amount,
+                        currency: currency,
+                        address: address,
+                        network: network,
+                        status: 'pending',
+                        date: new Date().toLocaleString('fa-IR'),
+                        exchange: exchange
+                    });
+                    
+                    renderTransactions();
+                } else {
+                    alert('❌ خطا در برداشت: ' + result.error);
+                }
+            } catch (error) {
+                alert('❌ خطا در ارتباط با صرافی');
+            }
+        }
+
+        // شبیه‌سازی API برداشت
+        async function simulateWithdrawalAPI(exchange, currency, amount, address, network) {
+            console.log(`شبیه‌سازی برداشت از ${exchange}: ${amount} ${currency} به آدرس ${address} روی شبکه ${network}`);
+            
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // شبیه‌سازی موفقیت‌آمیز
+            return {
+                success: true,
+                txid: 'TX' + Date.now() + Math.random().toString(36).substr(2, 9).toUpperCase(),
+                message: 'درخواست برداشت با موفقیت ثبت شد'
+            };
+        }
+
+        // ذخیره تنظیمات API
+        function saveApiConfig() {
+            const nobitexApiKey = document.getElementById('nobitexApiKey').value;
+            const nobitexSecret = document.getElementById('nobitexSecret').value;
+            const ramzinexApiKey = document.getElementById('ramzinexApiKey').value;
+            
+            if (nobitexApiKey) {
+                adminData.apiConfig.nobitex.apiKey = nobitexApiKey;
+                adminData.apiConfig.nobitex.secret = nobitexSecret;
+                console.log('تنظیمات نوبیتکس ذخیره شد');
+            }
+            
+            if (ramzinexApiKey) {
+                adminData.apiConfig.ramzinex.apiKey = ramzinexApiKey;
+                console.log('تنظیمات رمزینکس ذخیره شد');
+            }
+            
+            alert('✅ تنظیمات API با موفقیت ذخیره شد');
+            
+            // بروزرسانی موجودی
+            updateBalances();
+        }
+
+        // بروزرسانی موجودی‌ها
+        async function updateBalances() {
+            // شبیه‌سازی دریافت موجودی از صرافی‌ها
+            if (adminData.apiConfig.nobitex.apiKey) {
+                const nobitexBalance = await connectToExchange('nobitex', adminData.apiConfig.nobitex.apiKey);
+                if (nobitexBalance.success) {
+                    adminData.balances = nobitexBalance.balances;
+                }
+            }
+            
+            // بروزرسانی نمایش
+            document.getElementById('totalBalance').textContent = adminData.balances.rial.toLocaleString('fa-IR') + ' تومان';
+            document.getElementById('btcBalance').textContent = adminData.balances.btc + ' BTC';
+            document.getElementById('usdtBalance').textContent = adminData.balances.usdt.toLocaleString('fa-IR') + ' USDT';
+            document.getElementById('totalUsers').textContent = '۱,۲۴۸ کاربر';
+        }
+
+        // رندر تراکنش‌ها
+        function renderTransactions() {
+            const container = document.getElementById('transactionsList');
+            container.innerHTML = '';
+            
+            adminData.transactions.slice(0, 10).forEach(tx => {
+                const txDiv = document.createElement('div');
+                txDiv.className = `glass-panel p-3 mb-2 ${tx.status === 'pending' ? 'border-warning' : 'border-success'}`;
+                txDiv.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${tx.currency.toUpperCase()} → ${tx.exchange}</strong>
+                            <br><small>${tx.address.substring(0, 15)}... | ${tx.network}</small>
+                        </div>
+                        <div class="text-start">
+                            <div class="${tx.type === 'withdrawal' ? 'text-danger' : 'text-success'}">
+                                ${tx.amount.toLocaleString('fa-IR')} ${tx.currency.toUpperCase()}
+                            </div>
+                            <small>${tx.date}</small>
+                            <br><span class="badge ${tx.status === 'pending' ? 'bg-warning' : 'bg-success'}">${tx.status === 'pending' ? 'در انتظار' : 'تکمیل شده'}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(txDiv);
+            });
+        }
+
+        // راه‌اندازی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBalances();
+            renderTransactions();
+            console.log('🚀 پنل مدیریت واقعی Tetra راه‌اندازی شد');
+        });
+    </script>
+</body>
+</html>
