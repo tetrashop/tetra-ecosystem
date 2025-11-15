@@ -1,8 +1,0 @@
-{
-  "name": "tetra-ecosystem",
-  "version": "1.0.0",
-  "description": "پلتفرم تبدیل تصویر به مدل 3D",
-  "scripts": {
-    "dev": "python -m http.server 8080"
-  }
-}

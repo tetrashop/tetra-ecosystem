@@ -1,17 +1,0 @@
-#!/bin/bash
-echo "🧪 تست API پس از استقرار..."
-
-API_URL="https://tetra-3d-api.vercel.app"
-
-# تست سلامت
-echo "🔍 تست سلامت سرویس..."
-curl -s "$API_URL/health" | python3 -m json.tool
-
-# تست endpoint اصلی
-echo ""
-echo "🔍 تست endpoint اصلی..."
-curl -s "$API_URL/" | python3 -m json.tool
-
-echo ""
-echo "✅ تست کامل شد"
-echo "🌐 آدرس API: $API_URL"
