@@ -71,6 +71,20 @@
     <!-- سرویس‌ها -->
     <div class="container py-5">
         <div class="row">
+            <!-- کیف پول -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-success mb-3">
+                        <i class="bi bi-wallet2" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>کیف پول تترا</h4>
+                    <p class="text-muted">مدیریت مالی هوشمند با بالاترین بهره‌وری و امنیت</p>
+                    <div class="price-tag d-inline-block mb-3">سود روزانه تا ۲.۵٪</div>
+                    <br>
+                    <a href="tetra-wallet.html" class="btn btn-success w-100">ورود به کیف پول</a>
+                </div>
+            </div>
+
             <!-- تبدیل تصاویر 2D به 3D -->
             <div class="col-md-6 col-lg-4">
                 <div class="service-card">
@@ -95,7 +109,7 @@
                     <p class="text-muted">تولید محتوای متنی هوشمند برای وبلاگ، شبکه‌های اجتماعی و مقالات</p>
                     <div class="price-tag d-inline-block mb-3">شروع از ۳۰,۰۰۰ تومان</div>
                     <br>
-                    <button class="btn btn-success w-100" onclick="launchService('ai-writer')">استفاده از سرویس</button>
+                    <a href="ai-writer.html" class="btn btn-success w-100">استفاده از سرویس</a>
                 </div>
             </div>
 
@@ -109,7 +123,7 @@
                     <p class="text-muted">تولید محتوای پیشرفته با الگوریتم‌های کوانتومی برای متون تخصصی</p>
                     <div class="price-tag d-inline-block mb-3">شروع از ۱۰۰,۰۰۰ تومان</div>
                     <br>
-                    <button class="btn btn-warning w-100" onclick="launchService('quantum-writer')">استفاده از سرویس</button>
+                    <a href="quantum-writer.html" class="btn btn-warning w-100">استفاده از سرویس</a>
                 </div>
             </div>
 
@@ -123,7 +137,7 @@
                     <p class="text-muted">حریف هوش مصنوعی برای تمرین و بهبود مهارت‌های شطرنج</p>
                     <div class="price-tag d-inline-block mb-3">رایگان - حرفه‌ای: ۸۰,۰۰۰ تومان</div>
                     <br>
-                    <button class="btn btn-info w-100" onclick="launchService('chess-ai')">بازی کنید</button>
+                    <a href="chess-ai.html" class="btn btn-info w-100">بازی کنید</a>
                 </div>
             </div>
 
@@ -137,7 +151,7 @@
                     <p class="text-muted">یکپارچه‌سازی و مدیریت داده‌های پراکنده در سازمان‌ها</p>
                     <div class="price-tag d-inline-block mb-3">قیمت بر اساس نیاز</div>
                     <br>
-                    <button class="btn btn-danger w-100" onclick="launchService('anti-fragmentation')">دریافت دمو</button>
+                    <a href="anti-fragmentation.html" class="btn btn-danger w-100">دریافت دمو</a>
                 </div>
             </div>
 
@@ -151,7 +165,7 @@
                     <p class="text-muted">سیستم تبدیل متن به گفتار با لهجه طبیعی فارسی</p>
                     <div class="price-tag d-inline-block mb-3">شروع از ۲۰,۰۰۰ تومان</div>
                     <br>
-                    <button class="btn btn-secondary w-100" onclick="launchService('speech')">استفاده از سرویس</button>
+                    <a href="speech-system.html" class="btn btn-secondary w-100">استفاده از سرویس</a>
                 </div>
             </div>
 
@@ -165,7 +179,7 @@
                     <p class="text-muted">طراحی و تولید گرافیک با الگوریتم‌های کوانتومی</p>
                     <div class="price-tag d-inline-block mb-3">شروع از ۱۵۰,۰۰۰ تومان</div>
                     <br>
-                    <button class="btn btn-dark w-100" onclick="launchService('quantum-design')">استفاده از سرویس</button>
+                    <a href="quantum-design.html" class="btn btn-dark w-100">استفاده از سرویس</a>
                 </div>
             </div>
 
@@ -242,30 +256,6 @@
 
     <script src="data-manager.js"></script>
     <script>
-        function launchService(serviceName) {
-            const services = {
-                'ai-writer': 'نویسنده هوشمند',
-                'quantum-writer': 'نویسنده کوانتومی', 
-                'chess-ai': 'شطرنج هوشمند',
-                'anti-fragmentation': 'سامانه ضد چندپارگی',
-                'speech': 'نطق مصطلح',
-                'quantum-design': 'نگار کوانتوم'
-            };
-
-            const serviceTitle = services[serviceName];
-            alert(`🚀 سرویس ${serviceTitle} در حال راه‌اندازی...\n\nاین سرویس به زودی فعال خواهد شد.`);
-            
-            // ثبت درخواست در سیستم
-            if (window.tetraData) {
-                tetraData.create('serviceRequests', {
-                    service: serviceName,
-                    title: serviceTitle,
-                    timestamp: new Date().toLocaleString('fa-IR'),
-                    status: 'pending'
-                });
-            }
-        }
-
         function chargeAccount() {
             const amount = document.getElementById('chargeAmount').value;
             if (!amount || amount < 10000) {
@@ -275,7 +265,6 @@
 
             alert(`درخواست شارژ حساب به مبلغ ${amount} تومان ثبت شد.\n\nبه صفحه پرداخت هدایت می‌شوید...`);
             
-            // ثبت تراکنش
             if (window.tetraData) {
                 tetraData.create('transactions', {
                     type: 'charge',
@@ -287,14 +276,8 @@
             }
         }
 
-        // بارگذاری اولیه
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🌐 Tetra Ecosystem - Public Portal Loaded');
-            
-            // ایجاد جدول درخواست‌های سرویس اگر وجود ندارد
-            if (window.tetraData && !localStorage.getItem('tetra_serviceRequests')) {
-                localStorage.setItem('tetra_serviceRequests', JSON.stringify([]));
-            }
         });
     </script>
 </body>
