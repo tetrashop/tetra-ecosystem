@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل شخصی جامع - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+        }
+        
+        .platform-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .ai-platform { border-left-color: var(--primary); }
+        .business-platform { border-left-color: var(--success); }
+        .development-platform { border-left-color: var(--warning); }
+        .analytics-platform { border-left-color: var(--info); }
+        .blockchain-platform { border-left-color: var(--danger); }
+        
+        .status-badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+        }
+        
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .platform-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .quick-actions {
+            margin-top: 15px;
+        }
+        
+        .action-btn {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- هدر -->
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-person-badge"></i>
+                پنل شخصی جامع - Tetra Ecosystem
+            </a>
+            <div class="text-white">
+                <small>آخرین بروزرسانی: <span id="lastUpdate">هم اکنون</span></small>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <!-- آمار کلی -->
+        <div class="row mb-4">
+            <div class="col-md-3 col-6">
+                <div class="card text-center bg-primary text-white">
+                    <div class="card-body py-3">
+                        <i class="bi bi-layers"></i>
+                        <h5 id="totalProjects">۲۴</h5>
+                        <small>کل پروژه‌ها</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="card text-center bg-success text-white">
+                    <div class="card-body py-3">
+                        <i class="bi bi-check-circle"></i>
+                        <h5 id="activeProjects">۱۸</h5>
+                        <small>پروژه‌های فعال</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="card text-center bg-warning text-white">
+                    <div class="card-body py-3">
+                        <i class="bi bi-clock"></i>
+                        <h5 id="pendingProjects">۴</h5>
+                        <small>در حال توسعه</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="card text-center bg-info text-white">
+                    <div class="card-body py-3">
+                        <i class="bi bi-graph-up"></i>
+                        <h5 id="performanceScore">۹۸%</h5>
+                        <small>کارایی سیستم</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- پلتفرم‌های هوش مصنوعی -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="mb-3">
+                    <i class="bi bi-cpu text-primary"></i>
+                    پلتفرم‌های هوش مصنوعی
+                </h4>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="platform-card ai-platform">
+                    <div class="platform-icon text-primary">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <h5>تبدیل 2D به 3D</h5>
+                    <p class="text-muted small">سیستم تبدیل پیشرفته تصاویر</p>
+                    
+                    <div class="metric-value text-primary" id="converterStatus">فعال</div>
+                    
+                    <div class="quick-actions">
+                        <a href="image-3d-converter.html" class="btn btn-primary btn-sm action-btn">
+                            <i class="bi bi-play-circle"></i> اجرا
+                        </a>
+                        <button class="btn btn-outline-primary btn-sm action-btn" onclick="showDetails('converter')">
+                            <i class="bi bi-info-circle"></i> جزئیات
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="platform-card ai-platform">
+                    <div class="platform-icon text-primary">
+                        <i class="bi bi-chat-left-text"></i>
+                    </div>
+                    <h5>نویسنده هوشمند</h5>
+                    <p class="text-muted small">تولید محتوای خودکار</p>
+                    
+                    <div class="metric-value text-success" id="writerStatus">فعال</div>
+                    
+                    <div class="quick-actions">
+                        <a href="ai-writer.html" class="btn btn-primary btn-sm action-btn">
+                            <i class="bi bi-play-circle"></i> اجرا
+                        </a>
+                        <button class="btn btn-outline-primary btn-sm action-btn" onclick="showDetails('writer')">
+                            <i class="bi bi-info-circle"></i> جزئیات
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="platform-card ai-platform">
+                    <div class="platform-icon text-primary">
+                        <i class="bi bi-chess-board"></i>
+                    </div>
+                    <h5>شطرنج هوشمند</h5>
+                    <p class="text-muted small">هوش مصنوعی بازی شطرنج</p>
+                    
+                    <div class="metric-value text-success" id="chessStatus">فعال</div>
+                    
+                    <div class="quick-actions">
+                        <a href="tetra-chess.html" class="btn btn-primary btn-sm action-btn">
+                            <i class="bi bi-play-circle"></i> اجرا
+                        </a>
+                        <button class="btn btn-outline-primary btn-sm action-btn" onclick="showDetails('chess')">
+                            <i class="bi bi-info-circle"></i> جزئیات
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- پلتفرم‌های تجاری -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="mb-3">
+                    <i class="bi bi-briefcase text-success"></i>
+                    پلتفرم‌های تجاری
+                </h4>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="platform-card business-platform">
+                    <div class="platform-icon text-success">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                    <h5>کیف پول تترا</h5>
+                    <p class="text-muted small">مدیریت مالی و سرمایه</p>
+                    
+                    <div class="metric-value text-success" id="walletBalance">۱۲.۴M</div>
+                    
+                    <div class="quick-actions">
+                        <a href="tetra-wallet.html" class="btn btn-success btn-sm action-btn">
+                            <i class="bi bi-wallet2"></i> مدیریت
+                        </a>
+                        <button class="btn btn-outline-success btn-sm action-btn" onclick="showDetails('wallet')">
+                            <i class="bi bi-graph-up"></i> گزارش
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="platform-card business-platform">
+                    <div class="platform-icon text-success">
+                        <i class="bi bi-shop"></i>
+                    </div>
+                    <h5>فروشگاه تترا</h5>
+                    <p class="text-muted small">پلتفرم تجارت الکترونیک</p>
+                    
+                    <div class="metric-value text-warning" id="shopOrders">۸۹</div>
+                    
+                    <div class="quick-actions">
+                        <a href="tetra-shop.html" class="btn btn-success btn-sm action-btn">
+                            <i class="bi bi-eye"></i> مشاهده
+                        </a>
+                        <button class="btn btn-outline-success btn-sm action-btn" onclick="showDetails('shop')">
+                            <i class="bi bi-bar-chart"></i> آمار
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- پلتفرم‌های توسعه -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="mb-3">
+                    <i class="bi bi-code-slash text-warning"></i>
+                    پلتفرم‌های توسعه
+                </h4>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="platform-card development-platform">
+                    <div class="platform-icon text-warning">
+                        <i class="bi bi-git"></i>
+                    </div>
+                    <h5>مدیریت کد</h5>
+                    <p class="text-muted small">سیستم کنترل نسخه</p>
+                    
+                    <div class="metric-value text-info" id="repoCount">۴۷</div>
+                    
+                    <div class="quick-actions">
+                        <button class="btn btn-warning btn-sm action-btn" onclick="openGitManager()">
+                            <i class="bi bi-github"></i> مدیریت
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="platform-card development-platform">
+                    <div class="platform-icon text-warning">
+                        <i class="bi bi-server"></i>
+                    </div>
+                    <h5>سرور و دیتابیس</h5>
+                    <p class="text-muted small">مدیریت زیرساخت</p>
+                    
+                    <div class="metric-value text-success" id="serverStatus">آنلاین</div>
+                    
+                    <div class="quick-actions">
+                        <button class="btn btn-warning btn-sm action-btn" onclick="openServerPanel()">
+                            <i class="bi bi-hdd"></i> مانیتور
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- پلتفرم‌های آنالیتیکس -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="mb-3">
+                    <i class="bi bi-graph-up text-info"></i>
+                    پلتفرم‌های آنالیتیکس
+                </h4>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="platform-card analytics-platform">
+                    <div class="platform-icon text-info">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+                    <h5>پنل مدیریت</h5>
+                    <p class="text-muted small">مدیریت یکپارچه سیستم</p>
+                    
+                    <div class="metric-value text-primary" id="adminStatus">فعال</div>
+                    
+                    <div class="quick-actions">
+                        <a href="admin-panel.html" class="btn btn-info btn-sm action-btn">
+                            <i class="bi bi-gear"></i> تنظیمات
+                        </a>
+                        <button class="btn btn-outline-info btn-sm action-btn" onclick="showDetails('admin')">
+                            <i class="bi bi-shield-check"></i> امنیت
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="platform-card analytics-platform">
+                    <div class="platform-icon text-info">
+                        <i class="bi bi-eye"></i>
+                    </div>
+                    <h5>مانیتورینگ</h5>
+                    <p class="text-muted small">نظارت Real-time</p>
+                    
+                    <div class="metric-value text-success" id="monitoringStatus">فعال</div>
+                    
+                    <div class="quick-actions">
+                        <a href="enhanced-monitoring.html" class="btn btn-info btn-sm action-btn">
+                            <i class="bi bi-graph-up"></i> نمودارها
+                        </a>
+                        <button class="btn btn-outline-info btn-sm action-btn" onclick="showDetails('monitoring')">
+                            <i class="bi bi-activity"></i> وضعیت
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- لاگ فوری -->
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h6 class="mb-0">
+                    <i class="bi bi-terminal"></i>
+                    فعالیت‌های اخیر سیستم
+                </h6>
+            </div>
+            <div class="card-body">
+                <div id="recentActivity" style="height: 150px; overflow-y: auto; font-family: monospace; font-size: 0.8rem;">
+                    <!-- فعالیت‌ها اینجا نمایش داده می‌شوند -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // داده‌های پلتفرم‌ها
+        const platforms = {
+            converter: { status: 'فعال', usage: '۸۷٪', lastUpdate: '۲ دقیقه پیش' },
+            writer: { status: 'فعال', usage: '۹۲٪', lastUpdate: '۵ دقیقه پیش' },
+            chess: { status: 'فعال', usage: '۷۸٪', lastUpdate: '۱۰ دقیقه پیش' },
+            wallet: { status: 'فعال', balance: '۱۲.۴M', transactions: '۲۴۷' },
+            shop: { status: 'فعال', orders: '۸۹', revenue: '۵.۲M' },
+            admin: { status: 'فعال', users: '۱,۲۴۷', performance: '۹۸٪' },
+            monitoring: { status: 'فعال', uptime: '۹۹.۸٪', alerts: '۲' }
+        };
+
+        // بروزرسانی آمار
+        function updateStats() {
+            const now = new Date().toLocaleString('fa-IR');
+            document.getElementById('lastUpdate').textContent = now;
+            
+            // بروزرسانی وضعیت پلتفرم‌ها
+            Object.keys(platforms).forEach(platform => {
+                const element = document.getElementById(platform + 'Status');
+                if (element) {
+                    element.textContent = platforms[platform].status;
+                    
+                    // تغییر رنگ بر اساس وضعیت
+                    if (platforms[platform].status === 'فعال') {
+                        element.className = 'metric-value text-success';
+                    } else if (platforms[platform].status === 'غیرفعال') {
+                        element.className = 'metric-value text-danger';
+                    } else {
+                        element.className = 'metric-value text-warning';
+                    }
+                }
+            });
+            
+            addActivity(`✅ پنل شخصی در ${now} بروزرسانی شد`);
+        }
+
+        // نمایش جزئیات پلتفرم
+        function showDetails(platform) {
+            const details = platforms[platform];
+            let message = `جزئیات ${getPlatformName(platform)}:\n\n`;
+            
+            Object.keys(details).forEach(key => {
+                message += `${getKeyName(key)}: ${details[key]}\n`;
+            });
+            
+            alert(message);
+            addActivity(`📊 مشاهده جزئیات ${getPlatformName(platform)}`);
+        }
+
+        // نام پلتفرم به فارسی
+        function getPlatformName(platform) {
+            const names = {
+                converter: 'تبدیل 2D به 3D',
+                writer: 'نویسنده هوشمند',
+                chess: 'شطرنج هوشمند',
+                wallet: 'کیف پول تترا',
+                shop: 'فروشگاه تترا',
+                admin: 'پنل مدیریت',
+                monitoring: 'سیستم مانیتورینگ'
+            };
+            return names[platform] || platform;
+        }
+
+        // نام کلید به فارسی
+        function getKeyName(key) {
+            const names = {
+                status: 'وضعیت',
+                usage: 'میزان استفاده',
+                lastUpdate: 'آخرین بروزرسانی',
+                balance: 'موجودی',
+                transactions: 'تراکنش‌ها',
+                orders: 'سفارشات',
+                revenue: 'درآمد',
+                users: 'کاربران',
+                performance: 'کارایی',
+                uptime: 'آپتایم',
+                alerts: 'هشدارها'
+            };
+            return names[key] || key;
+        }
+
+        // افزودن فعالیت
+        function addActivity(message) {
+            const activityLog = document.getElementById('recentActivity');
+            const timestamp = new Date().toLocaleTimeString('fa-IR');
+            const activity = document.createElement('div');
+            activity.innerHTML = `<span class="text-muted">[${timestamp}]</span> ${message}`;
+            activityLog.appendChild(activity);
+            activityLog.scrollTop = activityLog.scrollHeight;
+            
+            // محدود کردن تعداد فعالیت‌های نمایش داده شده
+            if (activityLog.children.length > 10) {
+                activityLog.removeChild(activityLog.firstChild);
+            }
+        }
+
+        // شبیه‌سازی عملکرد سایر پلتفرم‌ها
+        function openGitManager() {
+            addActivity('🔧 باز کردن مدیریت‌کننده کد...');
+            alert('سیستم مدیریت کد در حال راه‌اندازی...');
+        }
+
+        function openServerPanel() {
+            addActivity('🖥️ باز کردن پنل سرور...');
+            alert('پنل مدیریت سرور در حال بارگذاری...');
+        }
+
+        // مقداردهی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            addActivity('🚀 پنل شخصی جامع Tetra Ecosystem راه‌اندازی شد');
+            addActivity('📊 اتصال به تمام پلتفرم‌ها برقرار شد');
+            addActivity('✅ سیستم مانیتورینگ Real-time فعال شد');
+            
+            // بروزرسانی خودکار هر 60 ثانیه
+            setInterval(updateStats, 60000);
+        });
+    </script>
+</body>
+</html>
