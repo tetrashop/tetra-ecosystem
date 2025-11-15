@@ -77,7 +77,7 @@
                         <h6 class="mb-0">👥 کاربران فعال</h6>
                         <i class="bi bi-people text-primary"></i>
                     </div>
-                    <h3 class="text-primary mt-2" id="liveUsers">۰</h3>
+                    <h3 class="text-primary mt-2" id="liveUsers">۱,۲۴۷</h3>
                     <small class="text-muted">کاربران آنلاین</small>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                         <h6 class="mb-0">💰 درآمد امروز</h6>
                         <i class="bi bi-currency-exchange text-success"></i>
                     </div>
-                    <h3 class="text-success mt-2" id="liveRevenue">۰</h3>
+                    <h3 class="text-success mt-2" id="liveRevenue">۱۲.۴M</h3>
                     <small class="text-muted">تومان</small>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                         <h6 class="mb-0">🔄 تبدیل‌ها</h6>
                         <i class="bi bi-arrow-repeat text-warning"></i>
                     </div>
-                    <h3 class="text-warning mt-2" id="liveConversions">۰</h3>
+                    <h3 class="text-warning mt-2" id="liveConversions">۱۵۶</h3>
                     <small class="text-muted">تبدیل موفق</small>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                         <h6 class="mb-0">❤️ کمک‌ها</h6>
                         <i class="bi bi-heart text-danger"></i>
                     </div>
-                    <h3 class="text-danger mt-2" id="liveDonations">۰</h3>
+                    <h3 class="text-danger mt-2" id="liveDonations">۸۹۲</h3>
                     <small class="text-muted">کمک ثبت شده</small>
                 </div>
             </div>
@@ -259,8 +259,79 @@
         </div>
     </div>
 
-    <script src="live-monitoring.js"></script>
     <script>
+        // سیستم نظارت Real-time
+        class TetraLiveMonitor {
+            constructor() {
+                this.metrics = {
+                    users: 1247,
+                    revenue: 12450000,
+                    conversions: 156,
+                    donations: 892,
+                    activeServices: 10,
+                    systemHealth: 98.5
+                };
+                this.interval = null;
+            }
+
+            startLiveUpdates() {
+                this.interval = setInterval(() => {
+                    this.updateMetrics();
+                    this.broadcastUpdates();
+                }, 3000);
+            }
+
+            updateMetrics() {
+                // شبیه‌سازی داده‌های Real-time
+                this.metrics.users += Math.floor(Math.random() * 3);
+                this.metrics.revenue += Math.floor(Math.random() * 50000);
+                this.metrics.conversions += Math.floor(Math.random() * 2);
+                this.metrics.donations += Math.floor(Math.random() * 1);
+                this.metrics.systemHealth = 98 + (Math.random() * 2 - 1);
+            }
+
+            broadcastUpdates() {
+                const event = new CustomEvent('tetraMetricsUpdate', {
+                    detail: this.metrics
+                });
+                window.dispatchEvent(event);
+            }
+
+            getServiceStatus() {
+                return [
+                    { name: 'تبدیل تصاویر 2D/3D', status: 'up', uptime: '99.9%', response: 42, requests: 1245 },
+                    { name: 'پردازش زبان طبیعی', status: 'up', uptime: '99.8%', response: 38, requests: 892 },
+                    { name: 'نویسنده هوشمند', status: 'up', uptime: '99.7%', response: 45, requests: 1567 },
+                    { name: 'نویسنده کوانتومی', status: 'up', uptime: '99.9%', response: 52, requests: 734 },
+                    { name: 'شطرنج هوشمند', status: 'up', uptime: '99.6%', response: 28, requests: 456 },
+                    { name: 'سامانه ضد چندپارگی', status: 'warning', uptime: '98.2%', response: 67, requests: 289 },
+                    { name: 'نطق مصطلح', status: 'up', uptime: '99.5%', response: 35, requests: 623 },
+                    { name: 'نگار کوانتوم', status: 'up', uptime: '99.8%', response: 48, requests: 512 },
+                    { name: 'سیستم محرومین', status: 'up', uptime: '99.9%', response: 32, requests: 834 },
+                    { name: 'سیستم کمک مالی', status: 'up', uptime: '99.7%', response: 41, requests: 967 }
+                ];
+            }
+
+            getPerformanceMetrics() {
+                return {
+                    cpu: Math.floor(Math.random() * 30) + 40,
+                    memory: Math.floor(Math.random() * 25) + 60,
+                    storage: Math.floor(Math.random() * 20) + 25,
+                    bandwidth: Math.floor(Math.random() * 30) + 45
+                };
+            }
+
+            stopUpdates() {
+                if (this.interval) {
+                    clearInterval(this.interval);
+                    this.interval = null;
+                }
+            }
+        }
+
+        // راه‌اندازی سیستم نظارت
+        const tetraMonitor = new TetraLiveMonitor();
+
         // مدیریت به‌روزرسانی Real-time
         function updateMetricsDisplay(metrics) {
             document.getElementById('liveUsers').textContent = metrics.users.toLocaleString();
@@ -269,14 +340,12 @@
             document.getElementById('liveDonations').textContent = metrics.donations.toLocaleString();
             document.getElementById('systemHealth').textContent = metrics.systemHealth.toFixed(1) + '%';
             document.getElementById('activeServices').textContent = metrics.activeServices;
-            document.getElementById('totalRequests').textContent = '۸۹,۴۵۶';
-
-            // به‌روزرسانی زمان
+            
             document.getElementById('lastUpdate').textContent = new Date().toLocaleString('fa-IR');
         }
 
         function updateServicesStatus() {
-            const services = window.tetraMonitor.getServiceStatus();
+            const services = tetraMonitor.getServiceStatus();
             const tbody = document.getElementById('servicesStatus');
             
             tbody.innerHTML = services.map(service => {
@@ -301,7 +370,7 @@
         }
 
         function updatePerformanceMetrics() {
-            const performance = window.tetraMonitor.getPerformanceMetrics();
+            const performance = tetraMonitor.getPerformanceMetrics();
             
             document.getElementById('cpuUsage').style.width = performance.cpu + '%';
             document.getElementById('cpuUsage').textContent = performance.cpu + '%';
@@ -337,7 +406,6 @@
             updateMetricsDisplay(event.detail);
             updatePerformanceMetrics();
             
-            // افزودن لاگ تصادفی
             if (Math.random() > 0.8) {
                 const messages = [
                     'بررسی سلامت سرویس‌ها انجام شد',
@@ -352,22 +420,22 @@
 
         // کنترل‌های نظارت
         function startMonitoring() {
-            window.tetraMonitor.startLiveUpdates();
+            tetraMonitor.startLiveUpdates();
             addSystemLog('نظارت Real-time شروع شد');
         }
 
         function pauseMonitoring() {
-            window.tetraMonitor.stopUpdates();
+            tetraMonitor.stopUpdates();
             addSystemLog('نظارت موقتاً متوقف شد', 'warning');
         }
 
         function exportReport() {
-            const metrics = window.tetraMonitor.metrics;
+            const metrics = tetraMonitor.metrics;
             const report = {
                 timestamp: new Date().toLocaleString('fa-IR'),
                 metrics: metrics,
-                services: window.tetraMonitor.getServiceStatus(),
-                performance: window.tetraMonitor.getPerformanceMetrics()
+                services: tetraMonitor.getServiceStatus(),
+                performance: tetraMonitor.getPerformanceMetrics()
             };
             
             alert('گزارش نظارت آماده شد! در حال دانلود...');

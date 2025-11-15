@@ -16,20 +16,16 @@ class TetraLiveMonitor {
         this.interval = setInterval(() => {
             this.updateMetrics();
             this.broadcastUpdates();
-        }, 3000); // بروزرسانی هر 3 ثانیه
+        }, 3000);
     }
 
     updateMetrics() {
-        // شبیه‌سازی داده‌های Real-time
         this.metrics.users += Math.floor(Math.random() * 3);
         this.metrics.revenue += Math.floor(Math.random() * 50000);
         this.metrics.conversions += Math.floor(Math.random() * 2);
         this.metrics.donations += Math.floor(Math.random() * 1);
-        
-        // نوسان سلامت سیستم
         this.metrics.systemHealth = 98 + (Math.random() * 2 - 1);
         
-        // آپدیت تاریخچه
         this.updateHistory();
     }
 
@@ -40,13 +36,11 @@ class TetraLiveMonitor {
             ...this.metrics
         });
 
-        // نگهداری فقط 50 رکورد آخر
         if (history.length > 50) history.shift();
         localStorage.setItem('monitoring_history', JSON.stringify(history));
     }
 
     broadcastUpdates() {
-        // ارسال داده‌ها به تمام پنل‌های فعال
         const event = new CustomEvent('tetraMetricsUpdate', {
             detail: this.metrics
         });
@@ -68,24 +62,12 @@ class TetraLiveMonitor {
         ];
     }
 
-    getFinancialData() {
-        return {
-            todayRevenue: 12450000,
-            monthlyRevenue: 245000000,
-            activeSubscriptions: 1245,
-            conversionRate: 3.2,
-            churnRate: 1.8,
-            avgTransaction: 124000
-        };
-    }
-
     getPerformanceMetrics() {
         return {
             cpu: Math.floor(Math.random() * 30) + 40,
             memory: Math.floor(Math.random() * 25) + 60,
             storage: Math.floor(Math.random() * 20) + 25,
-            bandwidth: Math.floor(Math.random() * 30) + 45,
-            responseTime: Math.floor(Math.random() * 20) + 30
+            bandwidth: Math.floor(Math.random() * 30) + 45
         };
     }
 
@@ -97,11 +79,7 @@ class TetraLiveMonitor {
     }
 }
 
-// راه‌اندازی سیستم نظارت
 window.tetraMonitor = new TetraLiveMonitor();
-
-// شروع اتوماتیک هنگام لود صفحه
 document.addEventListener('DOMContentLoaded', function() {
     window.tetraMonitor.startLiveUpdates();
-    console.log('🚀 Tetra Live Monitoring Started');
 });
