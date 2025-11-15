@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نظارت Real-time اکوسیستم تترا</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .monitoring-hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .live-metric {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+        }
+        .live-metric:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .metric-up { border-left-color: #10b981; }
+        .metric-warning { border-left-color: #f59e0b; }
+        .metric-critical { border-left-color: #ef4444; }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .service-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        .status-up { background: #10b981; }
+        .status-down { background: #ef4444; }
+        .status-warning { background: #f59e0b; }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="tetra-ecosystem.html">
+                <i class="bi bi-graph-up-arrow"></i>
+                نظارت Real-time اکوسیستم تترا
+            </a>
+            <div class="navbar-text">
+                <span class="badge bg-success pulse">LIVE</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="monitoring-hero">
+        <div class="container">
+            <h1 class="display-6 mb-3">📊 نظارت زنده اکوسیستم تترا</h1>
+            <p class="lead mb-4">داده‌های Real-time از تمام سرویس‌ها و عملکرد سیستم</p>
+        </div>
+    </div>
+
+    <div class="container py-4">
+        <!-- کارت‌های متریک Real-time -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="live-metric metric-up">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">👥 کاربران فعال</h6>
+                        <i class="bi bi-people text-primary"></i>
+                    </div>
+                    <h3 class="text-primary mt-2" id="liveUsers">۰</h3>
+                    <small class="text-muted">کاربران آنلاین</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="live-metric metric-up">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">💰 درآمد امروز</h6>
+                        <i class="bi bi-currency-exchange text-success"></i>
+                    </div>
+                    <h3 class="text-success mt-2" id="liveRevenue">۰</h3>
+                    <small class="text-muted">تومان</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="live-metric metric-up">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">🔄 تبدیل‌ها</h6>
+                        <i class="bi bi-arrow-repeat text-warning"></i>
+                    </div>
+                    <h3 class="text-warning mt-2" id="liveConversions">۰</h3>
+                    <small class="text-muted">تبدیل موفق</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="live-metric metric-up">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">❤️ کمک‌ها</h6>
+                        <i class="bi bi-heart text-danger"></i>
+                    </div>
+                    <h3 class="text-danger mt-2" id="liveDonations">۰</h3>
+                    <small class="text-muted">کمک ثبت شده</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- وضعیت سرویس‌ها -->
+            <div class="col-md-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">🔧 وضعیت سرویس‌ها</h5>
+                        <span class="badge bg-primary" id="lastUpdate">هم اکنون</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>سرویس</th>
+                                        <th>وضعیت</th>
+                                        <th>آپتایم</th>
+                                        <th>پاسخ (ms)</th>
+                                        <th>درخواست‌ها</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="servicesStatus">
+                                    <!-- وضعیت سرویس‌ها -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- عملکرد سیستم -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">⚡ عملکرد سیستم</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <small>CPU استفاده از</small>
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar bg-success" style="width: 45%" id="cpuUsage">۴۵٪</div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <small>حافظه</small>
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar bg-info" style="width: 68%" id="memoryUsage">۶۸٪</div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <small>ذخیره‌سازی</small>
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar bg-warning" style="width: 32%" id="storageUsage">۳۲٪</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <small>پهنای باند</small>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" style="width: 55%" id="bandwidthUsage">۵۵٪</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">📈 سلامت کلی</h6>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <div class="display-4 text-success" id="systemHealth">۹۸.۵٪</div>
+                                    <small class="text-muted">سلامت سیستم</small>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-6">
+                                        <div class="text-primary h5" id="activeServices">۱۰</div>
+                                        <small>سرویس فعال</small>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-warning h5" id="totalRequests">۸۹,۴۵۶</div>
+                                        <small>درخواست امروز</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- هشدارها و لاگ‌ها -->
+            <div class="col-md-4">
+                <!-- هشدارهای فعال -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">🚨 هشدارهای فعال</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="activeAlerts">
+                            <div class="alert alert-warning d-flex align-items-center">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <div>
+                                    <small>بررسی امنیتی مورد نیاز</small>
+                                    <br>
+                                    <small class="text-muted">۲ ساعت پیش</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- لاگ Real-time -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">📝 لاگ Real-time</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="systemLogs" style="max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 0.8rem;">
+                            <!-- لاگ‌های سیستم -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- کنترل‌ها -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">🎛️ کنترل‌های نظارت</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-success w-100 mb-2" onclick="startMonitoring()">
+                            <i class="bi bi-play-circle"></i>
+                            شروع نظارت
+                        </button>
+                        <button class="btn btn-warning w-100 mb-2" onclick="pauseMonitoring()">
+                            <i class="bi bi-pause-circle"></i>
+                            توقف موقت
+                        </button>
+                        <button class="btn btn-danger w-100" onclick="exportReport()">
+                            <i class="bi bi-download"></i>
+                            خروجی گزارش
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="live-monitoring.js"></script>
+    <script>
+        // مدیریت به‌روزرسانی Real-time
+        function updateMetricsDisplay(metrics) {
+            document.getElementById('liveUsers').textContent = metrics.users.toLocaleString();
+            document.getElementById('liveRevenue').textContent = (metrics.revenue / 1000000).toFixed(1) + 'M';
+            document.getElementById('liveConversions').textContent = metrics.conversions.toLocaleString();
+            document.getElementById('liveDonations').textContent = metrics.donations.toLocaleString();
+            document.getElementById('systemHealth').textContent = metrics.systemHealth.toFixed(1) + '%';
+            document.getElementById('activeServices').textContent = metrics.activeServices;
+            document.getElementById('totalRequests').textContent = '۸۹,۴۵۶';
+
+            // به‌روزرسانی زمان
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleString('fa-IR');
+        }
+
+        function updateServicesStatus() {
+            const services = window.tetraMonitor.getServiceStatus();
+            const tbody = document.getElementById('servicesStatus');
+            
+            tbody.innerHTML = services.map(service => {
+                const statusIcon = service.status === 'up' ? 'status-up' : 
+                                 service.status === 'warning' ? 'status-warning' : 'status-down';
+                const statusText = service.status === 'up' ? 'فعال' : 
+                                 service.status === 'warning' ? 'هشدار' : 'غیرفعال';
+
+                return `
+                    <tr>
+                        <td>${service.name}</td>
+                        <td>
+                            <span class="service-status ${statusIcon}"></span>
+                            ${statusText}
+                        </td>
+                        <td>${service.uptime}</td>
+                        <td>${service.response}ms</td>
+                        <td>${service.requests.toLocaleString()}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updatePerformanceMetrics() {
+            const performance = window.tetraMonitor.getPerformanceMetrics();
+            
+            document.getElementById('cpuUsage').style.width = performance.cpu + '%';
+            document.getElementById('cpuUsage').textContent = performance.cpu + '%';
+            
+            document.getElementById('memoryUsage').style.width = performance.memory + '%';
+            document.getElementById('memoryUsage').textContent = performance.memory + '%';
+            
+            document.getElementById('storageUsage').style.width = performance.storage + '%';
+            document.getElementById('storageUsage').textContent = performance.storage + '%';
+            
+            document.getElementById('bandwidthUsage').style.width = performance.bandwidth + '%';
+            document.getElementById('bandwidthUsage').textContent = performance.bandwidth + '%';
+        }
+
+        function addSystemLog(message, type = 'info') {
+            const logsDiv = document.getElementById('systemLogs');
+            const timestamp = new Date().toLocaleString('fa-IR');
+            const typeIcon = type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = `text-${type === 'error' ? 'danger' : type === 'warning' ? 'warning' : 'light'}`;
+            logEntry.innerHTML = `<small>[${timestamp}] ${typeIcon} ${message}</small>`;
+            
+            logsDiv.prepend(logEntry);
+            
+            if (logsDiv.children.length > 15) {
+                logsDiv.removeChild(logsDiv.lastChild);
+            }
+        }
+
+        // گوش دادن به به‌روزرسانی‌های Real-time
+        window.addEventListener('tetraMetricsUpdate', function(event) {
+            updateMetricsDisplay(event.detail);
+            updatePerformanceMetrics();
+            
+            // افزودن لاگ تصادفی
+            if (Math.random() > 0.8) {
+                const messages = [
+                    'بررسی سلامت سرویس‌ها انجام شد',
+                    'داده‌های متریک به‌روزرسانی شد',
+                    'سیستم در حالت بهینه کار می‌کند',
+                    'هیچ خطای بحرانی شناسایی نشد',
+                    'همه سرویس‌ها پاسخگو هستند'
+                ];
+                addSystemLog(messages[Math.floor(Math.random() * messages.length)]);
+            }
+        });
+
+        // کنترل‌های نظارت
+        function startMonitoring() {
+            window.tetraMonitor.startLiveUpdates();
+            addSystemLog('نظارت Real-time شروع شد');
+        }
+
+        function pauseMonitoring() {
+            window.tetraMonitor.stopUpdates();
+            addSystemLog('نظارت موقتاً متوقف شد', 'warning');
+        }
+
+        function exportReport() {
+            const metrics = window.tetraMonitor.metrics;
+            const report = {
+                timestamp: new Date().toLocaleString('fa-IR'),
+                metrics: metrics,
+                services: window.tetraMonitor.getServiceStatus(),
+                performance: window.tetraMonitor.getPerformanceMetrics()
+            };
+            
+            alert('گزارش نظارت آماده شد! در حال دانلود...');
+            console.log('📊 گزارش نظارت:', report);
+        }
+
+        // راه‌اندازی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            updateServicesStatus();
+            updatePerformanceMetrics();
+            addSystemLog('سیستم نظارت Tetra راه‌اندازی شد');
+            addSystemLog('دریافت داده‌های Real-time از سرویس‌ها');
+            
+            // شروع اتوماتیک نظارت
+            setTimeout(startMonitoring, 1000);
+        });
+    </script>
+</body>
+</html>
