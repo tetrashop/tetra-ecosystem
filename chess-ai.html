@@ -2,27 +2,36 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شطرنج هوشمند تترا - Tetra Ecosystem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
+        .chess-container {
+            max-width: 100%;
+            overflow-x: auto;
+        }
         .chess-board {
-            width: 400px;
-            height: 400px;
+            width: min(400px, 90vw);
+            height: min(400px, 90vw);
             margin: 20px auto;
             border: 10px solid #8B4513;
             border-radius: 5px;
+            min-width: 300px;
         }
         .chess-row {
             display: flex;
+            height: 12.5%;
         }
         .chess-square {
-            width: 50px;
-            height: 50px;
+            width: 12.5%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: min(30px, 6vw);
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
         .white {
             background-color: #f0d9b5;
@@ -30,18 +39,56 @@
         .black {
             background-color: #b58863;
         }
+        .chess-square:hover {
+            filter: brightness(1.1);
+        }
+        .selected {
+            background-color: #90EE90 !important;
+        }
         .chess-controls {
             background: linear-gradient(135deg, #2c3e50, #34495e);
             color: white;
             padding: 20px;
             border-radius: 10px;
+            margin-top: 20px;
         }
         .move-history {
-            max-height: 300px;
+            max-height: 200px;
             overflow-y: auto;
             background: rgba(255,255,255,0.1);
             border-radius: 5px;
             padding: 10px;
+            font-size: 0.9rem;
+        }
+        
+        /* ریسپانسیو برای موبایل */
+        @media (max-width: 768px) {
+            .chess-board {
+                width: 95vw;
+                height: 95vw;
+                border-width: 5px;
+            }
+            .chess-controls {
+                padding: 15px;
+                margin: 10px 0;
+            }
+            .btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .btn-group .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .chess-square {
+                font-size: 20px;
+            }
+            .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
         }
     </style>
 </head>
@@ -56,103 +103,64 @@
         </div>
     </nav>
 
-    <div class="container py-5">
+    <div class="container py-4">
         <div class="row">
             <!-- صفحه شطرنج -->
-            <div class="col-md-6">
+            <div class="col-12 col-lg-6">
                 <div class="text-center mb-4">
                     <h2><i class="bi bi-cpu"></i> شطرنج هوشمند</h2>
                     <p class="text-muted">مقابله با هوش مصنوعی پیشرفته</p>
                 </div>
                 
-                <div class="chess-board">
-                    <!-- ردیف ۸ -->
-                    <div class="chess-row">
-                        <div class="chess-square black">♜</div>
-                        <div class="chess-square white">♞</div>
-                        <div class="chess-square black">♝</div>
-                        <div class="chess-square white">♛</div>
-                        <div class="chess-square black">♚</div>
-                        <div class="chess-square white">♝</div>
-                        <div class="chess-square black">♞</div>
-                        <div class="chess-square white">♜</div>
-                    </div>
-                    <!-- ردیف ۷ (سربازها) -->
-                    <div class="chess-row">
-                        <div class="chess-square white">♟</div>
-                        <div class="chess-square black">♟</div>
-                        <div class="chess-square white">♟</div>
-                        <div class="chess-square black">♟</div>
-                        <div class="chess-square white">♟</div>
-                        <div class="chess-square black">♟</div>
-                        <div class="chess-square white">♟</div>
-                        <div class="chess-square black">♟</div>
-                    </div>
-                    <!-- ردیف‌های خالی -->
-                    <div class="chess-row"><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div></div>
-                    <div class="chess-row"><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div></div>
-                    <div class="chess-row"><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div></div>
-                    <div class="chess-row"><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div><div class="chess-square white"></div><div class="chess-square black"></div></div>
-                    <!-- ردیف ۲ (سربازهای سفید) -->
-                    <div class="chess-row">
-                        <div class="chess-square black">♙</div>
-                        <div class="chess-square white">♙</div>
-                        <div class="chess-square black">♙</div>
-                        <div class="chess-square white">♙</div>
-                        <div class="chess-square black">♙</div>
-                        <div class="chess-square white">♙</div>
-                        <div class="chess-square black">♙</div>
-                        <div class="chess-square white">♙</div>
-                    </div>
-                    <!-- ردیف ۱ -->
-                    <div class="chess-row">
-                        <div class="chess-square white">♖</div>
-                        <div class="chess-square black">♘</div>
-                        <div class="chess-square white">♗</div>
-                        <div class="chess-square black">♕</div>
-                        <div class="chess-square white">♔</div>
-                        <div class="chess-square black">♗</div>
-                        <div class="chess-square white">♘</div>
-                        <div class="chess-square black">♖</div>
+                <div class="chess-container">
+                    <div class="chess-board" id="chessBoard">
+                        <!-- صفحه شطرنج با JavaScript ساخته می‌شود -->
                     </div>
                 </div>
 
                 <div class="text-center mt-3">
-                    <div class="btn-group">
-                        <button class="btn btn-success"><i class="bi bi-play-circle"></i> شروع بازی</button>
-                        <button class="btn btn-warning"><i class="bi bi-arrow-repeat"></i> بازی مجدد</button>
-                        <button class="btn btn-info"><i class="bi bi-lightbulb"></i> پیشنهاد حرکت</button>
+                    <div class="btn-group flex-wrap">
+                        <button class="btn btn-success" onclick="startGame()">
+                            <i class="bi bi-play-circle"></i> شروع بازی
+                        </button>
+                        <button class="btn btn-warning" onclick="resetGame()">
+                            <i class="bi bi-arrow-repeat"></i> بازی مجدد
+                        </button>
+                        <button class="btn btn-info" onclick="suggestMove()">
+                            <i class="bi bi-lightbulb"></i> پیشنهاد حرکت
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- کنترل‌ها و اطلاعات -->
-            <div class="col-md-6">
+            <div class="col-12 col-lg-6">
                 <div class="chess-controls rounded">
                     <h4><i class="bi bi-gear"></i> تنظیمات بازی</h4>
                     
-                    <div class="mb-3">
-                        <label class="form-label">سطح دشواری:</label>
-                        <select class="form-select">
-                            <option>آسان (مبتدی)</option>
-                            <option selected>متوسط</option>
-                            <option>سخت (حرفه‌ای)</option>
-                            <option>خیلی سخت (استاد)</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">زمان بازی:</label>
-                        <select class="form-select">
-                            <option>۵ دقیقه</option>
-                            <option selected>۱۰ دقیقه</option>
-                            <option>۱۵ دقیقه</option>
-                            <option>بدون محدودیت</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">سطح دشواری:</label>
+                            <select class="form-select" id="difficulty">
+                                <option value="easy">آسان (مبتدی)</option>
+                                <option value="medium" selected>متوسط</option>
+                                <option value="hard">سخت (حرفه‌ای)</option>
+                                <option value="expert">خیلی سخت (استاد)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">زمان بازی:</label>
+                            <select class="form-select" id="timeControl">
+                                <option value="5">۵ دقیقه</option>
+                                <option value="10" selected>۱۰ دقیقه</option>
+                                <option value="15">۱۵ دقیقه</option>
+                                <option value="0">بدون محدودیت</option>
+                            </select>
+                        </div>
                     </div>
 
                     <h5 class="mt-4">تاریخچه حرکات:</h5>
-                    <div class="move-history">
+                    <div class="move-history" id="moveHistory">
                         <div class="text-muted">هنوز حرکتی انجام نشده...</div>
                     </div>
 
@@ -171,8 +179,8 @@
     <footer class="bg-dark text-white py-4 mt-5">
         <div class="container text-center">
             <p>© 2024 Tetra Ecosystem - شطرنج هوشمند | توسعه داده شده با ❤️</p>
-            <div>
-                <a href="tetra-ecosystem.html" class="btn btn-outline-light btn-sm">بازگشت به صفحه اصلی</a>
+            <div class="mt-2">
+                <a href="tetra-ecosystem.html" class="btn btn-outline-light btn-sm me-2">بازگشت به صفحه اصلی</a>
                 <a href="personal-dashboard.html" class="btn btn-outline-info btn-sm">پنل شخصی</a>
             </div>
         </div>
@@ -180,20 +188,85 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // افزودن تعامل به صفحه شطرنج
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('♟️ شطرنج هوشمند Tetra Ecosystem بارگذاری شد');
+        // ایجاد صفحه شطرنج
+        function createChessBoard() {
+            const board = document.getElementById('chessBoard');
+            board.innerHTML = '';
             
-            // افزودن کلیک به خانه‌های شطرنج
-            const squares = document.querySelectorAll('.chess-square');
-            squares.forEach(square => {
-                square.addEventListener('click', function() {
-                    this.style.backgroundColor = '#90EE90';
-                    setTimeout(() => {
-                        this.style.backgroundColor = '';
-                    }, 500);
-                });
+            const pieces = [
+                ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+                ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+            ];
+            
+            for (let row = 0; row < 8; row++) {
+                const chessRow = document.createElement('div');
+                chessRow.className = 'chess-row';
+                
+                for (let col = 0; col < 8; col++) {
+                    const square = document.createElement('div');
+                    square.className = `chess-square ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
+                    square.textContent = pieces[row][col];
+                    square.dataset.row = row;
+                    square.dataset.col = col;
+                    
+                    square.addEventListener('click', function() {
+                        handleSquareClick(this);
+                    });
+                    
+                    chessRow.appendChild(square);
+                }
+                board.appendChild(chessRow);
+            }
+        }
+        
+        function handleSquareClick(square) {
+            // حذف انتخاب قبلی
+            document.querySelectorAll('.chess-square.selected').forEach(sq => {
+                sq.classList.remove('selected');
             });
+            
+            // انتخاب جدید
+            square.classList.add('selected');
+            
+            // افزودن به تاریخچه حرکات
+            const moveHistory = document.getElementById('moveHistory');
+            if (moveHistory.firstChild?.textContent === 'هنوز حرکتی انجام نشده...') {
+                moveHistory.innerHTML = '';
+            }
+            
+            const moveEntry = document.createElement('div');
+            moveEntry.textContent = `حرکت به خانه (${square.dataset.row}, ${square.dataset.col})`;
+            moveHistory.appendChild(moveEntry);
+            moveHistory.scrollTop = moveHistory.scrollHeight;
+        }
+        
+        function startGame() {
+            alert('🎮 بازی شروع شد! شما سفید هستید.');
+            resetGame();
+        }
+        
+        function resetGame() {
+            createChessBoard();
+            document.getElementById('moveHistory').innerHTML = 
+                '<div class="text-muted">هنوز حرکتی انجام نشده...</div>';
+        }
+        
+        function suggestMove() {
+            const moves = ['e4', 'd4', 'Nf3', 'c4', 'g3'];
+            const randomMove = moves[Math.floor(Math.random() * moves.length)];
+            alert(`🤖 پیشنهاد هوش مصنوعی: ${randomMove}`);
+        }
+        
+        // مقداردهی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            createChessBoard();
+            console.log('♟️ شطرنج هوشمند Tetra Ecosystem بارگذاری شد');
         });
     </script>
 </body>
