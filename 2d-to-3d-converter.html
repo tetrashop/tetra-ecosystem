@@ -3,332 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تبدیل 2D به 3D - Tetra Ecosystem</title>
+    <title>مبدل 2D به 3D - Tetra Ecosystem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        :root {
-            --primary: #6366f1;
-            --success: #10b981;
-            --warning: #f59e0b;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            color: white;
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
+            color: white;
         }
-        
-        .converter-card {
+        .glass-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
         }
-        
-        .upload-zone {
-            border: 3px dashed var(--primary);
-            border-radius: 15px;
-            padding: 60px 20px;
+        #3d-container {
+            width: 100%;
+            height: 400px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+        .upload-area {
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 10px;
+            padding: 40px;
             text-align: center;
-            transition: all 0.3s ease;
             cursor: pointer;
-            background: rgba(99, 102, 241, 0.05);
+            transition: all 0.3s ease;
         }
-        
-        .upload-zone:hover {
-            background: rgba(99, 102, 241, 0.1);
-            border-color: #4f46e5;
-        }
-        
-        .upload-zone.dragover {
-            background: rgba(99, 102, 241, 0.2);
-            border-color: #3730a3;
-        }
-        
-        .preview-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 15px 0;
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 20px 0;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--success), #059669);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            height: 100%;
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
+        .upload-area:hover {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
         }
     </style>
 </head>
-<body>
-    <!-- نوار ناوبری -->
-    <nav class="navbar navbar-dark bg-dark">
+<body class="gradient-bg">
+    <nav class="navbar navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="tetra-ecosystem.html">
+            <span class="navbar-brand mb-0 h1">
                 <i class="bi bi-box"></i>
-                تبدیل 2D به 3D
-            </a>
-            <div>
-                <a href="personal-dashboard.html" class="btn btn-outline-light btn-sm">
-                    <i class="bi bi-speedometer2"></i>
-                    پنل شخصی
-                </a>
-            </div>
+                مبدل 2D به 3D - Tetra
+            </span>
         </div>
     </nav>
 
     <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-10">
-                <!-- کارت اصلی -->
-                <div class="converter-card p-4 p-md-5">
-                    <div class="text-center mb-5">
-                        <h1 class="display-5 fw-bold">
-                            <i class="bi bi-magic"></i>
-                            تبدیل تصاویر 2D به 3D
-                        </h1>
-                        <p class="lead text-muted">پیشرفته‌ترین سرویس تبدیل با هوش مصنوعی Tetra</p>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4">
+                    <h4 class="text-center mb-4">📤 آپلود تصویر 2D</h4>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <i class="bi bi-cloud-upload" style="font-size: 3rem;"></i>
+                        <p class="mt-3">برای آپلود تصویر کلیک کنید یا فایل را اینجا رها کنید</p>
+                        <small>فرمت‌های مجاز: JPG, PNG, SVG (حداکثر 5MB)</small>
+                        <input type="file" id="imageInput" accept=".jpg,.jpeg,.png,.svg" style="display: none;">
                     </div>
 
-                    <!-- ناحیه آپلود -->
-                    <div class="upload-zone mb-4" id="uploadZone">
+                    <div class="mt-4" id="controls" style="display: none;">
+                        <h5>تنظیمات تبدیل 3D</h5>
+                        
                         <div class="mb-3">
-                            <i class="bi bi-cloud-arrow-up display-1 text-primary"></i>
+                            <label>عمق (Depth):</label>
+                            <input type="range" class="form-range" id="depthSlider" min="0.1" max="2" step="0.1" value="1">
+                            <span id="depthValue">1.0</span>
                         </div>
-                        <h4>فایل تصویر خود را اینجا رها کنید</h4>
-                        <p class="text-muted mb-0">یا برای انتخاب فایل کلیک کنید</p>
-                        <p class="small text-muted">فرمت‌های پشتیبانی شده: JPG, PNG, SVG (حداکثر 10MB)</p>
-                        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.svg" style="display: none;">
-                    </div>
 
-                    <!-- پیشرفت -->
-                    <div class="progress-container">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progressFill"></div>
+                        <div class="mb-3">
+                            <label>چرخش X:</label>
+                            <input type="range" class="form-range" id="rotateX" min="0" max="360" value="0">
                         </div>
-                        <div class="text-center">
-                            <small id="progressText" class="text-muted">آماده برای تبدیل...</small>
-                        </div>
-                    </div>
 
-                    <!-- پیش‌نمایش‌ها -->
-                    <div class="row mt-4">
-                        <div class="col-12 col-md-6 mb-4">
-                            <h5 class="text-center">
-                                <i class="bi bi-image text-info"></i>
-                                تصویر اصلی
-                            </h5>
-                            <div class="preview-box" id="originalPreview">
-                                <div class="text-center text-muted">
-                                    <i class="bi bi-image display-4"></i>
-                                    <p class="mt-2">پیش‌نمایش تصویر 2D</p>
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <label>چرخش Y:</label>
+                            <input type="range" class="form-range" id="rotateY" min="0" max="360" value="0">
                         </div>
-                        <div class="col-12 col-md-6 mb-4">
-                            <h5 class="text-center">
-                                <i class="bi bi-cube text-warning"></i>
-                                مدل 3D
-                            </h5>
-                            <div class="preview-box" id="modelPreview">
-                                <div class="text-center text-muted">
-                                    <i class="bi bi-cube display-4"></i>
-                                    <p class="mt-2">پیش‌نمایش مدل سه بعدی</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- تنظیمات -->
-                    <div class="row mt-4">
-                        <div class="col-12 col-md-6 mb-3">
-                            <label class="form-label">کیفیت مدل:</label>
-                            <select class="form-select bg-dark text-white" id="quality">
-                                <option value="low">پایین (سریع)</option>
-                                <option value="medium" selected>متوسط</option>
-                                <option value="high">بالا (دقیق)</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-6 mb-3">
-                            <label class="form-label">فرمت خروجی:</label>
-                            <select class="form-select bg-dark text-white" id="format">
-                                <option value="obj">OBJ</option>
-                                <option value="stl" selected>STL</option>
-                                <option value="gltf">GLTF</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- دکمه‌های اقدام -->
-                    <div class="text-center mt-5">
-                        <button class="btn btn-success btn-lg px-5 py-3 me-3" id="convertBtn">
-                            <i class="bi bi-gear"></i>
-                            شروع تبدیل
-                        </button>
-                        <button class="btn btn-outline-light btn-lg px-5 py-3" id="downloadBtn" disabled>
-                            <i class="bi bi-download"></i>
-                            دانلود مدل
+                        <button class="btn btn-success w-100" onclick="convertTo3D()">
+                            <i class="bi bi-magic"></i> تبدیل به 3D
                         </button>
                     </div>
                 </div>
+            </div>
 
-                <!-- ویژگی‌ها -->
-                <div class="row mt-5">
-                    <div class="col-12 col-md-4 mb-3">
-                        <div class="feature-card">
-                            <i class="bi bi-lightning text-warning display-6"></i>
-                            <h5 class="mt-3">سریع و بهینه</h5>
-                            <p class="text-muted mb-0">تبدیل در کمتر از 30 ثانیه</p>
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4">
+                    <h4 class="text-center mb-4">🎮 پیش‌نمایش 3D</h4>
+                    
+                    <div id="3d-container">
+                        <div id="placeholder" class="h-100 d-flex align-items-center justify-content-center">
+                            <div class="text-center text-muted">
+                                <i class="bi bi-cube" style="font-size: 3rem;"></i>
+                                <p class="mt-2">پیش‌نمایش 3D اینجا نمایش داده می‌شود</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-4 mb-3">
-                        <div class="feature-card">
-                            <i class="bi bi-shield-check text-success display-6"></i>
-                            <h5 class="mt-3">امنیت کامل</h5>
-                            <p class="text-muted mb-0">حفظ حریم خصوصی داده‌ها</p>
-                        </div>
+
+                    <div class="mt-3" id="exportControls" style="display: none;">
+                        <button class="btn btn-outline-light w-100 mb-2" onclick="exportGLB()">
+                            <i class="bi bi-download"></i> خروجی GLB
+                        </button>
+                        <button class="btn btn-outline-light w-100" onclick="exportSTL()">
+                            <i class="bi bi-download"></i> خروجی STL
+                        </button>
                     </div>
-                    <div class="col-12 col-md-4 mb-3">
-                        <div class="feature-card">
-                            <i class="bi bi-graph-up text-info display-6"></i>
-                            <h5 class="mt-3">دقت بالا</h5>
-                            <p class="text-muted mb-0">الگوریتم‌های پیشرفته AI</p>
-                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- گالری نمونه‌ها -->
+        <div class="glass-card p-4 mt-4">
+            <h4 class="text-center mb-4">🎨 نمونه‌های آماده</h4>
+            <div class="row text-center">
+                <div class="col-md-3 mb-3">
+                    <div class="glass-card p-3">
+                        <i class="bi bi-square" style="font-size: 2rem;"></i>
+                        <p class="mt-2">مکعب ساده</p>
+                        <button class="btn btn-sm btn-outline-light" onclick="loadSample('cube')">بارگذاری</button>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="glass-card p-3">
+                        <i class="bi bi-circle" style="font-size: 2rem;"></i>
+                        <p class="mt-2">کره</p>
+                        <button class="btn btn-sm btn-outline-light" onclick="loadSample('sphere')">بارگذاری</button>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="glass-card p-3">
+                        <i class="bi bi-triangle" style="font-size: 2rem;"></i>
+                        <p class="mt-2">هرم</p>
+                        <button class="btn btn-sm btn-outline-light" onclick="loadSample('pyramid')">بارگذاری</button>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="glass-card p-3">
+                        <i class="bi bi-textarea" style="font-size: 2rem;"></i>
+                        <p class="mt-2">متن سه‌بعدی</p>
+                        <button class="btn btn-sm btn-outline-light" onclick="loadSample('text')">بارگذاری</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- فوتر -->
-    <footer class="text-center py-4 mt-5">
-        <p class="text-muted mb-2">© 2024 Tetra Ecosystem - سرویس تبدیل 2D به 3D</p>
-        <div>
-            <a href="tetra-ecosystem.html" class="btn btn-outline-light btn-sm me-2">صفحه اصلی</a>
-            <a href="personal-dashboard.html" class="btn btn-outline-primary btn-sm">پنل شخصی</a>
-        </div>
-    </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const uploadZone = document.getElementById('uploadZone');
-            const fileInput = document.getElementById('fileInput');
-            const convertBtn = document.getElementById('convertBtn');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const progressFill = document.getElementById('progressFill');
-            const progressText = document.getElementById('progressText');
-            const originalPreview = document.getElementById('originalPreview');
-            const modelPreview = document.getElementById('modelPreview');
+        let scene, camera, renderer, object3D;
+        let uploadedImage = null;
 
-            // مدیریت آپلود
-            uploadZone.addEventListener('click', () => fileInput.click());
+        // راه‌اندازی صحنه Three.js
+        function init3DScene() {
+            const container = document.getElementById('3d-container');
             
-            uploadZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                uploadZone.classList.add('dragover');
-            });
+            // ایجاد صحنه
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1e3c72);
+            
+            // ایجاد دوربین
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 5;
+            
+            // ایجاد رندرر
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            
+            // پاک کردن placeholder و اضافه کردن رندرر
+            const placeholder = document.getElementById('placeholder');
+            if (placeholder) placeholder.remove();
+            container.appendChild(renderer.domElement);
+            
+            // نورپردازی
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            
+            // کنترل‌های چرخش
+            setupControls();
+            
+            // انیمیشن
+            animate();
+        }
 
-            uploadZone.addEventListener('dragleave', () => {
-                uploadZone.classList.remove('dragover');
-            });
-
-            uploadZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                uploadZone.classList.remove('dragover');
-                if (e.dataTransfer.files.length) {
-                    handleFileSelect(e.dataTransfer.files[0]);
+        function setupControls() {
+            // کنترل اسلایدرها
+            document.getElementById('rotateX').addEventListener('input', (e) => {
+                if (object3D) {
+                    object3D.rotation.x = THREE.MathUtils.degToRad(e.target.value);
                 }
             });
-
-            fileInput.addEventListener('change', (e) => {
-                if (e.target.files.length) {
-                    handleFileSelect(e.target.files[0]);
+            
+            document.getElementById('rotateY').addEventListener('input', (e) => {
+                if (object3D) {
+                    object3D.rotation.y = THREE.MathUtils.degToRad(e.target.value);
                 }
             });
+            
+            document.getElementById('depthSlider').addEventListener('input', (e) => {
+                document.getElementById('depthValue').textContent = e.target.value;
+            });
+        }
 
-            function handleFileSelect(file) {
-                if (file) {
-                    const fileName = file.name;
-                    progressText.textContent = 'فایل انتخاب شد: ' + fileName;
-                    originalPreview.innerHTML = `
-                        <div class="text-center text-success">
-                            <i class="bi bi-check-circle display-4"></i>
-                            <p class="mt-2">${fileName}</p>
-                            <small class="text-muted">حجم: ${(file.size / 1024 / 1024).toFixed(2)} MB</small>
-                        </div>
-                    `;
-                }
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        // مدیریت آپلود فایل
+        document.getElementById('uploadArea').addEventListener('click', () => {
+            document.getElementById('imageInput').click();
+        });
+
+        document.getElementById('imageInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    uploadedImage = e.target.result;
+                    document.getElementById('controls').style.display = 'block';
+                    alert('✅ تصویر با موفقیت آپلود شد! حالا دکمه "تبدیل به 3D" را بزنید.');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // تبدیل به 3D
+        function convertTo3D() {
+            if (!uploadedImage) {
+                alert('لطفاً ابتدا یک تصویر آپلود کنید');
+                return;
             }
 
-            // شبیه‌سازی تبدیل
-            convertBtn.addEventListener('click', function() {
-                if (!fileInput.files.length) {
-                    alert('لطفا ابتدا یک فایل تصویر انتخاب کنید');
-                    return;
-                }
-
-                progressFill.style.width = '0%';
-                progressText.textContent = 'در حال آنالیز تصویر...';
-                convertBtn.disabled = true;
-
-                let progress = 0;
-                const interval = setInterval(() => {
-                    progress += 2;
-                    progressFill.style.width = progress + '%';
-                    
-                    if (progress === 20) progressText.textContent = 'در حال استخراج ویژگی‌ها...';
-                    if (progress === 50) progressText.textContent = 'در حال ساخت مدل سه بعدی...';
-                    if (progress === 80) progressText.textContent = 'در حال بهینه‌سازی مدل...';
-                    
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        progressText.textContent = 'تبدیل با موفقیت انجام شد!';
-                        convertBtn.disabled = false;
-                        downloadBtn.disabled = false;
-                        
-                        modelPreview.innerHTML = `
-                            <div class="text-center text-success">
-                                <i class="bi bi-check-circle display-4"></i>
-                                <p class="mt-2">مدل 3D آماده است</p>
-                                <small class="text-muted">برای دانلود کلیک کنید</small>
-                            </div>
-                        `;
-                    }
-                }, 100);
+            // مقدار عمق از اسلایدر
+            const depth = parseFloat(document.getElementById('depthSlider').value);
+            
+            // مقداردهی اولیه صحنه اگر وجود ندارد
+            if (!scene) init3DScene();
+            
+            // پاک کردن object قبلی
+            if (object3D) scene.remove(object3D);
+            
+            // ایجاد بافت از تصویر آپلود شده
+            const textureLoader = new THREE.TextureLoader();
+            textureLoader.load(uploadedImage, (texture) => {
+                // ایجاد geometry با عمق
+                const geometry = new THREE.BoxGeometry(3, 3, depth);
+                const material = [
+                    new THREE.MeshBasicMaterial({ color: 0x2a5298 }), // راست
+                    new THREE.MeshBasicMaterial({ color: 0x2a5298 }), // چپ
+                    new THREE.MeshBasicMaterial({ color: 0x2a5298 }), // بالا
+                    new THREE.MeshBasicMaterial({ color: 0x2a5298 }), // پایین
+                    new THREE.MeshBasicMaterial({ map: texture }), // جلو
+                    new THREE.MeshBasicMaterial({ color: 0x1e3c72 }) // عقب
+                ];
+                
+                object3D = new THREE.Mesh(geometry, material);
+                scene.add(object3D);
+                
+                // نمایش کنترل‌های خروجی
+                document.getElementById('exportControls').style.display = 'block';
+                
+                alert('🎉 تبدیل به 3D با موفقیت انجام شد!');
             });
+        }
 
-            downloadBtn.addEventListener('click', function() {
-                alert('✅ مدل 3D با موفقیت دانلود شد!\n\nفایل: model_3d.stl\nحجم: 2.4 MB');
+        // بارگذاری نمونه‌ها
+        function loadSample(type) {
+            if (!scene) init3DScene();
+            
+            if (object3D) scene.remove(object3D);
+            
+            let geometry;
+            switch(type) {
+                case 'cube':
+                    geometry = new THREE.BoxGeometry(2, 2, 2);
+                    break;
+                case 'sphere':
+                    geometry = new THREE.SphereGeometry(1.5, 32, 32);
+                    break;
+                case 'pyramid':
+                    geometry = new THREE.ConeGeometry(1.5, 3, 4);
+                    break;
+                case 'text':
+                    // برای سادگی، از یک جعبه استفاده می‌کنیم
+                    geometry = new THREE.BoxGeometry(2, 1, 0.5);
+                    break;
+            }
+            
+            const material = new THREE.MeshPhongMaterial({ 
+                color: 0x10b981,
+                shininess: 100
             });
+            
+            object3D = new THREE.Mesh(geometry, material);
+            scene.add(object3D);
+            
+            document.getElementById('exportControls').style.display = 'block';
+            document.getElementById('controls').style.display = 'block';
+        }
 
-            console.log('🎨 سرویس تبدیل 2D به 3D Tetra Ecosystem بارگذاری شد');
+        // توابع خروجی (شبیه‌سازی)
+        function exportGLB() {
+            alert('📦 فایل GLB در حال دانلود است...\n(این یک شبیه‌سازی است - در نسخه واقعی فایل دانلود می‌شود)');
+        }
+
+        function exportSTL() {
+            alert('📦 فایل STL در حال دانلود است...\n(این یک شبیه‌سازی است - در نسخه واقعی فایل دانلود می‌شود)');
+        }
+
+        // تنظیم سایز هنگام تغییر اندازه پنجره
+        window.addEventListener('resize', () => {
+            if (camera && renderer) {
+                const container = document.getElementById('3d-container');
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            }
         });
+
+        console.log('🚀 مبدل 2D به 3D Tetra آماده است!');
     </script>
 </body>
 </html>
