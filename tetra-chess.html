@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شطرنج هوشمند تترا - Tetra Ecosystem</title>
+    <style>
+        body {
+            font-family: system-ui;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .chess-board {
+            width: 400px;
+            max-width: 90vw;
+            height: 400px;
+            max-height: 90vw;
+            margin: 20px auto;
+            border: 10px solid #8B4513;
+            border-radius: 5px;
+        }
+        .chess-row {
+            display: flex;
+            height: 12.5%;
+        }
+        .chess-square {
+            width: 12.5%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .white { background-color: #f0d9b5; }
+        .black { background-color: #b58863; }
+        .controls {
+            margin: 20px 0;
+        }
+        .btn {
+            background: white;
+            color: #1e3c72;
+            border: none;
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>♟️ شطرنج هوشمند تترا</h1>
+        <p>مقابله با هوش مصنوعی پیشرفته</p>
+        
+        <div class="chess-board" id="chessBoard">
+            <!-- صفحه شطرنج با JavaScript ساخته می‌شود -->
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="startGame()">🎮 شروع بازی</button>
+            <button class="btn" onclick="resetGame()">🔄 بازی جدید</button>
+            <button class="btn" onclick="suggestMove()">💡 پیشنهاد حرکت</button>
+        </div>
+        
+        <div style="margin-top: 20px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px;">
+            <h4>تاریخچه حرکات:</h4>
+            <div id="moveHistory" style="min-height: 60px; color: #ccc;">
+                بازی شروع نشده است...
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <a href="tetra-ecosystem.html" style="color: white; margin: 0 10px;">🏠 صفحه اصلی</a>
+            <a href="personal-dashboard.html" style="color: white; margin: 0 10px;">📊 پنل شخصی</a>
+            <a href="image-3d-converter.html" style="color: white; margin: 0 10px;">🎨 تبدیل 3D</a>
+        </div>
+    </div>
+
+    <script>
+        // ایجاد صفحه شطرنج
+        function createChessBoard() {
+            const board = document.getElementById('chessBoard');
+            board.innerHTML = '';
+            
+            const pieces = [
+                ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+                ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+            ];
+            
+            for (let row = 0; row < 8; row++) {
+                const chessRow = document.createElement('div');
+                chessRow.className = 'chess-row';
+                
+                for (let col = 0; col < 8; col++) {
+                    const square = document.createElement('div');
+                    square.className = `chess-square ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
+                    square.textContent = pieces[row][col];
+                    square.dataset.row = row;
+                    square.dataset.col = col;
+                    
+                    square.addEventListener('click', function() {
+                        handleSquareClick(this);
+                    });
+                    
+                    chessRow.appendChild(square);
+                }
+                board.appendChild(chessRow);
+            }
+        }
+        
+        function handleSquareClick(square) {
+            // حذف انتخاب قبلی
+            document.querySelectorAll('.chess-square').forEach(sq => {
+                sq.style.backgroundColor = '';
+            });
+            
+            // انتخاب جدید
+            square.style.backgroundColor = '#90EE90';
+            
+            // افزودن به تاریخچه حرکات
+            const moveHistory = document.getElementById('moveHistory');
+            const moves = ['a4', 'b3', 'c5', 'd4', 'e5', 'f3', 'g4', 'h5'];
+            const randomMove = moves[Math.floor(Math.random() * moves.length)];
+            
+            if (moveHistory.textContent === 'بازی شروع نشده است...') {
+                moveHistory.innerHTML = '';
+            }
+            
+            const moveEntry = document.createElement('div');
+            moveEntry.textContent = `حرکت: ${randomMove}`;
+            moveHistory.appendChild(moveEntry);
+        }
+        
+        function startGame() {
+            alert('🎮 بازی شروع شد! شما سفید هستید. نوبت شماست.');
+            resetGame();
+        }
+        
+        function resetGame() {
+            createChessBoard();
+            document.getElementById('moveHistory').innerHTML = 'بازی شروع نشده است...';
+        }
+        
+        function suggestMove() {
+            const moves = ['e4', 'd4', 'Nf3', 'c4', 'g3'];
+            const randomMove = moves[Math.floor(Math.random() * moves.length)];
+            alert(`🤖 پیشنهاد هوش مصنوعی: ${randomMove}`);
+        }
+        
+        // مقداردهی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            createChessBoard();
+            console.log('شطرنج تترا بارگذاری شد');
+        });
+    </script>
+</body>
+</html>
