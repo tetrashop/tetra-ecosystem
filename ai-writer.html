@@ -2,300 +2,83 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نویسنده هوشمند - Tetra Ecosystem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        .writing-area {
-            min-height: 300px;
-            font-size: 1.1rem;
-            line-height: 1.8;
+        body { 
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            font-family: system-ui;
+            padding: 40px 20px;
         }
-        .template-card {
-            border: 2px dashed #dee2e6;
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .writer-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
         }
-        .template-card:hover {
-            border-color: #6366f1;
-            background: #f8f9fa;
+        .btn-writer {
+            background: #10b981;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            margin: 5px;
         }
     </style>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="tetra-ecosystem.html">
-                <i class="bi bi-pencil-square"></i>
-                نویسنده هوشمند
-            </a>
+<body>
+    <div class="writer-container">
+        <h1 class="text-center">✍️ نویسنده هوشمند</h1>
+        <p class="text-center">سیستم تولید محتوای هوشمند با AI پیشرفته</p>
+        
+        <div class="mb-3">
+            <label>موضوع محتوا:</label>
+            <input type="text" class="form-control bg-dark text-white" placeholder="موضوع مورد نظر خود را وارد کنید...">
         </div>
-    </nav>
-
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-white">
-                        <h4 class="mb-0">✍️ تولید محتوای هوشمند</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label">عنوان محتوا</label>
-                            <input type="text" class="form-control" id="contentTitle" placeholder="مثال: مزایای هوش مصنوعی در کسب و کار">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">کلیدواژه‌ها</label>
-                            <input type="text" class="form-control" id="keywords" placeholder="مثال: هوش مصنوعی, کسب و کار, تحول دیجیتال">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">سبک نوشتاری</label>
-                            <select class="form-select" id="writingStyle">
-                                <option value="formal">رسمی و علمی</option>
-                                <option value="casual">غیررسمی و دوستانه</option>
-                                <option value="professional">حرفه‌ای و تجاری</option>
-                                <option value="creative">خلاقانه و جذاب</option>
-                                <option value="seo">بهینه برای سئو</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">طول محتوا</label>
-                            <select class="form-select" id="contentLength">
-                                <option value="300">کوتاه (۳۰۰ کلمه)</option>
-                                <option value="600" selected>متوسط (۶۰۰ کلمه)</option>
-                                <option value="1000">بلند (۱۰۰۰ کلمه)</option>
-                                <option value="1500">خیلی بلند (۱۵۰۰ کلمه)</option>
-                            </select>
-                        </div>
-
-                        <button class="btn btn-primary w-100 py-3" onclick="generateContent()">
-                            <i class="bi bi-magic"></i>
-                            تولید محتوا
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card shadow-sm mt-4">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0">📝 محتوای تولید شده</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="writing-area form-control" id="generatedContent" contenteditable="true">
-                            محتوای تولید شده اینجا نمایش داده می‌شود...
-                        </div>
-                        <div class="mt-3">
-                            <button class="btn btn-success" onclick="saveContent()">
-                                <i class="bi bi-download"></i>
-                                ذخیره محتوا
-                            </button>
-                            <button class="btn btn-outline-primary" onclick="copyContent()">
-                                <i class="bi bi-clipboard"></i>
-                                کپی
-                            </button>
-                            <span class="text-muted ms-3" id="wordCount">۰ کلمه</span>
-                        </div>
-                    </div>
-                </div>
+        
+        <div class="mb-3">
+            <label>نوع محتوا:</label>
+            <select class="form-control bg-dark text-white">
+                <option>مقاله وبلاگ</option>
+                <option>پست شبکه‌های اجتماعی</option>
+                <option>محتوا تجاری</option>
+                <option>تحلیل فنی</option>
+            </select>
+        </div>
+        
+        <button class="btn-writer" onclick="generateContent()">
+            🚀 تولید محتوا
+        </button>
+        
+        <div class="mt-4 p-3 bg-dark rounded">
+            <h5>محتوای تولید شده:</h5>
+            <div id="generatedContent" class="text-muted">
+                محتوای شما اینجا نمایش داده می‌شود...
             </div>
-
-            <div class="col-md-4">
-                <!-- قالب‌های آماده -->
-                <div class="card shadow-sm">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0">📋 قالب‌های آماده</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="template-card mb-3" onclick="loadTemplate('blog')">
-                            <i class="bi bi-file-text text-primary" style="font-size: 2rem;"></i>
-                            <h6>مقاله وبلاگ</h6>
-                            <small class="text-muted">مناسب برای وبلاگ‌ها</small>
-                        </div>
-                        
-                        <div class="template-card mb-3" onclick="loadTemplate('social')">
-                            <i class="bi bi-instagram text-danger" style="font-size: 2rem;"></i>
-                            <h6>پست شبکه اجتماعی</h6>
-                            <small class="text-muted">اینستاگرام، توییتر</small>
-                        </div>
-                        
-                        <div class="template-card mb-3" onclick="loadTemplate('product')">
-                            <i class="bi bi-bag-check text-success" style="font-size: 2rem;"></i>
-                            <h6>توضیحات محصول</h6>
-                            <small class="text-muted">فروشگاه‌های آنلاین</small>
-                        </div>
-                        
-                        <div class="template-card" onclick="loadTemplate('email')">
-                            <i class="bi bi-envelope text-warning" style="font-size: 2rem;"></i>
-                            <h6>ایمیل مارکتینگ</h6>
-                            <small class="text-muted">کمپین‌های ایمیلی</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- تاریخچه -->
-                <div class="card shadow-sm mt-4">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0">📚 تاریخچه محتواها</h5>
-                    </div>
-                    <div class="card-body">
-                        <div id="contentHistory">
-                            <!-- تاریخچه نمایش داده می‌شود -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="tetra-ecosystem.html" style="color: #90EE90;">← بازگشت به پنل اصلی</a>
         </div>
     </div>
 
-    <script src="data-manager.js"></script>
     <script>
         function generateContent() {
-            const title = document.getElementById('contentTitle').value;
-            const keywords = document.getElementById('keywords').value;
-            const style = document.getElementById('writingStyle').value;
-            const length = document.getElementById('contentLength').value;
-
-            if (!title) {
-                alert('لطفاً عنوان محتوا را وارد کنید');
-                return;
-            }
-
-            // شبیه‌سازی تولید محتوا
-            const contentArea = document.getElementById('generatedContent');
-            contentArea.innerHTML = '<div class="text-center text-muted"><i class="bi bi-arrow-repeat spinner"></i> در حال تولید محتوا...</div>';
-
-            setTimeout(() => {
-                const sampleContent = generateSampleContent(title, keywords, style, length);
-                contentArea.innerHTML = sampleContent;
-                updateWordCount();
-                
-                // ذخیره در تاریخچه
-                saveToHistory(title, sampleContent);
-            }, 2000);
-        }
-
-        function generateSampleContent(title, keywords, style, length) {
-            const templates = {
-                formal: `مقاله علمی با موضوع "${title}"
-                
-مقدمه:
-در عصر حاضر، ${keywords} نقش تعیین‌کننده‌ای در تحولات مختلف ایفا می‌کنند. این مقاله به بررسی ابعاد مختلف این موضوع می‌پردازد.
-
-بدنه اصلی:
-تحقیقات نشان می‌دهد که کاربرد ${keywords.split(',')[0]} در حوزه‌های مختلف در حال گسترش است. این فناوری نوآورانه امکان تحول در روش‌های سنتی را فراهم کرده است.
-
-نتیجه‌گیری:
-با توجه به یافته‌های این پژوهش، می‌توان گفت که ${title} تاثیر بسزایی در آینده خواهد داشت.`,
-
-                casual: `سلام دوستای گلم! 👋
-امروز می‌خوایم در مورد "${title}" صحبت کنیم.
-
-یعنی چی؟ خب، ${keywords} واقعا می‌تونن زندگی رو متحول کنن! من خودم تجربه‌های جالبی داشتم...
-
-پس حتما این مطلب رو تا آخر بخونید. مطمئنم براتون مفید خواهد بود! 💫`,
-
-                professional: `تحلیل بازار: ${title}
-
-خلاصه اجرایی:
-${keywords} از جمله عوامل کلیدی در موفقیت کسب‌وکارهای امروزی محسوب می‌شوند.
-
-بررسی فنی:
-بر اساس آمارهای معتبر، سازمان‌هایی که از ${keywords.split(',')[0]} استفاده می‌کنند، رشد ۴۰٪ بیشتری را تجربه کرده‌اند.
-
-توصیه‌های استراتژیک:
-پیاده‌سازی راهکارهای مبتنی بر ${title} می‌تواند مزیت رقابتی ایجاد کند.`
-            };
-
-            return templates[style] || templates.formal;
-        }
-
-        function loadTemplate(templateType) {
-            const templates = {
-                blog: {title: 'مقاله وبلاگ تخصصی', keywords: 'وبلاگ, محتوا, سئو'},
-                social: {title: 'پست جذاب شبکه اجتماعی', keywords: 'اینستاگرام, engagement, محتوای وایرال'},
-                product: {title: 'توضیحات محصول جدید', keywords: 'فروش, ویژگی‌ها, مزایا'},
-                email: {title: 'ایمیل مارکتینگ حرفه‌ای', keywords: 'کمپین, conversion, lead'}
-            };
-
-            const template = templates[templateType];
-            document.getElementById('contentTitle').value = template.title;
-            document.getElementById('keywords').value = template.keywords;
-        }
-
-        function updateWordCount() {
-            const content = document.getElementById('generatedContent').textContent;
-            const words = content.split(/\s+/).filter(word => word.length > 0);
-            document.getElementById('wordCount').textContent = `${words.length} کلمه`;
-        }
-
-        function saveContent() {
-            const content = document.getElementById('generatedContent').innerHTML;
-            const title = document.getElementById('contentTitle').value || 'محتوای بدون عنوان';
+            const topics = [
+                "هوش مصنوعی در حال تحول دنیای فناوری است...",
+                "سیستم‌های پیشرفته مدیریت محتوا...", 
+                "تترا اکوسیستم کامل برای نیازهای دیجیتال...",
+                "امنیت سایبری در عصر هوش مصنوعی..."
+            ];
+            const randomContent = topics[Math.floor(Math.random() * topics.length)];
             
-            // ذخیره در localStorage
-            const contents = JSON.parse(localStorage.getItem('aiWriterContents') || '[]');
-            contents.unshift({
-                title: title,
-                content: content,
-                date: new Date().toLocaleString('fa-IR'),
-                wordCount: document.getElementById('wordCount').textContent
-            });
-            localStorage.setItem('aiWriterContents', JSON.stringify(contents));
-            
-            alert('محتوای با موفقیت ذخیره شد!');
-            loadContentHistory();
+            document.getElementById('generatedContent').innerHTML = 
+                `<p class="text-success">${randomContent}</p>`;
         }
-
-        function copyContent() {
-            const content = document.getElementById('generatedContent');
-            const range = document.createRange();
-            range.selectNode(content);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
-            document.execCommand('copy');
-            alert('محتوا کپی شد!');
-        }
-
-        function saveToHistory(title, content) {
-            if (window.tetraData) {
-                tetraData.create('aiWriterHistory', {
-                    title: title,
-                    content: content.substring(0, 200) + '...',
-                    timestamp: new Date().toLocaleString('fa-IR'),
-                    wordCount: content.split(/\s+/).length
-                });
-            }
-        }
-
-        function loadContentHistory() {
-            const historyDiv = document.getElementById('contentHistory');
-            const contents = JSON.parse(localStorage.getItem('aiWriterContents') || '[]');
-            
-            if (contents.length === 0) {
-                historyDiv.innerHTML = '<p class="text-muted">هنوز محتوایی ذخیره نکرده‌اید</p>';
-                return;
-            }
-
-            historyDiv.innerHTML = contents.slice(0, 5).map(item => `
-                <div class="border-bottom pb-2 mb-2">
-                    <strong class="d-block">${item.title}</strong>
-                    <small class="text-muted">${item.date}</small>
-                    <br>
-                    <small>${item.wordCount}</small>
-                </div>
-            `).join('');
-        }
-
-        // بارگذاری اولیه
-        document.addEventListener('DOMContentLoaded', function() {
-            loadContentHistory();
-            document.getElementById('generatedContent').addEventListener('input', updateWordCount);
-        });
     </script>
 </body>
 </html>

@@ -1,358 +1,52 @@
-
-<!-- بخش نمونه‌های عملی -->
-<section class="module-card mt-4">
-    <h4 class="text-primary">
-        <i class="bi bi-code-slash me-2"></i>
-        نمونه‌های کد و پیاده‌سازی
-    </h4>
-    
-    <div class="row mt-3">
-        <div class="col-md-6">
-            <h6 class="text-white">🔤 پردازش متن پایه</h6>
-            <div class="bg-dark p-3 rounded mb-3">
-                <code class="text-light">
-# نمونه کد پایتون برای تحلیل احساسات<br>
-from transformers import pipeline<br>
-classifier = pipeline('sentiment-analysis')<br>
-result = classifier("این محصول فوق‌العاده است!")<br>
-print(result)  # [{'label': 'POSITIVE', 'score': 0.99}]
-                </code>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h6 class="text-white">🧠 مدل‌سازی زبانی</h6>
-            <div class="bg-dark p-3 rounded mb-3">
-                <code class="text-light">
-# تولید متن با GPT<br>
-from transformers import GPT2LMHeadModel, GPT2Tokenizer<br>
-tokenizer = GPT2Tokenizer.from_pretrained('gpt2')<br>
-model = GPT2LMHeadModel.from_pretrained('gpt2')<br>
-text = "هوش مصنوعی"<br>
-# ادامه تولید متن...
-                </code>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- بخش کاربردهای صنعتی -->
-<section class="module-card mt-4">
-    <h4 class="text-success">
-        <i class="bi bi-building me-2"></i>
-        کاربردهای صنعتی و سازمانی
-    </h4>
-    
-    <div class="row mt-3">
-        <div class="col-md-4 text-center">
-            <div class="text-warning mb-2">
-                <i class="bi bi-chat-left-text" style="font-size: 2rem;"></i>
-            </div>
-            <h6 class="text-white">پشتیبانی هوشمند</h6>
-            <small class="text-muted">
-                چت‌بات‌های هوشمند برای پاسخگویی خودکار به مشتریان
-            </small>
-        </div>
-        <div class="col-md-4 text-center">
-            <div class="text-info mb-2">
-                <i class="bi bi-file-text" style="font-size: 2rem;"></i>
-            </div>
-            <h6 class="text-white">تحلیل اسناد</h6>
-            <small class="text-muted">
-                پردازش خودکار قراردادها و اسناد حقوقی
-            </small>
-        </div>
-        <div class="col-md-4 text-center">
-            <div class="text-success mb-2">
-                <i class="bi bi-translate" style="font-size: 2rem;"></i>
-            </div>
-            <h6 class="text-white">ترجمه ماشینی</h6>
-            <small class="text-muted">
-                ترجمه实时 بین زبان‌های مختلف با دقت بالا
-            </small>
-        </div>
-    </div>
-</section>
-
-<!-- بخش آمار و ارقام -->
-<section class="module-card mt-4">
-    <h4 class="text-warning">
-        <i class="bi bi-graph-up me-2"></i>
-        آمار و عملکرد سیستم
-    </h4>
-    
-    <div class="row text-center mt-3">
-        <div class="col-md-3">
-            <div class="text-primary" style="font-size: 2rem;">۹۸.۲٪</div>
-            <small class="text-muted">دقت در تشخیص موجودیت‌ها</small>
-        </div>
-        <div class="col-md-3">
-            <div class="text-success" style="font-size: 2rem;">۱۲.۵K</div>
-            <small class="text-muted">درخواست روزانه</small>
-        </div>
-        <div class="col-md-3">
-            <div class="text-info" style="font-size: 2rem;">۴۵ms</div>
-            <small class="text-muted">میانگین زمان پاسخ</small>
-        </div>
-        <div class="col-md-3">
-            <div class="text-warning" style="font-size: 2rem;">۲۴/۷</div>
-            <small class="text-muted">دسترسی دائمی</small>
-        </div>
-    </div>
-</section>
-
-<!-- بخش یکپارچه‌سازی -->
-<section class="module-card mt-4">
-    <h4 class="text-info">
-        <i class="bi bi-plug me-2"></i>
-        یکپارچه‌سازی با سیستم‌های موجود
-    </h4>
-    
-    <div class="row mt-3">
-        <div class="col-md-6">
-            <h6 class="text-white">🔗 API Endpoints</h6>
-            <div class="bg-dark p-3 rounded">
-                <code class="text-light">
-POST /api/v1/nlp/analyze<br>
-POST /api/v1/nlp/classify<br>
-GET /api/v1/nlp/languages<br>
-POST /api/v1/nlp/generate
-                </code>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h6 class="text-white">📡 پروتکل‌های پشتیبانی‌شده</h6>
-            <ul class="list-unstyled text-light">
-                <li>✅ REST API</li>
-                <li>✅ WebSocket</li>
-                <li>✅ gRPC</li>
-                <li>✅ MQTT</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<!-- بخش نتیجه‌گیری و چشم‌انداز -->
-<section class="module-card mt-4 mb-5">
-    <h4 class="text-light">
-        <i class="bi bi-rocket-takeoff me-2"></i>
-        چشم‌انداز آینده و توسعه‌های آتی
-    </h4>
-    
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <div class="bg-gradient-primary p-4 rounded">
-                <h5 class="text-white">🚀 نقشه راه توسعه NLP</h5>
-                <div class="row mt-3">
-                    <div class="col-md-4">
-                        <h6 class="text-warning">فاز ۱: پایه‌ریزی</h6>
-                        <small class="text-light">
-                            ✅ مدل‌های پایه فارسی<br>
-                            ✅ API سرویس‌ها<br>
-                            ✅ تحلیل احساسات
-                        </small>
-                    </div>
-                    <div class="col-md-4">
-                        <h6 class="text-info">فاز ۲: توسعه</h6>
-                        <small class="text-light">
-                            🟡 پردازش گفتار<br>
-                            🟡 ترجمه بلادرنگ<br>
-                            🟡 خلاصه‌سازی پیشرفته
-                        </small>
-                    </div>
-                    <div class="col-md-4">
-                        <h6 class="text-success">فاز ۳: هوشمندی</h6>
-                        <small class="text-light">
-                            ⭕ مدل‌های زبانی بزرگ<br>
-                            ⭕ درک متون تخصصی<br>
-                            ⭕ تولید محتوای خلاق
-                        </small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- بخش پایانی صفحه -->
-    <div class="text-center mt-4 pt-4 border-top border-secondary">
-        <h5 class="text-white">✨ تحول در پردازش زبان فارسی با هوش مصنوعی</h5>
-        <p class="text-muted">
-            با بهره‌گیری از آخرین دستاوردهای هوش مصنوعی، دروازه‌های جدیدی 
-            در برقراری ارتباط بین انسان و ماشین خواهیم گشود.
-        </p>
-        
-        <!-- اطلاعات تماس -->
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <small class="text-muted">
-                    <i class="bi bi-envelope me-2"></i>
-                    nlp-support@tetra-ecosystem.ir
-                </small>
-            </div>
-            <div class="col-md-4">
-                <small class="text-muted">
-                    <i class="bi bi-globe me-2"></i>
-                    https://tetra-ecosystem.ir/nlp
-                </small>
-            </div>
-            <div class="col-md-4">
-                <small class="text-muted">
-                    <i class="bi bi-telephone me-2"></i>
-                    +۹۸ ۲۱ ۱۲۳۴۵۶۷۸
-                </small>
-            </div>
-        </div>
-        
-        <!-- کپی رایت -->
-        <div class="mt-3">
-            <small class="text-muted">
-                © ۲۰۲۴ Tetra Ecosystem - تمام حقوق برای پلتفرم هوش مصنوعی تترا محفوظ است.
-            </small>
-        </div>
-    </div>
-</section>
-
-<!-- اسکریپت پایانی برای تعاملات -->
-<script>
-// تنظیمات پیشرفته NLP
-document.addEventListener('DOMContentLoaded', function() {
-    // مدیریت فرم تحلیل متن
-    const analyzeForm = document.getElementById('analyzeForm');
-    if (analyzeForm) {
-        analyzeForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const text = document.getElementById('textInput').value;
-            
-            if (text.trim().length < 10) {
-                alert('لطفاً متن بیشتری وارد کنید (حداقل ۱۰ کاراکتر)');
-                return;
-            }
-            
-            // شبیه‌سازی پردازش
-            const resultsDiv = document.getElementById('analysisResults');
-            resultsDiv.innerHTML = `
-                <div class="alert alert-info">
-                    <i class="bi bi-hourglass-split me-2"></i>
-                    در حال پردازش متن...
-                </div>
-            `;
-            
-            setTimeout(() => {
-                showAnalysisResults(text);
-            }, 2000);
-        });
-    }
-    
-    function showAnalysisResults(text) {
-        const resultsDiv = document.getElementById('analysisResults');
-        const wordCount = text.split(' ').length;
-        const charCount = text.length;
-        
-        // تحلیل ساده احساسات (شبیه‌سازی)
-        const sentimentScore = Math.random();
-        let sentiment = 'خنثی';
-        let sentimentClass = 'warning';
-        
-        if (sentimentScore > 0.7) {
-            sentiment = 'مثبت';
-            sentimentClass = 'success';
-        } else if (sentimentScore < 0.3) {
-            sentiment = 'منفی';
-            sentimentClass = 'danger';
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پردازش زبان طبیعی - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <style>
+        body { 
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-family: system-ui;
+            padding: 50px 20px;
+            text-align: center;
         }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .btn-active {
+            background: #10b981;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ پردازش زبان طبیعی</h1>
+        <p>سیستم پیشرفته NLP برای تحلیل متون</p>
+        <p>نسخه: ۲.۰.۰ | وضعیت: <strong>فعال</strong></p>
         
-        resultsDiv.innerHTML = `
-            <div class="alert alert-${sentimentClass}">
-                <h6><i class="bi bi-emoji-${sentimentClass === 'success' ? 'smile' : sentimentClass === 'danger' ? 'frown' : 'neutral'} me-2"></i>
-                تحلیل احساسات: ${sentiment}</h6>
-                <small>امتیاز: ${(sentimentScore * 100).toFixed(1)}%</small>
-            </div>
-            
-            <div class="row text-center mt-3">
-                <div class="col-md-3">
-                    <div class="text-primary">${wordCount}</div>
-                    <small class="text-muted">تعداد کلمات</small>
-                </div>
-                <div class="col-md-3">
-                    <div class="text-info">${charCount}</div>
-                    <small class="text-muted">کاراکترها</small>
-                </div>
-                <div class="col-md-3">
-                    <div class="text-success">${Math.ceil(wordCount / 2)}</div>
-                    <small class="text-muted">موجودیت‌ها</small>
-                </div>
-                <div class="col-md-3">
-                    <div class="text-warning">${Math.ceil(wordCount / 3)}</div>
-                    <small class="text-muted">رابطه‌ها</small>
-                </div>
-            </div>
-            
-            <div class="mt-3">
-                <button class="btn btn-outline-light btn-sm" onclick="saveAnalysis()">
-                    <i class="bi bi-download me-2"></i>
-                    ذخیره نتایج
-                </button>
-                <button class="btn btn-outline-info btn-sm" onclick="shareAnalysis()">
-                    <i class="bi bi-share me-2"></i>
-                    اشتراک‌گذاری
-                </button>
-            </div>
-        `;
-    }
-});
-
-// توابع کمکی
-function saveAnalysis() {
-    alert('نتایج با موفقیت ذخیره شد!');
-}
-
-function shareAnalysis() {
-    alert('امکان اشتراک‌گذاری نتایج فعال شد!');
-}
-
-// مدیریت تاریخچه تحلیل‌ها
-function saveToHistory(text, results) {
-    const history = JSON.parse(localStorage.getItem('nlpHistory') || '[]');
-    history.unshift({
-        text: text.substring(0, 100) + '...',
-        results: results,
-        timestamp: new Date().toLocaleString('fa-IR')
-    });
-    
-    // نگه‌داری فقط ۱۰ مورد آخر
-    if (history.length > 10) {
-        history.pop();
-    }
-    
-    localStorage.setItem('nlpHistory', JSON.stringify(history));
-    updateHistoryUI();
-}
-
-function updateHistoryUI() {
-    const history = JSON.parse(localStorage.getItem('nlpHistory') || '[]');
-    const historyDiv = document.getElementById('analysisHistory');
-    
-    if (history.length === 0) {
-        historyDiv.innerHTML = '<p class="text-muted">تاریخچه‌ای یافت نشد</p>';
-        return;
-    }
-    
-    historyDiv.innerHTML = history.map(item => `
-        <div class="border-bottom border-secondary pb-2 mb-2">
-            <small class="text-light">${item.text}</small>
-            <br>
-            <small class="text-muted">${item.timestamp}</small>
+        <div style="margin: 30px 0;">
+            <button class="btn-active" onclick="alert('سرویس فعال است!')">
+                🚀 شروع به کار
+            </button>
         </div>
-    `).join('');
-}
-
-// بارگذاری اولیه تاریخچه
-document.addEventListener('DOMContentLoaded', updateHistoryUI);
-</script>
-
-</div>
-</div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <a href="tetra-ecosystem.html" style="color: white; text-decoration: none;">
+            ← بازگشت به پنل اصلی
+        </a>
+    </div>
 </body>
 </html>

@@ -2,444 +2,51 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سامانه ضد چندپارگی - Tetra Ecosystem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        .integration-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        body { 
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            font-family: system-ui;
+            padding: 50px 20px;
+            text-align: center;
         }
-        .data-source {
-            background: white;
-            border: 2px dashed #dee2e6;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            cursor: move;
-            transition: all 0.3s ease;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
         }
-        .data-source:hover {
-            border-color: #667eea;
-            background: #f8f9fa;
-        }
-        .integration-flow {
-            min-height: 400px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            background: #f8f9fa;
-        }
-        .unified-view {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        .btn-active {
+            background: #10b981;
             color: white;
+            padding: 15px 30px;
+            border: none;
             border-radius: 10px;
-            padding: 1.5rem;
+            font-size: 18px;
+            margin: 10px;
         }
     </style>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-dark bg-danger">
-        <div class="container">
-            <a class="navbar-brand" href="tetra-ecosystem.html">
-                <i class="bi bi-shield-check"></i>
-                سامانه ضد چندپارگی
-            </a>
+<body>
+    <div class="container">
+        <h1>✅ سامانه ضد چندپارگی</h1>
+        <p>حفاظت از سیستم در برابر تهدیدات امنیتی</p>
+        <p>نسخه: ۲.۰.۰ | وضعیت: <strong>فعال</strong></p>
+        
+        <div style="margin: 30px 0;">
+            <button class="btn-active" onclick="alert('سرویس فعال است!')">
+                🚀 شروع به کار
+            </button>
         </div>
-    </nav>
-
-    <div class="container py-5">
-        <!-- هدر -->
-        <div class="integration-card text-center">
-            <h1 class="display-5 mb-3">🛡️ سامانه ضد چندپارگی</h1>
-            <p class="lead mb-4">یکپارچه‌سازی هوشمند داده‌های پراکنده در سازمان شما</p>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="h3">۹۵٪</div>
-                    <small>کاهش پیچیدگی</small>
-                </div>
-                <div class="col-md-3">
-                    <div class="h3">۷۰٪</div>
-                    <small>صرفه‌جویی زمانی</small>
-                </div>
-                <div class="col-md-3">
-                    <div class="h3">۱۰۰٪</div>
-                    <small>یکپارچگی داده</small>
-                </div>
-                <div class="col-md-3">
-                    <div class="h3">۲۴/۷</div>
-                    <small>پشتیبانی</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- منابع داده -->
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0">📁 منابع داده موجود</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="data-source" draggable="true" data-type="excel">
-                            <i class="bi bi-file-earmark-excel text-success"></i>
-                            <strong>فایل‌های Excel</strong>
-                            <small class="d-block text-muted">داده‌های مالی و آماری</small>
-                        </div>
-                        
-                        <div class="data-source" draggable="true" data-type="database">
-                            <i class="bi bi-database text-primary"></i>
-                            <strong>پایگاه‌های داده</strong>
-                            <small class="d-block text-muted">MySQL, PostgreSQL, MongoDB</small>
-                        </div>
-                        
-                        <div class="data-source" draggable="true" data-type="api">
-                            <i class="bi bi-plug text-warning"></i>
-                            <strong>API های خارجی</strong>
-                            <small class="d-block text-muted">سرویس‌های وب و رست</small>
-                        </div>
-                        
-                        <div class="data-source" draggable="true" data-type="cloud">
-                            <i class="bi bi-cloud text-info"></i>
-                            <strong>ذخیره‌سازی ابری</strong>
-                            <small class="d-block text-muted">Google Drive, Dropbox</small>
-                        </div>
-                        
-                        <div class="data-source" draggable="true" data-type="crm">
-                            <i class="bi bi-people text-danger"></i>
-                            <strong>سیستم‌های CRM</strong>
-                            <small class="d-block text-muted">مشتریان و ارتباطات</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- آمار یکپارچه‌سازی -->
-                <div class="card shadow-sm mt-4">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="mb-0">📊 آمار یکپارچه‌سازی</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <small>داده‌های یکپارچه شده:</small>
-                            <div class="progress mb-2">
-                                <div class="progress-bar" style="width: 85%">۸۵٪</div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <small>اتصال‌های فعال:</small>
-                            <div class="progress mb-2">
-                                <div class="progress-bar bg-success" style="width: 92%">۹۲٪</div>
-                            </div>
-                        </div>
-                        <div>
-                            <small>کارایی سیستم:</small>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" style="width: 78%">۷۸٪</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- فضای یکپارچه‌سازی -->
-            <div class="col-md-8">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-info text-white">
-                        <h5 class="mb-0">🔄 فضای یکپارچه‌سازی</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="integration-flow" id="integrationArea">
-                            <div class="text-center text-muted py-5">
-                                منابع داده را به اینجا بکشید تا یکپارچه شوند
-                            </div>
-                        </div>
-                        
-                        <div class="mt-3 text-center">
-                            <button class="btn btn-primary me-2" onclick="integrateData()">
-                                <i class="bi bi-gear"></i>
-                                شروع یکپارچه‌سازی
-                            </button>
-                            <button class="btn btn-outline-secondary" onclick="clearIntegration()">
-                                <i class="bi bi-trash"></i>
-                                پاک کردن
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- نمای یکپارچه -->
-                <div class="unified-view mt-4">
-                    <h5 class="mb-3">👁️ نمای یکپارچه داده‌ها</h5>
-                    <div id="unifiedDataView">
-                        <p class="text-center">هنوز داده‌ای یکپارچه نشده است</p>
-                    </div>
-                </div>
-
-                <!-- گزارش‌ها -->
-                <div class="card shadow-sm mt-4">
-                    <div class="card-header bg-warning text-dark">
-                        <h5 class="mb-0">📈 گزارش‌های یکپارچه</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-md-3 mb-3">
-                                <div class="text-primary h4" id="totalRecords">۰</div>
-                                <small>رکوردهای کل</small>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="text-success h4" id="connectedSources">۰</div>
-                                <small>منابع متصل</small>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="text-info h4" id="dataQuality">۰٪</div>
-                                <small>کیفیت داده</small>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="text-danger h4" id="processingTime">۰ms</div>
-                                <small>زمان پردازش</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- سیستم مدیریت جریان داده -->
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-dark text-white">
-                        <h5 class="mb-0">⚡ مدیریت جریان داده</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>منبع داده</th>
-                                        <th>وضعیت</th>
-                                        <th>آخرین بروزرسانی</th>
-                                        <th>تعداد رکوردها</th>
-                                        <th>عملکرد</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="dataFlowTable">
-                                    <!-- داده‌های جریان -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        <a href="tetra-ecosystem.html" style="color: white; text-decoration: none;">
+            ← بازگشت به پنل اصلی
+        </a>
     </div>
-
-    <script src="data-manager.js"></script>
-    <script>
-        let integratedSources = [];
-        let dataFlow = [];
-
-        function initAntiFragmentation() {
-            // فعال کردن قابلیت کشیدن و رها کردن
-            initDragAndDrop();
-            updateDataFlowTable();
-            
-            // بارگذاری داده‌های ذخیره شده
-            const savedData = localStorage.getItem('antiFragmentationData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                integratedSources = data.sources || [];
-                dataFlow = data.flow || [];
-                updateUnifiedView();
-                updateStatistics();
-            }
-        }
-
-        function initDragAndDrop() {
-            const sources = document.querySelectorAll('.data-source');
-            const integrationArea = document.getElementById('integrationArea');
-
-            sources.forEach(source => {
-                source.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', source.dataset.type);
-                });
-            });
-
-            integrationArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                integrationArea.style.backgroundColor = '#e9ecef';
-            });
-
-            integrationArea.addEventListener('dragleave', () => {
-                integrationArea.style.backgroundColor = '#f8f9fa';
-            });
-
-            integrationArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                integrationArea.style.backgroundColor = '#f8f9fa';
-                
-                const sourceType = e.dataTransfer.getData('text/plain');
-                addSourceToIntegration(sourceType);
-            });
-        }
-
-        function addSourceToIntegration(sourceType) {
-            if (!integratedSources.includes(sourceType)) {
-                integratedSources.push(sourceType);
-                
-                const sourceElement = document.querySelector(`[data-type="${sourceType}"]`);
-                const clone = sourceElement.cloneNode(true);
-                clone.style.margin = '10px';
-                clone.style.cursor = 'default';
-                
-                document.getElementById('integrationArea').appendChild(clone);
-                
-                updateUnifiedView();
-                updateStatistics();
-                saveData();
-            }
-        }
-
-        function integrateData() {
-            if (integratedSources.length === 0) {
-                alert('لطفاً ابتدا منابع داده را اضافه کنید');
-                return;
-            }
-
-            // شبیه‌سازی یکپارچه‌سازی
-            document.getElementById('integrationArea').innerHTML = 
-                '<div class="text-center py-5"><div class="spinner-border text-primary"></div><p class="mt-2">در حال یکپارچه‌سازی داده‌ها...</p></div>';
-
-            setTimeout(() => {
-                // ایجاد داده‌های نمونه یکپارچه
-                const sampleData = generateUnifiedData();
-                document.getElementById('integrationArea').innerHTML = 
-                    '<div class="text-center text-success py-5"><i class="bi bi-check-circle" style="font-size: 3rem;"></i><p class="mt-2">یکپارچه‌سازی با موفقیت انجام شد!</p></div>';
-                
-                updateUnifiedView(sampleData);
-                updateDataFlow();
-                updateStatistics();
-                
-                alert(`✅ یکپارچه‌سازی ${integratedSources.length} منبع داده با موفقیت انجام شد`);
-            }, 3000);
-        }
-
-        function generateUnifiedData() {
-            const sources = {
-                excel: ['داده‌های مالی ۲۰۲۴', 'گزارش‌های فروش', 'تحلیل‌های بودجه'],
-                database: ['اطلاعات مشتریان', 'سفارش‌های سیستم', 'لاگ‌های تراکنش'],
-                api: ['داده‌های آب و هوا', 'نرخ ارز', 'اخبار بازار'],
-                cloud: ['اسناد همکاری', 'فایل‌های پروژه', 'تصاویر محصولات'],
-                crm: ['پروفایل مشتریان', 'تاریخچه تماس', 'تیکت‌های پشتیبانی']
-            };
-
-            return integratedSources.map(source => ({
-                type: source,
-                name: sources[source] ? sources[source][0] : 'داده ناشناخته',
-                records: Math.floor(Math.random() * 1000) + 100,
-                lastUpdate: new Date().toLocaleString('fa-IR'),
-                status: 'فعال'
-            }));
-        }
-
-        function updateUnifiedView(data = null) {
-            const view = document.getElementById('unifiedDataView');
-            
-            if (!data) {
-                view.innerHTML = '<p class="text-center">هنوز داده‌ای یکپارچه نشده است</p>';
-                return;
-            }
-
-            view.innerHTML = data.map(item => `
-                <div class="alert alert-light mb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>${item.name}</strong>
-                            <br>
-                            <small class="text-muted">${item.type} - ${item.records} رکورد</small>
-                        </div>
-                        <span class="badge bg-success">${item.status}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function updateDataFlow() {
-            dataFlow = integratedSources.map(source => ({
-                source: source,
-                status: 'فعال',
-                lastUpdate: new Date().toLocaleString('fa-IR'),
-                records: Math.floor(Math.random() * 5000) + 1000,
-                performance: 'عالی'
-            }));
-
-            updateDataFlowTable();
-        }
-
-        function updateDataFlowTable() {
-            const table = document.getElementById('dataFlowTable');
-            
-            if (dataFlow.length === 0) {
-                table.innerHTML = '<tr><td colspan="5" class="text-center text-muted">هیچ جریان داده‌ای فعال نیست</td></tr>';
-                return;
-            }
-
-            table.innerHTML = dataFlow.map(item => `
-                <tr>
-                    <td>${getSourceName(item.source)}</td>
-                    <td><span class="badge bg-success">${item.status}</span></td>
-                    <td>${item.lastUpdate}</td>
-                    <td>${item.records.toLocaleString()}</td>
-                    <td><span class="badge bg-info">${item.performance}</span></td>
-                </tr>
-            `).join('');
-        }
-
-        function getSourceName(type) {
-            const names = {
-                excel: 'فایل‌های Excel',
-                database: 'پایگاه داده',
-                api: 'API خارجی',
-                cloud: 'ذخیره‌سازی ابری',
-                crm: 'سیستم CRM'
-            };
-            return names[type] || type;
-        }
-
-        function updateStatistics() {
-            document.getElementById('totalRecords').textContent = 
-                (dataFlow.reduce((sum, item) => sum + item.records, 0)).toLocaleString();
-            document.getElementById('connectedSources').textContent = integratedSources.length;
-            document.getElementById('dataQuality').textContent = '۹۵٪';
-            document.getElementById('processingTime').textContent = '۴۲ms';
-        }
-
-        function clearIntegration() {
-            if (confirm('آیا از پاک کردن همه منابع یکپارچه شده اطمینان دارید؟')) {
-                integratedSources = [];
-                dataFlow = [];
-                document.getElementById('integrationArea').innerHTML = 
-                    '<div class="text-center text-muted py-5">منابع داده را به اینجا بکشید تا یکپارچه شوند</div>';
-                updateUnifiedView();
-                updateDataFlowTable();
-                updateStatistics();
-                saveData();
-            }
-        }
-
-        function saveData() {
-            const data = {
-                sources: integratedSources,
-                flow: dataFlow,
-                lastUpdate: new Date().toLocaleString('fa-IR')
-            };
-            localStorage.setItem('antiFragmentationData', JSON.stringify(data));
-        }
-
-        // بارگذاری اولیه
-        document.addEventListener('DOMContentLoaded', initAntiFragmentation);
-    </script>
 </body>
 </html>

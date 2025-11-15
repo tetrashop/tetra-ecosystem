@@ -2,275 +2,51 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>سیستم جمع‌آوری کمک‌های مردمی - Tetra Ecosystem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم کمک مالی - Tetra Ecosystem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
     <style>
-        .donation-hero {
-            background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
+        body { 
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 4rem 2rem;
-            border-radius: 20px;
+            font-family: system-ui;
+            padding: 50px 20px;
             text-align: center;
-            margin-bottom: 3rem;
         }
-        .donation-card {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            border: 2px solid #475569;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
         }
-        .donation-card:hover {
-            border-color: #dc2626;
-            transform: translateY(-5px);
-        }
-        .amount-btn {
-            background: #374151;
-            border: 2px solid #4b5563;
+        .btn-active {
+            background: #10b981;
             color: white;
-            padding: 1rem 2rem;
-            margin: 0.5rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-        .amount-btn:hover, .amount-btn.active {
-            background: #dc2626;
-            border-color: #fef3c7;
-            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            margin: 10px;
         }
     </style>
 </head>
-<body class="bg-dark text-light" style="font-family: 'Vazir', sans-serif;">
-    <div class="container py-5">
-        <!-- هدر -->
-        <div class="donation-hero">
-            <h1 class="display-4 mb-3">
-                <i class="bi bi-heart-fill me-2"></i>
-                سیستم جمع‌آوری کمک‌های مردمی
-            </h1>
-            <p class="lead">
-                "همراه شما در ساختن فردایی بهتر برای هموطنان محروم"
-            </p>
+<body>
+    <div class="container">
+        <h1>✅ سیستم کمک مالی</h1>
+        <p>مدیریت تراکنش‌های مالی و کمک‌های مردمی</p>
+        <p>نسخه: ۲.۰.۰ | وضعیت: <strong>فعال</strong></p>
+        
+        <div style="margin: 30px 0;">
+            <button class="btn-active" onclick="alert('سرویس فعال است!')">
+                🚀 شروع به کار
+            </button>
         </div>
-
-        <div class="row">
-            <!-- فرم کمک مالی -->
-            <div class="col-md-8">
-                <div class="donation-card">
-                    <h3 class="text-warning mb-4">
-                        <i class="bi bi-credit-card me-2"></i>
-                        کمک مالی خود را مشخص کنید
-                    </h3>
-                    
-                    <!-- مبالغ پیشنهادی -->
-                    <div class="mb-4">
-                        <label class="form-label text-light">مبلغ کمک (تومان)</label>
-                        <div class="d-flex flex-wrap justify-content-center">
-                            <button class="amount-btn" data-amount="100000">۱۰۰,۰۰۰</button>
-                            <button class="amount-btn" data-amount="250000">۲۵۰,۰۰۰</button>
-                            <button class="amount-btn" data-amount="500000">۵۰۰,۰۰۰</button>
-                            <button class="amount-btn" data-amount="1000000">۱,۰۰۰,۰۰۰</button>
-                            <button class="amount-btn" data-amount="2000000">۲,۰۰۰,۰۰۰</button>
-                        </div>
-                        <div class="mt-3">
-                            <input type="number" class="form-control form-control-lg bg-dark text-light text-center" 
-                                   id="customAmount" placeholder="مبلغ دلخواه">
-                        </div>
-                    </div>
-                    
-                    <!-- پروژه مورد نظر -->
-                    <div class="mb-4">
-                        <label class="form-label text-light">پروژه مورد نظر برای کمک</label>
-                        <select class="form-select form-select-lg bg-dark text-light" id="projectSelect">
-                            <option value="general">کمک به صندوق عمومی</option>
-                            <option value="education">بسته‌های آموزشی</option>
-                            <option value="health">درمان رایگان</option>
-                            <option value="food">سبد غذایی</option>
-                            <option value="employment">اشتغال‌زایی</option>
-                            <option value="urgent">کمک‌های فوری</option>
-                        </select>
-                    </div>
-                    
-                    <!-- اطلاعات پرداخت -->
-                    <div class="mb-4">
-                        <label class="form-label text-light">روش پرداخت</label>
-                        <div class="row">
-                            <div class="col-md-4 mb-2">
-                                <button class="btn btn-outline-light w-100 payment-method" data-method="bank">
-                                    <i class="bi bi-bank me-2"></i>درگاه بانکی
-                                </button>
-                            </div>
-                            <div class="col-md-4 mb-2">
-                                <button class="btn btn-outline-light w-100 payment-method" data-method="crypto">
-                                    <i class="bi bi-coin me-2"></i>ارز دیجیتال
-                                </button>
-                            </div>
-                            <div class="col-md-4 mb-2">
-                                <button class="btn btn-outline-light w-100 payment-method" data-method="wallet">
-                                    <i class="bi bi-wallet me-2"></i>کیف پول
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- دکمه پرداخت -->
-                    <button class="btn btn-success btn-lg w-100 py-3" id="donateButton">
-                        <i class="bi bi-heart-fill me-2"></i>
-                        پرداخت کمک مالی
-                    </button>
-                </div>
-            </div>
-            
-            <!-- اطلاعات جانبی -->
-            <div class="col-md-4">
-                <!-- خلاصه کمک -->
-                <div class="donation-card">
-                    <h5 class="text-white mb-3">📋 خلاصه کمک شما</h5>
-                    <div id="donationSummary">
-                        <div class="text-muted">لطفاً مبلغ و پروژه را انتخاب کنید</div>
-                    </div>
-                </div>
-                
-                <!-- آمار سریع -->
-                <div class="donation-card">
-                    <h5 class="text-white mb-3">📊 آمار کمک‌ها</h5>
-                    <div class="text-center">
-                        <div class="text-success" style="font-size: 2rem;" id="todayDonations">۱۲.۴M</div>
-                        <small class="text-muted">کمک امروز (تومان)</small>
-                    </div>
-                    <hr class="my-3">
-                    <div class="text-center">
-                        <div class="text-warning" style="font-size: 1.5rem;" id="totalSupporters">۲,۴۵۶</div>
-                        <small class="text-muted">تعداد حامیان</small>
-                    </div>
-                </div>
-                
-                <!-- تضمین شفافیت -->
-                <div class="donation-card">
-                    <h5 class="text-success mb-3">🔒 تضمین شفافیت</h5>
-                    <ul class="list-unstyled text-light small">
-                        <li class="mb-2">✅ گزارش مالی ماهانه</li>
-                        <li class="mb-2">✅ عکس و فیلم از پروژه‌ها</li>
-                        <li class="mb-2">✅ رسید الکترونیکی</li>
-                        <li class="mb-2">✅ پیگیری آنلاین</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        
+        <a href="tetra-ecosystem.html" style="color: white; text-decoration: none;">
+            ← بازگشت به پنل اصلی
+        </a>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // مدیریت انتخاب مبلغ
-        document.querySelectorAll('.amount-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                document.getElementById('customAmount').value = this.dataset.amount;
-                updateDonationSummary();
-            });
-        });
-        
-        // مدیریت مبلغ دلخواه
-        document.getElementById('customAmount').addEventListener('input', updateDonationSummary);
-        
-        // مدیریت انتخاب پروژه
-        document.getElementById('projectSelect').addEventListener('change', updateDonationSummary);
-        
-        // مدیریت روش پرداخت
-        document.querySelectorAll('.payment-method').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.payment-method').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-        
-        // به‌روزرسانی خلاصه کمک
-        function updateDonationSummary() {
-            const amount = document.getElementById('customAmount').value;
-            const project = document.getElementById('projectSelect');
-            const projectText = project.options[project.selectedIndex].text;
-            
-            if (amount) {
-                document.getElementById('donationSummary').innerHTML = `
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-light">مبلغ:</span>
-                        <span class="text-warning">${parseInt(amount).toLocaleString()} تومان</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-light">پروژه:</span>
-                        <span class="text-info">${projectText}</span>
-                    </div>
-                    <hr>
-                    <div class="d-flex justify-content-between">
-                        <span class="text-light">کل:</span>
-                        <span class="text-success">${parseInt(amount).toLocaleString()} تومان</span>
-                    </div>
-                `;
-            }
-        }
-        
-        // پرداخت کمک
-        document.getElementById('donateButton').addEventListener('click', function() {
-            const amount = document.getElementById('customAmount').value;
-            const project = document.getElementById('projectSelect').value;
-            const method = document.querySelector('.payment-method.active')?.dataset.method;
-            
-            if (!amount || amount < 10000) {
-                alert('لطفاً مبلغ معتبری وارد کنید (حداقل ۱۰,۰۰۰ تومان)');
-                return;
-            }
-            
-            if (!method) {
-                alert('لطفاً روش پرداخت را انتخاب کنید');
-                return;
-            }
-            
-            // شبیه‌سازی پرداخت
-            this.innerHTML = '<i class="bi bi-arrow-repeat spinner"></i> در حال پرداخت...';
-            this.disabled = true;
-            
-            setTimeout(() => {
-                // ذخیره در localStorage
-                const donation = {
-                    amount: parseInt(amount),
-                    project: project,
-                    method: method,
-                    timestamp: new Date().toLocaleString('fa-IR'),
-                    status: 'موفق'
-                };
-                
-                const donations = JSON.parse(localStorage.getItem('socialCareDonations') || '[]');
-                donations.push(donation);
-                localStorage.setItem('socialCareDonations', JSON.stringify(donations));
-                
-                alert(`پرداخت ${amount.toLocaleString()} تومان با موفقیت انجام شد!`);
-                this.innerHTML = '<i class="bi bi-heart-fill me-2"></i>پرداخت کمک مالی';
-                this.disabled = false;
-                
-                // بازگشت به صفحه اصلی
-                window.location.href = '/public/social-care.html';
-            }, 3000);
-        });
-        
-        // بارگذاری آمار
-        function loadDonationStats() {
-            const donations = JSON.parse(localStorage.getItem('socialCareDonations') || '[]');
-            const today = new Date().toLocaleDateString('fa-IR');
-            const todayDonations = donations.filter(d => d.timestamp.includes(today))
-                                           .reduce((sum, d) => sum + d.amount, 0);
-            
-            document.getElementById('todayDonations').textContent = 
-                (todayDonations / 1000000).toFixed(1) + 'M';
-            
-            document.getElementById('totalSupporters').textContent = 
-                donations.length.toLocaleString();
-        }
-        
-        document.addEventListener('DOMContentLoaded', loadDonationStats);
-    </script>
 </body>
 </html>

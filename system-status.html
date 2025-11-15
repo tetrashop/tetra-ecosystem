@@ -2,306 +2,51 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>وضعیت سیستم | Tetra Ecosystem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وضعیت سیستم - Tetra Ecosystem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
     <style>
-        .status-card {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            border: 2px solid;
-            transition: all 0.3s ease;
+        body { 
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-family: system-ui;
+            padding: 50px 20px;
+            text-align: center;
         }
-        .status-healthy { border-color: #10b981; }
-        .status-warning { border-color: #f59e0b; }
-        .status-error { border-color: #ef4444; }
-        .metric-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
         }
-        .uptime-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 5px;
+        .btn-active {
+            background: #10b981;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            margin: 10px;
         }
-        .uptime-online { background: #10b981; }
-        .uptime-offline { background: #ef4444; }
     </style>
 </head>
-<body class="bg-dark text-light" style="font-family: 'Vazir', sans-serif;">
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h1 class="display-4 text-white mb-3">
-                <i class="bi bi-heart-pulse text-success"></i>
-                وضعیت سیستم Tetra Ecosystem
-            </h1>
-            <p class="lead text-muted">
-                نظارت زنده بر عملکرد همه سرویس‌ها و ماژول‌ها
-            </p>
+<body>
+    <div class="container">
+        <h1>✅ وضعیت سیستم</h1>
+        <p>مانیتورینگ کامل سلامت و عملکرد سیستم‌ها</p>
+        <p>نسخه: ۲.۰.۰ | وضعیت: <strong>فعال</strong></p>
+        
+        <div style="margin: 30px 0;">
+            <button class="btn-active" onclick="alert('سرویس فعال است!')">
+                🚀 شروع به کار
+            </button>
         </div>
-
-        <div class="row">
-            <!-- وضعیت کلی -->
-            <div class="col-md-12">
-                <div class="status-card status-healthy">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h3 class="text-white">
-                                <span class="uptime-indicator uptime-online"></span>
-                                همه سرویس‌ها در دسترس هستند
-                            </h3>
-                            <p class="text-muted mb-0">
-                                سیستم با عملکرد عادی در حال کار است
-                            </p>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <div class="metric-value text-success" id="overallUptime">۹۹.۸٪</div>
-                            <small class="text-muted">میانگین آپتایم 30 روزه</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- ماژول‌های اصلی -->
-            <div class="col-md-6">
-                <div class="status-card status-healthy">
-                    <h4 class="text-white mb-3">
-                        <i class="bi bi-currency-exchange text-success me-2"></i>
-                        سیستم مالی
-                    </h4>
-                    <div class="row text-center">
-                        <div class="col-4">
-                            <div class="text-success" id="financeStatus">فعال</div>
-                            <small class="text-muted">وضعیت</small>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-primary" id="financeResponse">۴۲ms</div>
-                            <small class="text-muted">زمان پاسخ</small>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-warning" id="financeTx">۱۵۶</div>
-                            <small class="text-muted">تراکنش‌ها</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="status-card status-healthy">
-                    <h4 class="text-white mb-3">
-                        <i class="bi bi-arrow-repeat text-primary me-2"></i>
-                        تبدیل تصاویر
-                    </h4>
-                    <div class="row text-center">
-                        <div class="col-4">
-                            <div class="text-success" id="converterStatus">فعال</div>
-                            <small class="text-muted">وضعیت</small>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-info" id="converterQueue">۳</div>
-                            <small class="text-muted">در صف</small>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-warning" id="converterSuccess">۹۴٪</div>
-                            <small class="text-muted">موفقیت</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="status-card status-healthy">
-                    <h4 class="text-white mb-3">
-                        <i class="bi bi-coin text-warning me-2"></i>
-                        سیستم رمزارز
-                    </h4>
-                    <div class="row text-center">
-                        <div class="col-4">
-                            <div class="text-success" id="cryptoStatus">فعال</div>
-                            <small class="text-muted">وضعیت</small>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-info" id="cryptoBalance">۱,۲۵۰</div>
-                            <small class="text-muted">تتر</small>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-primary" id="cryptoPrice">۵۰,۱۲۳</div>
-                            <small class="text-muted">قیمت</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="status-card status-healthy">
-                    <h4 class="text-white mb-3">
-                        <i class="bi bi-heart-pulse text-danger me-2"></i>
-                        سیستم محرومین
-                    </h4>
-                    <div class="row text-center">
-                        <div class="col-4">
-                            <div class="text-success" id="socialStatus">فعال</div>
-                            <small class="text-muted">وضعیت</small>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-warning" id="socialProjects">۱۲</div>
-                            <small class="text-muted">پروژه‌ها</small>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-success" id="socialDonations">۴۵۶M</div>
-                            <small class="text-muted">کمک‌ها</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- آمار زنده -->
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="status-card">
-                    <h4 class="text-white mb-4">
-                        <i class="bi bi-graph-up-arrow text-info me-2"></i>
-                        آمار زنده سیستم
-                    </h4>
-                    
-                    <div class="row text-center">
-                        <div class="col-md-2 col-6 mb-3">
-                            <div class="metric-value text-primary" id="liveUsers">۸۹</div>
-                            <small class="text-muted">کاربران آنلاین</small>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <div class="metric-value text-success" id="liveRequests">۱,۲۴۵</div>
-                            <small class="text-muted">درخواست/ساعت</small>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <div class="metric-value text-warning" id="liveConversions">۴۵</div>
-                            <small class="text-muted">تبدیل امروز</small>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <div class="metric-value text-info" id="liveDonations">۱۲.۴M</div>
-                            <small class="text-muted">کمک امروز</small>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <div class="metric-value text-danger" id="liveErrors">۰</div>
-                            <small class="text-muted">خطاها</small>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <div class="metric-value text-secondary" id="liveUptime">۱۰۰٪</div>
-                            <small class="text-muted">آپتایم</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- تاریخچه عملکرد -->
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="status-card">
-                    <h4 class="text-white mb-3">
-                        <i class="bi bi-clock-history text-warning me-2"></i>
-                        تاریخچه عملکرد
-                    </h4>
-                    
-                    <div id="performanceHistory">
-                        <!-- داده‌های تاریخی -->
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        <a href="tetra-ecosystem.html" style="color: white; text-decoration: none;">
+            ← بازگشت به پنل اصلی
+        </a>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="data-manager.js"></script>
-    <script>
-        // بارگذاری داده‌های وضعیت سیستم
-        function loadSystemStatus() {
-            if (!window.tetraData) {
-                setTimeout(loadSystemStatus, 1000);
-                return;
-            }
-
-            // داده‌های مالی
-            const financeStats = tetraData.getFinancialStats();
-            document.getElementById('financeTx').textContent = financeStats.totalTransactions;
-
-            // داده‌های تبدیل
-            const conversionStats = tetraData.getConversionStats();
-            document.getElementById('converterQueue').textContent = conversionStats.processing;
-            document.getElementById('converterSuccess').textContent = conversionStats.successRate + '%';
-
-            // داده‌های محرومین
-            const socialStats = tetraData.getSocialStats();
-            document.getElementById('socialProjects').textContent = socialStats.activeProjects;
-            document.getElementById('socialDonations').textContent = 
-                (socialStats.totalDonations / 1000000).toFixed(0) + 'M';
-
-            // آمار زنده (شبیه‌سازی)
-            updateLiveStats();
-
-            // تاریخچه عملکرد
-            displayPerformanceHistory();
-        }
-
-        function updateLiveStats() {
-            // شبیه‌سازی داده‌های زنده
-            const users = Math.floor(Math.random() * 50) + 50;
-            const requests = Math.floor(Math.random() * 500) + 1000;
-            const conversions = Math.floor(Math.random() * 20) + 30;
-            const donations = (Math.random() * 5 + 10).toFixed(1);
-            
-            document.getElementById('liveUsers').textContent = users;
-            document.getElementById('liveRequests').textContent = requests.toLocaleString();
-            document.getElementById('liveConversions').textContent = conversions;
-            document.getElementById('liveDonations').textContent = donations + 'M';
-            document.getElementById('liveErrors').textContent = '۰';
-            document.getElementById('liveUptime').textContent = '۱۰۰٪';
-        }
-
-        function displayPerformanceHistory() {
-            const history = [
-                { time: '۱۴:۳۰', service: 'همه سرویس‌ها', status: 'success', message: 'بررسی سلامت انجام شد' },
-                { time: '۱۴:۱۵', service: 'پایگاه داده', status: 'success', message: 'بک‌آپ خودکار انجام شد' },
-                { time: '۱۳:۴۵', service: 'API مالی', status: 'warning', message: 'زمان پاسخ افزایش یافت' },
-                { time: '۱۲:۳۰', service: 'همه سرویس‌ها', status: 'success', message: 'بررسی سلامت انجام شد' },
-                { time: '۱۱:۰۰', service: 'CDN', status: 'success', message: 'کش به‌روزرسانی شد' }
-            ];
-
-            const container = document.getElementById('performanceHistory');
-            
-            container.innerHTML = history.map(item => `
-                <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
-                    <div>
-                        <small class="text-white">${item.service}</small>
-                        <br>
-                        <small class="text-muted">${item.message}</small>
-                    </div>
-                    <div>
-                        <small class="text-${item.status === 'success' ? 'success' : 'warning'}">${item.time}</small>
-                        <span class="badge bg-${item.status === 'success' ? 'success' : 'warning'} ms-2">
-                            ${item.status === 'success' ? '✅' : '⚠️'}
-                        </span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // بروزرسانی هر 10 ثانیه
-        setInterval(() => {
-            updateLiveStats();
-        }, 10000);
-
-        // بارگذاری اولیه
-        document.addEventListener('DOMContentLoaded', loadSystemStatus);
-    </script>
 </body>
 </html>
