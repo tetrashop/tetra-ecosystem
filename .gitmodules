@@ -1,12 +1,1 @@
-[submodule "tetra-3d-api/path/to/submodule"]
-	path = tetra-3d-api/path/to/submodule
-	url = https://github.com/tetrashop/tetra-3d-converter.git
-[submodule "tetra-3d-api/libs/tetra-3d-converter"]
-	path = tetra-3d-api/libs/tetra-3d-converter
-	url = https://github.com/tetrashop/tetra-3d-converter.git
-[submodule "tetra-ecosystem/src/components/tetra-3d-converter"]
-	path = tetra-ecosystem/src/components/tetra-3d-converter
-	url = https://github.com/tetrashop/tetra-3d-converter.git
-[submodule "tetra-ecosystem/modules/3d-converter"]
-	path = tetra-ecosystem/modules/3d-converter
-	url = https://github.com/tetrashop/tetra-3d-converter.git
+# فایل خالی - هیچ ساب‌ماژولی تعریف نشده
