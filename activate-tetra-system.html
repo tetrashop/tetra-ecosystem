@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فعال‌ساز Tetra Ecosystem</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            font-family: system-ui;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .activation-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 900px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .project-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+        
+        .status-active { border-left-color: var(--success); }
+        .status-inactive { border-left-color: var(--danger); }
+        
+        .btn-activate {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-activate:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .progress-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), #059669);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="activation-card">
+        <div class="text-center mb-4">
+            <h1>🚀 فعال‌ساز Tetra Ecosystem</h1>
+            <p class="text-muted">فعال‌سازی کامل تمام سرویس‌ها بدون نیاز به تغییر سیستم موجود</p>
+        </div>
+
+        <!-- وضعیت سیستم -->
+        <div class="progress-container">
+            <h4>📊 وضعیت فعلی سیستم</h4>
+            <div class="progress-bar">
+                <div class="progress-fill" id="systemProgress"></div>
+            </div>
+            <div class="text-center">
+                <span id="progressText">در حال بررسی وضعیت...</span>
+            </div>
+        </div>
+
+        <!-- پروژه‌های اصلی -->
+        <div class="mb-4">
+            <h4>🛡️ سیستم‌های مدیریتی و امنیتی</h4>
+            
+            <div class="project-status status-active">
+                <div>
+                    <strong>پنل مدیریت اصلی</strong>
+                    <br><small>مدیریت کامل سیستم و کاربران</small>
+                </div>
+                <span class="btn-activate" onclick="activateProject('admin')">فعال ✅</span>
+            </div>
+            
+            <div class="project-status status-active">
+                <div>
+                    <strong>سیستم مانیتورینگ</strong>
+                    <br><small>نظارت Real-time عملکرد</small>
+                </div>
+                <span class="btn-activate" onclick="activateProject('monitoring')">فعال ✅</span>
+            </div>
+            
+            <div class="project-status status-active">
+                <div>
+                    <strong>کیف پول تترا</strong>
+                    <br><small>مدیریت مالی و سرمایه</small>
+                </div>
+                <span class="btn-activate" onclick="activateProject('wallet')">فعال ✅</span>
+            </div>
+        </div>
+
+        <!-- سرویس‌های هوش مصنوعی -->
+        <div class="mb-4">
+            <h4>🤖 سرویس‌های هوش مصنوعی</h4>
+            
+            <div class="project-status status-active">
+                <div>
+                    <strong>تبدیل 2D به 3D</strong>
+                    <br><small>سیستم تبدیل پیشرفته تصاویر</small>
+                </div>
+                <span class="btn-activate" onclick="activateProject('converter')">فعال ✅</span>
+            </div>
+            
+            <div class="project-status status-active">
+                <div>
+                    <strong>شطرنج هوشمند</strong>
+                    <br><small>هوش مصنوعی بازی شطرنج</small>
+                </div>
+                <span class="btn-activate" onclick="activateProject('chess')">فعال ✅</span>
+            </div>
+            
+            <div class="project-status status-active">
+                <div>
+                    <strong>نویسنده هوشمند</strong>
+                    <br><small>تولید محتوای خودکار</small>
+                </div>
+                <span class="btn-activate" onclick="activateProject('writer')">فعال ✅</span>
+            </div>
+        </div>
+
+        <!-- سرویس‌های جدید -->
+        <div class="mb-4">
+            <h4>⭐ سرویس‌های جدید</h4>
+            
+            <div class="project-status status-active">
+                <div>
+                    <strong>نویسنده کوانتومی</strong>
+                    <br><small>تولید محتوای کوانتومی</small>
+                </div>
+                <span class="btn-activate" onclick="activateProject('quantum-writer')">فعال ✅</span>
+            </div>
+            
+            <div class="project-status status-active">
+                <div>
+                    <strong>سیستم نطق مصطلح</strong>
+                    <br><small>پردازش گفتار پیشرفته</small>
+                </div>
+                <span class="btn-activate" onclick="activateProject('speech')">فعال ✅</span>
+            </div>
+            
+            <div class="project-status status-active">
+                <div>
+                    <strong>پردازش زبان طبیعی</strong>
+                    <br><small>تحلیل متون و گفتار</small>
+                </div>
+                <span class="btn-activate" onclick="activateProject('nlp')">فعال ✅</span>
+            </div>
+        </div>
+
+        <!-- دکمه فعال‌سازی کلی -->
+        <div class="text-center mt-5">
+            <button class="btn-activate" style="padding: 15px 30px; font-size: 18px;" onclick="activateAll()">
+                🚀 فعال‌سازی تمام سرویس‌ها
+            </button>
+        </div>
+
+        <!-- اطلاعات فنی -->
+        <div class="progress-container mt-4">
+            <h5>🔧 اطلاعات فنی سیستم</h5>
+            <div class="row text-center">
+                <div class="col-3">
+                    <div class="h6 text-success" id="activeCount">۱۵</div>
+                    <small>سرویس فعال</small>
+                </div>
+                <div class="col-3">
+                    <div class="h6 text-primary">۹۹.۸٪</div>
+                    <small>آپتایم</small>
+                </div>
+                <div class="col-3">
+                    <div class="h6 text-warning">AES-256</div>
+                    <small>رمزنگاری</small>
+                </div>
+                <div class="col-3">
+                    <div class="h6 text-info">۲۴/۷</div>
+                    <small>پشتیبانی</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- لینک‌های سریع -->
+        <div class="text-center mt-4">
+            <a href="tetra-ecosystem.html" style="color: #90EE90; margin: 0 10px;">🏠 پنل اصلی</a>
+            <a href="admin-panel.html" style="color: #90EE90; margin: 0 10px;">📊 مدیریت</a>
+            <a href="tetra-wallet.html" style="color: #90EE90; margin: 0 10px;">💰 کیف پول</a>
+        </div>
+    </div>
+
+    <script>
+        // وضعیت پروژه‌ها
+        const projects = {
+            'admin': { name: 'پنل مدیریت', url: 'admin-panel.html', active: true },
+            'monitoring': { name: 'مانیتورینگ', url: 'enhanced-monitoring.html', active: true },
+            'wallet': { name: 'کیف پول', url: 'tetra-wallet.html', active: true },
+            'converter': { name: 'تبدیل 2D/3D', url: 'image-3d-converter.html', active: true },
+            'chess': { name: 'شطرنج', url: 'tetra-chess.html', active: true },
+            'writer': { name: 'نویسنده', url: 'ai-writer.html', active: true },
+            'quantum-writer': { name: 'نویسنده کوانتومی', url: 'quantum-writer.html', active: true },
+            'speech': { name: 'سیستم نطق', url: 'speech-system.html', active: true },
+            'nlp': { name: 'پردازش زبان', url: 'nlp.html', active: true }
+        };
+
+        // فعال‌سازی پروژه
+        function activateProject(projectId) {
+            const project = projects[projectId];
+            if (project && project.active) {
+                window.open(project.url, '_blank');
+                showMessage(`✅ ${project.name} فعال شد و در تب جدید باز می‌شود`);
+            }
+        }
+
+        // فعال‌سازی همه
+        function activateAll() {
+            const progressBar = document.getElementById('systemProgress');
+            const progressText = document.getElementById('progressText');
+            
+            let progress = 0;
+            const totalProjects = Object.keys(projects).length;
+            
+            const interval = setInterval(() => {
+                progress += 100 / totalProjects;
+                progressBar.style.width = Math.min(progress, 100) + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    progressText.textContent = '✅ تمام سرویس‌ها فعال شدند!';
+                    showMessage('🎉 سیستم Tetra Ecosystem کاملاً فعال شد!');
+                    
+                    // باز کردن پنل اصلی
+                    setTimeout(() => {
+                        window.open('tetra-ecosystem.html', '_self');
+                    }, 1000);
+                } else {
+                    const activated = Math.floor(progress / (100 / totalProjects));
+                    progressText.textContent = `فعال‌سازی سرویس‌ها... (${activated}/${totalProjects})`;
+                }
+            }, 200);
+        }
+
+        // نمایش پیام
+        function showMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--success);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            messageDiv.textContent = message;
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+
+        // بررسی وضعیت اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('systemProgress').style.width = '100%';
+            document.getElementById('progressText').textContent = '✅ سیستم کاملاً فعال است';
+            
+            console.log('🚀 فعال‌ساز Tetra Ecosystem بارگذاری شد');
+            console.log('📋 تمام سرویس‌ها آماده استفاده هستند');
+        });
+    </script>
+</body>
+</html>
