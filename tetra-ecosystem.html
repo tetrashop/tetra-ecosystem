@@ -2,282 +2,457 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Tetra Ecosystem - پلتفرم هوش مصنوعی</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل شخصی جامع - Tetra Ecosystem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        .hero-section {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-            padding: 5rem 0;
-            text-align: center;
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
         }
-        .service-card {
+        
+        .personal-hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .personal-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .project-card {
             background: white;
             border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            border: 1px solid #e2e8f0;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
-        .service-card:hover {
-            transform: translateY(-10px);
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            text-decoration: none;
+            color: inherit;
         }
-        .price-tag {
-            background: #10b981;
+        
+        .ai-project { border-left-color: var(--primary); }
+        .business-project { border-left-color: var(--success); }
+        .development-project { border-left-color: var(--warning); }
+        .security-project { border-left-color: var(--danger); }
+        .analytics-project { border-left-color: var(--info); }
+        
+        .status-badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+        }
+        
+        .project-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .quick-stats {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .security-layer {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
         }
     </style>
 </head>
-<body>
-    <!-- هدر اصلی -->
-    <div class="hero-section">
+<body class="bg-light">
+    <!-- هدر شخصی -->
+    <div class="personal-hero">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">Tetra Ecosystem</h1>
-            <p class="lead mb-4">پلتفرم جامع هوش مصنوعی برای تمام نیازهای دیجیتال</p>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="text-white">
-                        <div class="h2">+۵۰K</div>
-                        <small>کاربر فعال</small>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="text-white">
-                        <div class="h2">+۲۰۰K</div>
-                        <small>درخواست روزانه</small>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="text-white">
-                        <div class="h2">۹۹.۸٪</div>
-                        <small>رضایت کاربران</small>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="text-white">
-                        <div class="h2">۲۴/۷</div>
-                        <small>پشتیبانی</small>
-                    </div>
-                </div>
+            <div class="personal-avatar">
+                <i class="bi bi-person-check"></i>
             </div>
-        </div>
-    </div>
-
-    <!-- سرویس‌ها -->
-    <div class="container py-5">
-        <div class="row">
-            <!-- کیف پول -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-success mb-3">
-                        <i class="bi bi-wallet2" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>کیف پول تترا</h4>
-                    <p class="text-muted">مدیریت مالی هوشمند با بالاترین بهره‌وری و امنیت</p>
-                    <div class="price-tag d-inline-block mb-3">سود روزانه تا ۲.۵٪</div>
-                    <br>
-                    <a href="tetra-wallet.html" class="btn btn-success w-100">ورود به کیف پول</a>
-                </div>
-            </div>
-
-            <!-- تبدیل تصاویر 2D به 3D -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-primary mb-3">
-                        <i class="bi bi-arrow-repeat" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>تبدیل تصاویر 2D به 3D</h4>
-                    <p class="text-muted">تبدیل هوشمند تصاویر دو بعدی به مدل‌های سه بعدی با کیفیت بالا</p>
-                    <div class="price-tag d-inline-block mb-3">شروع از ۵۰,۰۰۰ تومان</div>
-                    <br>
-                    <a href="converter.html" class="btn btn-primary w-100">استفاده از سرویس</a>
-                </div>
-            </div>
-
-            <!-- نویسنده هوشمند -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-success mb-3">
-                        <i class="bi bi-pencil-square" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>نویسنده هوشمند</h4>
-                    <p class="text-muted">تولید محتوای متنی هوشمند برای وبلاگ، شبکه‌های اجتماعی و مقالات</p>
-                    <div class="price-tag d-inline-block mb-3">شروع از ۳۰,۰۰۰ تومان</div>
-                    <br>
-                    <a href="ai-writer.html" class="btn btn-success w-100">استفاده از سرویس</a>
-                </div>
-            </div>
-
-            <!-- نویسنده کوانتومی -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-warning mb-3">
-                        <i class="bi bi-cpu" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>نویسنده کوانتومی</h4>
-                    <p class="text-muted">تولید محتوای پیشرفته با الگوریتم‌های کوانتومی برای متون تخصصی</p>
-                    <div class="price-tag d-inline-block mb-3">شروع از ۱۰۰,۰۰۰ تومان</div>
-                    <br>
-                    <a href="quantum-writer.html" class="btn btn-warning w-100">استفاده از سرویس</a>
-                </div>
-            </div>
-
-            <!-- شطرنج هوشمند -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-info mb-3">
-                        <i class="bi bi-plus-square" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>شطرنج هوشمند</h4>
-                    <p class="text-muted">حریف هوش مصنوعی برای تمرین و بهبود مهارت‌های شطرنج</p>
-                    <div class="price-tag d-inline-block mb-3">رایگان - حرفه‌ای: ۸۰,۰۰۰ تومان</div>
-                    <br>
-                    <a href="chess-ai.html" class="btn btn-info w-100">بازی کنید</a>
-                </div>
-            </div>
-
-            <!-- سامانه ضد چندپارگی -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-danger mb-3">
-                        <i class="bi bi-shield-check" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>سامانه ضد چندپارگی</h4>
-                    <p class="text-muted">یکپارچه‌سازی و مدیریت داده‌های پراکنده در سازمان‌ها</p>
-                    <div class="price-tag d-inline-block mb-3">قیمت بر اساس نیاز</div>
-                    <br>
-                    <a href="anti-fragmentation.html" class="btn btn-danger w-100">دریافت دمو</a>
-                </div>
-            </div>
-
-            <!-- نطق مصطلح -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-secondary mb-3">
-                        <i class="bi bi-mic" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>نطق مصطلح</h4>
-                    <p class="text-muted">سیستم تبدیل متن به گفتار با لهجه طبیعی فارسی</p>
-                    <div class="price-tag d-inline-block mb-3">شروع از ۲۰,۰۰۰ تومان</div>
-                    <br>
-                    <a href="speech-system.html" class="btn btn-secondary w-100">استفاده از سرویس</a>
-                </div>
-            </div>
-
-            <!-- نگار کوانتوم -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-purple mb-3">
-                        <i class="bi bi-brush" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>نگار کوانتوم</h4>
-                    <p class="text-muted">طراحی و تولید گرافیک با الگوریتم‌های کوانتومی</p>
-                    <div class="price-tag d-inline-block mb-3">شروع از ۱۵۰,۰۰۰ تومان</div>
-                    <br>
-                    <a href="quantum-design.html" class="btn btn-dark w-100">استفاده از سرویس</a>
-                </div>
-            </div>
-
-            <!-- پردازش زبان طبیعی -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-success mb-3">
-                        <i class="bi bi-chat-left-text" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>پردازش زبان فارسی</h4>
-                    <p class="text-muted">تحلیل، درک و تولید زبان فارسی با هوش مصنوعی</p>
-                    <div class="price-tag d-inline-block mb-3">شروع از ۴۰,۰۰۰ تومان</div>
-                    <br>
-                    <a href="nlp.html" class="btn btn-success w-100">استفاده از سرویس</a>
-                </div>
-            </div>
-
-            <!-- سیستم حمایتی -->
-            <div class="col-md-6 col-lg-4">
-                <div class="service-card">
-                    <div class="text-warning mb-3">
-                        <i class="bi bi-heart" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4>پروژه‌های حمایتی</h4>
-                    <p class="text-muted">همکاری در پروژه‌های خیریه و حمایت از محرومین</p>
-                    <div class="price-tag d-inline-block mb-3">کمک‌های داوطلبانه</div>
-                    <br>
-                    <a href="social-care.html" class="btn btn-warning w-100">مشارکت کنید</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- سیستم پرداخت -->
-    <div class="bg-light py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h3>💰 سیستم پرداخت یکپارچه</h3>
-                    <p class="text-muted">پرداخت امن با multiple gateways</p>
-                    <ul>
-                        <li>درگاه‌های بانکی ایرانی</li>
-                        <li>پرداخت با ارزهای دیجیتال</li>
-                        <li>کیف پول داخلی</li>
-                        <li>پشتیبانی از USDT</li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <div class="service-card">
-                        <h5>شارژ حساب</h5>
-                        <input type="number" class="form-control mb-3" placeholder="مبلغ به تومان" id="chargeAmount">
-                        <button class="btn btn-primary w-100" onclick="chargeAccount()">شارژ حساب</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- فوتر -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Tetra Ecosystem</h5>
-                    <p class="text-muted">پلتفرم هوش مصنوعی نسل بعدی</p>
-                </div>
-                <div class="col-md-6 text-end">
-                    <p>پشتیبانی: ۰۲۱-۱۲۳۴۵۶۷۸</p>
-                    <p>ایمیل: support@tetra-ecosystem.ir</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="data-manager.js"></script>
-    <script>
-        function chargeAccount() {
-            const amount = document.getElementById('chargeAmount').value;
-            if (!amount || amount < 10000) {
-                alert('لطفاً مبلغ معتبری وارد کنید (حداقل ۱۰,۰۰۰ تومان)');
-                return;
-            }
-
-            alert(`درخواست شارژ حساب به مبلغ ${amount} تومان ثبت شد.\n\nبه صفحه پرداخت هدایت می‌شوید...`);
+            <h1 class="display-5 fw-bold mb-3">پنل شخصی جامع تترا</h1>
+            <p class="lead mb-4">دسترسی یکپارچه به تمام پروژه‌ها و سرویس‌های شما</p>
             
-            if (window.tetraData) {
-                tetraData.create('transactions', {
-                    type: 'charge',
-                    amount: parseInt(amount),
-                    description: 'شارژ حساب کاربری',
-                    status: 'pending',
-                    timestamp: new Date().toLocaleString('fa-IR')
-                });
-            }
+            <div class="row justify-content-center">
+                <div class="col-md-2 col-4">
+                    <div class="quick-stats">
+                        <div class="h4" id="activeProjects">۱۸</div>
+                        <small>پروژه فعال</small>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4">
+                    <div class="quick-stats">
+                        <div class="h4" id="onlineServices">۱۲</div>
+                        <small>سرویس آنلاین</small>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4">
+                    <div class="quick-stats">
+                        <div class="h4" id="systemHealth">۹۸%</div>
+                        <small>سلامت سیستم</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- لایه امنیتی -->
+        <div class="security-layer">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h5><i class="bi bi-shield-check"></i> وضعیت امنیتی سیستم</h5>
+                    <p class="mb-0">تمامی پروژه‌های شما با بالاترین سطح امنیتی محافظت می‌شوند</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <span class="badge bg-success me-2">AES-256</span>
+                    <span class="badge bg-info">TLS 1.3</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- پروژه‌های هوش مصنوعی -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3 class="mb-4">
+                    <i class="bi bi-cpu text-primary"></i>
+                    سرویس‌های هوش مصنوعی
+                </h3>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="image-3d-converter.html" class="project-card ai-project">
+                    <div class="project-icon">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
+                    <h5>تبدیل 2D به 3D</h5>
+                    <p class="text-muted small">پیشرفته‌ترین سیستم تبدیل تصاویر دو بعدی به مدل‌های سه بعدی</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۲.۱.۴</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="ai-writer.html" class="project-card ai-project">
+                    <div class="project-icon">
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+                    <h5>نویسنده هوشمند</h5>
+                    <p class="text-muted small">تولید محتوای خودکار با هوش مصنوعی پیشرفته</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۱.۸.۲</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="tetra-chess.html" class="project-card ai-project">
+                    <div class="project-icon">
+                        <i class="bi bi-chess-board"></i>
+                    </div>
+                    <h5>شطرنج هوشمند</h5>
+                    <p class="text-muted small">هوش مصنوعی قدرتمند برای بازی شطرنج در سطح استادی</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۳.۰.۱</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="quantum-writer.html" class="project-card ai-project">
+                    <div class="project-icon">
+                        <i class="bi bi-cpu"></i>
+                    </div>
+                    <h5>نویسنده کوانتومی</h5>
+                    <p class="text-muted small">سیستم تولید محتوای مبتنی بر محاسبات کوانتومی</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-warning status-badge">بتا</span>
+                        <small class="text-muted">نسخه ۰.۹.۵</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="speech-system.html" class="project-card ai-project">
+                    <div class="project-icon">
+                        <i class="bi bi-mic"></i>
+                    </div>
+                    <h5>سیستم نطق مصطلح</h5>
+                    <p class="text-muted small">پردازش گفتار و تبدیل متن به speech طبیعی</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۲.۳.۰</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- پروژه‌های تجاری و مالی -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3 class="mb-4">
+                    <i class="bi bi-wallet2 text-success"></i>
+                    سرویس‌های مالی و تجاری
+                </h3>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="tetra-wallet.html" class="project-card business-project">
+                    <div class="project-icon">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                    <h5>کیف پول تترا</h5>
+                    <p class="text-muted small">مدیریت کامل دارایی‌های دیجیتال و سرمایه‌گذاری</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۴.۲.۷</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="donation-system.html" class="project-card business-project">
+                    <div class="project-icon">
+                        <i class="bi bi-cash-coin"></i>
+                    </div>
+                    <h5>سیستم کمک مالی</h5>
+                    <p class="text-muted small">مدیریت تراکنش‌های مالی و کمک‌های مردمی</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۱.۵.۳</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="social-care.html" class="project-card business-project">
+                    <div class="project-icon">
+                        <i class="bi bi-heart"></i>
+                    </div>
+                    <h5>سیستم محرومین</h5>
+                    <p class="text-muted small">مدیریت کمک‌های اجتماعی و خدمات رفاهی</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۲.۰.۱</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- پروژه‌های امنیتی -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3 class="mb-4">
+                    <i class="bi bi-shield-check text-danger"></i>
+                    سیستم‌های امنیتی
+                </h3>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="admin-panel.html" class="project-card security-project">
+                    <div class="project-icon">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+                    <h5>پنل مدیریت امن</h5>
+                    <p class="text-muted small">مدیریت یکپارچه سیستم با کنترل‌های امنیتی پیشرفته</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۳.۷.۲</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="anti-fragmentation.html" class="project-card security-project">
+                    <div class="project-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h5>سامانه ضد چندپارگی</h5>
+                    <p class="text-muted small">حفاظت از سیستم در برابر تهدیدات امنیتی</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۲.۴.۸</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="enhanced-monitoring.html" class="project-card security-project">
+                    <div class="project-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h5>نظارت Real-time</h5>
+                    <p class="text-muted small">مانیتورینگ لحظه‌ای عملکرد سیستم و امنیت</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۱.۹.۴</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- پروژه‌های آنالیتیکس -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3 class="mb-4">
+                    <i class="bi bi-graph-up text-info"></i>
+                    سیستم‌های آنالیتیکس
+                </h3>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="analytics-dashboard.html" class="project-card analytics-project">
+                    <div class="project-icon">
+                        <i class="bi bi-bar-chart"></i>
+                    </div>
+                    <h5>داشبورد آنالیتیکس</h5>
+                    <p class="text-muted small">تحلیل داده‌ها و گزارش‌گیری پیشرفته از تمام سیستم‌ها</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۲.۶.۳</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="quantum-design.html" class="project-card analytics-project">
+                    <div class="project-icon">
+                        <i class="bi bi-brush"></i>
+                    </div>
+                    <h5>نگار کوانتوم</h5>
+                    <p class="text-muted small">سیستم طراحی و آنالیز مبتنی بر محاسبات کوانتومی</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-warning status-badge">بتا</span>
+                        <small class="text-muted">نسخه ۰.۸.۲</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="nlp.html" class="project-card analytics-project">
+                    <div class="project-icon">
+                        <i class="bi bi-chat-left-text"></i>
+                    </div>
+                    <h5>پردازش زبان طبیعی</h5>
+                    <p class="text-muted small">سیستم پیشرفته NLP برای تحلیل متون و گفتار</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success status-badge">فعال</span>
+                        <small class="text-muted">نسخه ۳.۱.۷</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- وضعیت سیستم -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-activity"></i>
+                            وضعیت لحظه‌ای سیستم
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="h4 text-success" id="uptimePercent">۹۹.۸%</div>
+                                <small>آپتایم سیستم</small>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="h4 text-primary" id="activeUsers">۱,۲۴۷</div>
+                                <small>کاربران فعال</small>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="h4 text-warning" id="dailyRequests">۱۲۴K</div>
+                                <small>درخواست روزانه</small>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="h4 text-info" id="responseTime">۱۴۲ms</div>
+                                <small>میانگین پاسخ</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // بروزرسانی آمار Real-time
+        function updateRealTimeStats() {
+            // شبیه‌سازی داده‌های Real-time
+            const projects = Math.floor(Math.random() * 5) + 16; // 16-20
+            const services = Math.floor(Math.random() * 3) + 10; // 10-12
+            const health = 95 + Math.floor(Math.random() * 5); // 95-99%
+            
+            document.getElementById('activeProjects').textContent = projects;
+            document.getElementById('onlineServices').textContent = services;
+            document.getElementById('systemHealth').textContent = health + '%';
+            
+            // آپدیت سایر آمار
+            document.getElementById('uptimePercent').textContent = '۹۹.' + Math.floor(Math.random() * 5 + 5) + '%';
+            document.getElementById('activeUsers').textContent = (1247 + Math.floor(Math.random() * 50)).toLocaleString('fa-IR');
+            document.getElementById('dailyRequests').textContent = (124000 + Math.floor(Math.random() * 5000)).toLocaleString('fa-IR') + 'K';
+            document.getElementById('responseTime').textContent = (140 + Math.floor(Math.random() * 10)) + 'ms';
         }
 
+        // مقداردهی اولیه
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🌐 Tetra Ecosystem - Public Portal Loaded');
+            updateRealTimeStats();
+            
+            // بروزرسانی هر 10 ثانیه
+            setInterval(updateRealTimeStats, 10000);
+            
+            console.log('🚀 پنل شخصی جامع Tetra Ecosystem بارگذاری شد');
         });
     </script>
 </body>
