@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>کیف پول تترا - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .wallet-hero {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .balance-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid #e5e7eb;
+        }
+        .transaction-card {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-right: 4px solid;
+            transition: all 0.3s ease;
+        }
+        .transaction-card:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .income { border-right-color: #10b981; }
+        .expense { border-right-color: #ef4444; }
+        .investment { border-right-color: #f59e0b; }
+        .quick-action {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .quick-action:hover {
+            border-color: #10b981;
+            transform: translateY(-5px);
+        }
+        .profit-badge {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .security-badge {
+            background: #1e40af;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="tetra-ecosystem.html">
+                <i class="bi bi-wallet2"></i>
+                کیف پول تترا
+            </a>
+            <div class="navbar-text">
+                <span class="security-badge">🔒 امن</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wallet-hero">
+        <div class="container">
+            <h1 class="display-5 mb-3">💰 کیف پول تترا</h1>
+            <p class="lead mb-4">سیستم مالی یکپارچه با بالاترین بهره‌وری و امنیت</p>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- موجودی و آمار کلی -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="balance-card">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h6 class="text-muted mb-2">موجودی کل</h6>
+                            <h1 class="text-success display-4" id="totalBalance">۱۲,۴۵۰,۰۰۰</h1>
+                            <small class="text-muted">تومان</small>
+                            <div class="profit-badge mt-2">
+                                <i class="bi bi-graph-up-arrow"></i>
+                                سود روزانه: ۲.۴٪
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="text-primary h5" id="availableBalance">۸,۲۵۰,۰۰۰</div>
+                                    <small class="text-muted">موجودی قابل برداشت</small>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-warning h5" id="investedBalance">۳,۵۰۰,۰۰۰</div>
+                                    <small class="text-muted">سرمایه‌گذاری شده</small>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-info h5" id="todayProfit">۱۴۷,۰۰۰</div>
+                                    <small class="text-muted">سود امروز</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance-card text-center">
+                    <div class="text-warning mb-3">
+                        <i class="bi bi-lightning-charge" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5>بهره‌وری سیستم</h5>
+                    <div class="display-6 text-success" id="efficiencyScore">۹۴.۷٪</div>
+                    <small class="text-muted">امتیاز بهره‌وری مالی</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- اقدامات سریع -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">⚡ اقدامات سریع</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="quick-action" onclick="showDepositModal()">
+                                    <div class="text-success mb-2">
+                                        <i class="bi bi-plus-circle" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h6>واریز وجه</h6>
+                                    <small class="text-muted">افزایش موجودی</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="quick-action" onclick="showWithdrawModal()">
+                                    <div class="text-primary mb-2">
+                                        <i class="bi bi-arrow-up-circle" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h6>برداشت وجه</h6>
+                                    <small class="text-muted">دریافت موجودی</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="quick-action" onclick="showInvestmentModal()">
+                                    <div class="text-warning mb-2">
+                                        <i class="bi bi-graph-up-arrow" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h6>سرمایه‌گذاری</h6>
+                                    <small class="text-muted">سرمایه‌گذاری هوشمند</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="quick-action" onclick="showTransferModal()">
+                                    <div class="text-info mb-2">
+                                        <i class="bi bi-arrow-left-right" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h6>انتقال وجه</h6>
+                                    <small class="text-muted">ارسال به دیگران</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- تراکنش‌های اخیر -->
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">📋 تراکنش‌های اخیر</h5>
+                        <button class="btn btn-sm btn-outline-primary" onclick="loadMoreTransactions()">
+                            مشاهده همه
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="recentTransactions">
+                            <!-- تراکنش‌ها -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نمودارهای تحلیلی -->
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">📈 تحلیل مالی</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-4">
+                                <div class="text-success h4" id="monthlyGrowth">۱۸.۵٪</div>
+                                <small class="text-muted">رشد ماهانه</small>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-primary h4" id="ROI">۲۴.۳٪</div>
+                                <small class="text-muted">بازده سرمایه‌گذاری</small>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-warning h4" id="riskScore">کم</div>
+                                <small class="text-muted">سطح ریسک</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- پنل کناری -->
+            <div class="col-md-4">
+                <!-- اهداف مالی -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">🎯 اهداف مالی</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <small>هدف ماهانه: ۵۰,۰۰۰,۰۰۰ تومان</small>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-success" style="width: 65%">۶۵٪</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <small>سرمایه‌گذاری: ۱۰,۰۰۰,۰۰۰ تومان</small>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-warning" style="width: 35%">۳۵٪</div>
+                            </div>
+                        </div>
+                        <div>
+                            <small>پروژه‌های اجتماعی: ۵,۰۰۰,۰۰۰ تومان</small>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" style="width: 78%">۷۸٪</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- امنیت -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">🛡️ امنیت کیف پول</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span>تایید دو مرحله‌ای</span>
+                            <span class="badge bg-success">فعال</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span>رمزنگاری پیشرفته</span>
+                            <span class="badge bg-success">فعال</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span>بیمه سپرده</span>
+                            <span class="badge bg-success">فعال</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>نظارت Real-time</span>
+                            <span class="badge bg-success">فعال</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- پشتیبانی -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">💎 ویژگی‌های ویژه</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">✅ سود روزانه تا ۲.۵٪</li>
+                            <li class="mb-2">✅ سرمایه‌گذاری خودکار</li>
+                            <li class="mb-2">✅ انتقال فوری</li>
+                            <li class="mb-2">✅ پشتیبانی ۲۴/۷</li>
+                            <li>✅ کارمزد نزدیک به صفر</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال واریز وجه -->
+    <div class="modal fade" id="depositModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">💳 واریز وجه</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">مبلغ واریز (تومان)</label>
+                        <input type="number" class="form-control" id="depositAmount" placeholder="مثال: 100000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">روش واریز</label>
+                        <select class="form-select" id="depositMethod">
+                            <option value="bank">درگاه بانکی</option>
+                            <option value="crypto">ارز دیجیتال</option>
+                            <option value="wallet">کیف پول دیجیتال</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-success" onclick="processDeposit()">پرداخت</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data-manager.js"></script>
+    <script>
+        // سیستم کیف پول تترا
+        class TetraWallet {
+            constructor() {
+                this.balance = 12450000;
+                this.available = 8250000;
+                this.invested = 3500000;
+                this.transactions = this.loadTransactions();
+                this.efficiency = 94.7;
+            }
+
+            loadTransactions() {
+                const saved = localStorage.getItem('tetra_wallet_transactions');
+                if (saved) {
+                    return JSON.parse(saved);
+                }
+
+                // داده‌های نمونه
+                return [
+                    { id: 1, type: 'income', amount: 500000, description: 'سود سرمایه‌گذاری', date: '۱۴۰۲/۱۰/۱۵ ۱۰:۳۰', status: 'completed' },
+                    { id: 2, type: 'expense', amount: -250000, description: 'خرید سرویس نویسنده', date: '۱۴۰۲/۱۰/۱۴ ۱۵:۲۰', status: 'completed' },
+                    { id: 3, type: 'investment', amount: -1000000, description: 'سرمایه‌گذاری جدید', date: '۱۴۰۲/۱۰/۱۳ ۰۹:۱۵', status: 'completed' },
+                    { id: 4, type: 'income', amount: 147000, description: 'سود روزانه', date: '۱۴۰۲/۱۰/۱۲ ۲۳:۵۹', status: 'completed' },
+                    { id: 5, type: 'income', amount: 350000, description: 'فروش سرویس', date: '۱۴۰۲/۱۰/۱۱ ۱۴:۴۵', status: 'completed' }
+                ];
+            }
+
+            saveTransactions() {
+                localStorage.setItem('tetra_wallet_transactions', JSON.stringify(this.transactions));
+            }
+
+            deposit(amount, method = 'bank') {
+                this.balance += amount;
+                this.available += amount;
+                
+                const transaction = {
+                    id: Date.now(),
+                    type: 'income',
+                    amount: amount,
+                    description: `واریز از طریق ${this.getMethodName(method)}`,
+                    date: new Date().toLocaleString('fa-IR'),
+                    status: 'completed'
+                };
+
+                this.transactions.unshift(transaction);
+                this.saveTransactions();
+                this.updateEfficiency();
+                
+                return transaction;
+            }
+
+            withdraw(amount, destination) {
+                if (amount > this.available) {
+                    throw new Error('موجودی کافی نیست');
+                }
+
+                this.balance -= amount;
+                this.available -= amount;
+
+                const transaction = {
+                    id: Date.now(),
+                    type: 'expense',
+                    amount: -amount,
+                    description: `برداشت به ${destination}`,
+                    date: new Date().toLocaleString('fa-IR'),
+                    status: 'completed'
+                };
+
+                this.transactions.unshift(transaction);
+                this.saveTransactions();
+                this.updateEfficiency();
+                
+                return transaction;
+            }
+
+            invest(amount, plan = 'standard') {
+                if (amount > this.available) {
+                    throw new Error('موجودی کافی نیست');
+                }
+
+                this.invested += amount;
+                this.available -= amount;
+
+                const transaction = {
+                    id: Date.now(),
+                    type: 'investment',
+                    amount: -amount,
+                    description: `سرمایه‌گذاری در طرح ${plan}`,
+                    date: new Date().toLocaleString('fa-IR'),
+                    status: 'completed'
+                };
+
+                this.transactions.unshift(transaction);
+                this.saveTransactions();
+                this.updateEfficiency();
+                
+                return transaction;
+            }
+
+            getMethodName(method) {
+                const methods = {
+                    'bank': 'درگاه بانکی',
+                    'crypto': 'ارز دیجیتال',
+                    'wallet': 'کیف پول دیجیتال'
+                };
+                return methods[method] || method;
+            }
+
+            updateEfficiency() {
+                // محاسبه بهره‌وری بر اساس فعالیت‌ها
+                const growthRate = (this.transactions.filter(t => t.amount > 0).reduce((sum, t) => sum + t.amount, 0) / this.balance) * 100;
+                this.efficiency = Math.min(100, 90 + (growthRate / 10));
+            }
+
+            getTodayProfit() {
+                const today = new Date().toLocaleDateString('fa-IR');
+                return this.transactions
+                    .filter(t => t.date.includes(today) && t.amount > 0)
+                    .reduce((sum, t) => sum + t.amount, 0);
+            }
+
+            getMonthlyGrowth() {
+                const monthlyIncome = this.transactions
+                    .filter(t => t.amount > 0)
+                    .slice(0, 30)
+                    .reduce((sum, t) => sum + t.amount, 0);
+                
+                return ((monthlyIncome / this.balance) * 100).toFixed(1);
+            }
+
+            getROI() {
+                return (this.invested > 0) ? ((this.getTodayProfit() / this.invested) * 100).toFixed(1) : '۰';
+            }
+        }
+
+        // راه‌اندازی کیف پول
+        const tetraWallet = new TetraWallet();
+
+        // به‌روزرسانی نمایش
+        function updateWalletDisplay() {
+            document.getElementById('totalBalance').textContent = tetraWallet.balance.toLocaleString();
+            document.getElementById('availableBalance').textContent = tetraWallet.available.toLocaleString();
+            document.getElementById('investedBalance').textContent = tetraWallet.invested.toLocaleString();
+            document.getElementById('todayProfit').textContent = tetraWallet.getTodayProfit().toLocaleString();
+            document.getElementById('efficiencyScore').textContent = tetraWallet.efficiency.toFixed(1) + '%';
+            document.getElementById('monthlyGrowth').textContent = tetraWallet.getMonthlyGrowth() + '%';
+            document.getElementById('ROI').textContent = tetraWallet.getROI() + '%';
+
+            updateTransactionsDisplay();
+        }
+
+        function updateTransactionsDisplay() {
+            const container = document.getElementById('recentTransactions');
+            const transactions = tetraWallet.transactions.slice(0, 5);
+
+            container.innerHTML = transactions.map(transaction => {
+                const typeClass = transaction.type === 'income' ? 'income' : 
+                                transaction.type === 'investment' ? 'investment' : 'expense';
+                const typeIcon = transaction.type === 'income' ? '📥' : 
+                               transaction.type === 'investment' ? '📊' : '📤';
+
+                return `
+                    <div class="transaction-card ${typeClass}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${typeIcon} ${transaction.description}</strong>
+                                <br>
+                                <small class="text-muted">${transaction.date}</small>
+                            </div>
+                            <div class="text-${transaction.amount > 0 ? 'success' : 'danger'} fw-bold">
+                                ${transaction.amount > 0 ? '+' : ''}${transaction.amount.toLocaleString()} تومان
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // مدیریت مودال‌ها
+        function showDepositModal() {
+            const modal = new bootstrap.Modal(document.getElementById('depositModal'));
+            modal.show();
+        }
+
+        function showWithdrawModal() {
+            alert('💰 بخش برداشت وجه - به زودی فعال می‌شود');
+        }
+
+        function showInvestmentModal() {
+            alert('📈 بخش سرمایه‌گذاری - به زودی فعال می‌شود');
+        }
+
+        function showTransferModal() {
+            alert('🔄 بخش انتقال وجه - به زودی فعال می‌شود');
+        }
+
+        function processDeposit() {
+            const amount = parseInt(document.getElementById('depositAmount').value);
+            const method = document.getElementById('depositMethod').value;
+
+            if (!amount || amount < 10000) {
+                alert('لطفاً مبلغ معتبری وارد کنید (حداقل ۱۰,۰۰۰ تومان)');
+                return;
+            }
+
+            try {
+                const transaction = tetraWallet.deposit(amount, method);
+                updateWalletDisplay();
+                
+                const modal = bootstrap.Modal.getInstance(document.getElementById('depositModal'));
+                modal.hide();
+                
+                alert(`✅ مبلغ ${amount.toLocaleString()} تومان با موفقیت واریز شد!`);
+            } catch (error) {
+                alert('❌ خطا در واریز وجه: ' + error.message);
+            }
+        }
+
+        function loadMoreTransactions() {
+            // در نسخه کامل به صفحه تراکنش‌ها منتقل می‌شود
+            alert('📋 صفحه کامل تراکنش‌ها - به زودی فعال می‌شود');
+        }
+
+        // راه‌اندازی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWalletDisplay();
+            
+            // شبیه‌سازی به‌روزرسانی Real-time
+            setInterval(() => {
+                tetraWallet.updateEfficiency();
+                updateWalletDisplay();
+            }, 10000);
+        });
+    </script>
+</body>
+</html>
