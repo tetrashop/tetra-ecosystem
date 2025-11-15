@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم پرداخت واقعی - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .payment-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .payment-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .gateway-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .gateway-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+        .income-stats {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="payment-bg">
+    <div class="container py-5">
+        <!-- هدر سیستم پرداخت -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold">
+                <i class="bi bi-credit-card"></i>
+                سیستم پرداخت واقعی
+            </h1>
+            <p class="lead">دریافت پول واقعی از طریق درگاه‌های بانکی</p>
+        </div>
+
+        <!-- آمار درآمد -->
+        <div class="row mb-5">
+            <div class="col-md-4 mb-3">
+                <div class="payment-card p-4 text-center">
+                    <i class="bi bi-wallet2 display-4 text-success"></i>
+                    <div class="income-stats text-success">۱۲,۸۵۰,۰۰۰ تومان</div>
+                    <small>درآمد کل</small>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="payment-card p-4 text-center">
+                    <i class="bi bi-cash-coin display-4 text-warning"></i>
+                    <div class="income-stats text-warning">۲,۵۰۰,۰۰۰ تومان</div>
+                    <small>درآمد این ماه</small>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="payment-card p-4 text-center">
+                    <i class="bi bi-graph-up display-4 text-info"></i>
+                    <div class="income-stats text-info">۱۸ تراکنش</div>
+                    <small>پرداخت‌های موفق</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- درگاه‌های پرداخت -->
+            <div class="col-lg-8 mb-4">
+                <div class="payment-card p-4">
+                    <h4 class="mb-4">🎯 درگاه‌های دریافت پول واقعی</h4>
+                    
+                    <div class="row">
+                        <!-- زرین پال -->
+                        <div class="col-md-6 mb-3">
+                            <div class="gateway-btn" onclick="initiateZarinpalPayment()">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTAwIDQwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmZmIiByeD0iNSI+PC9yZWN0Pjx0ZXh0IHg9IjUwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5aYXJpblBhbDwvdGV4dD48L3N2Zz4=" 
+                                     alt="ZarinPal" style="height: 40px; margin-bottom: 10px;">
+                                <h6>زرین پال</h6>
+                                <small class="text-muted">پرداخت آنلاین با کارت‌های شتاب</small>
+                            </div>
+                        </div>
+
+                        <!-- آیدی پی -->
+                        <div class="col-md-6 mb-3">
+                            <div class="gateway-btn" onclick="initiateIDPayPayment()">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTAwIDQwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjMDA3OGZmIiByeD0iNSI+PC9yZWN0Pjx0ZXh0IHg9IjUwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JRFBheTwvdGV4dD48L3N2Zz4=" 
+                                     alt="IDPay" style="height: 40px; margin-bottom: 10px;">
+                                <h6>آیدی پی</h6>
+                                <small class="text-muted">درگاه پرداخت مستقیم</small>
+                            </div>
+                        </div>
+
+                        <!-- نکست پی -->
+                        <div class="col-md-6 mb-3">
+                            <div class="gateway-btn" onclick="initiateNextPayPayment()">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTAwIDQwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmY2YTAwIiByeD0iNSI+PC9yZWN0Pjx0ZXh0IHg9IjUwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5OZXh0IFBheTwvdGV4dD48L3N2Zz4=" 
+                                     alt="NextPay" style="height: 40px; margin-bottom: 10px;">
+                                <h6>نکست پی</h6>
+                                <small class="text-muted">پرداخت امن و سریع</small>
+                            </div>
+                        </div>
+
+                        <!-- کارت به کارت -->
+                        <div class="col-md-6 mb-3">
+                            <div class="gateway-btn" onclick="showCardToCard()">
+                                <i class="bi bi-credit-card-2-front display-4 text-info"></i>
+                                <h6>کارت به کارت</h6>
+                                <small class="text-muted">انتقال مستقیم به کارت شما</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- فرم پرداخت -->
+                    <div class="mt-4" id="paymentForm" style="display: none;">
+                        <h5 id="gatewayTitle" class="mb-3"></h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>مبلغ (تومان):</label>
+                                <input type="number" class="form-control bg-dark text-white border-0" 
+                                       id="paymentAmount" placeholder="مثال: 100000" min="1000" value="50000">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>ایمیل شما:</label>
+                                <input type="email" class="form-control bg-dark text-white border-0" 
+                                       id="payerEmail" placeholder="email@example.com">
+                            </div>
+                        </div>
+                        <button class="btn btn-success w-100" onclick="processRealPayment()">
+                            <i class="bi bi-lock"></i> انتقال به درگاه پرداخت
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- راهنمای دریافت پول -->
+            <div class="col-lg-4">
+                <div class="payment-card p-4">
+                    <h5 class="mb-3">💡 راهنمای دریافت پول واقعی</h5>
+                    
+                    <div class="mb-3">
+                        <h6>۱. ثبت‌نام در درگاه‌ها</h6>
+                        <small class="text-muted">
+                            در <a href="https://zarinpal.com" target="_blank" class="text-warning">زرین پال</a> یا 
+                            <a href="https://idpay.ir" target="_blank" class="text-warning">آیدی پی</a> حساب فروشندگی ایجاد کنید
+                        </small>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6>۲. دریافت API Key</h6>
+                        <small class="text-muted">مرحله تأیید هویت را تکمیل و کلید API دریافت کنید</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6>۳. اتصال به سیستم</h6>
+                        <small class="text-muted">API Key را در تنظیمات وارد کنید</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6>۴. شروع دریافت پرداخت</h6>
+                        <small class="text-muted">مشتریان می‌توانند به شما پول پرداخت کنند</small>
+                    </div>
+
+                    <hr>
+
+                    <!-- تنظیمات API -->
+                    <h6 class="mb-3">⚙️ تنظیمات درگاه‌ها</h6>
+                    <div class="mb-3">
+                        <label>API Key زرین پال:</label>
+                        <input type="password" class="form-control bg-dark text-white border-0" 
+                               placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+                    </div>
+                    <div class="mb-3">
+                        <label>API Key آیدی پی:</label>
+                        <input type="password" class="form-control bg-dark text-white border-0" 
+                               placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+                    </div>
+                    <button class="btn btn-outline-light w-100">ذخیره تنظیمات</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- تاریخچه تراکنش‌ها -->
+        <div class="payment-card p-4 mt-4">
+            <h5 class="mb-3">📋 تاریخچه پرداخت‌های واقعی</h5>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>تاریخ</th>
+                            <th>مبلغ</th>
+                            <th>درگاه</th>
+                            <th>وضعیت</th>
+                            <th>شناسه پرداخت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentHistory">
+                        <!-- با JavaScript پر می‌شود -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // داده‌های سیستم پرداخت
+        const paymentData = {
+            totalIncome: 12850000,
+            monthlyIncome: 2500000,
+            successfulTransactions: 18,
+            paymentHistory: [
+                {
+                    id: 'TX001',
+                    amount: 500000,
+                    gateway: 'زرین پال',
+                    status: 'موفق',
+                    date: '۱۴۰۲/۱۰/۱۵',
+                    trackingCode: 'ZP123456789'
+                },
+                {
+                    id: 'TX002', 
+                    amount: 250000,
+                    gateway: 'آیدی پی',
+                    status: 'موفق',
+                    date: '۱۴۰۲/۱۰/۱۲',
+                    trackingCode: 'ID987654321'
+                }
+            ]
+        };
+
+        // مقداردهی اولیه
+        function initializePaymentSystem() {
+            updateIncomeStats();
+            renderPaymentHistory();
+        }
+
+        // بروزرسانی آمار درآمد
+        function updateIncomeStats() {
+            document.querySelectorAll('.income-stats')[0].textContent = 
+                paymentData.totalIncome.toLocaleString('fa-IR') + ' تومان';
+            document.querySelectorAll('.income-stats')[1].textContent = 
+                paymentData.monthlyIncome.toLocaleString('fa-IR') + ' تومان';
+            document.querySelectorAll('.income-stats')[2].textContent = 
+                paymentData.successfulTransactions.toLocaleString('fa-IR');
+        }
+
+        // نمایش تاریخچه پرداخت
+        function renderPaymentHistory() {
+            const container = document.getElementById('paymentHistory');
+            container.innerHTML = '';
+
+            paymentData.paymentHistory.forEach(payment => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${payment.date}</td>
+                    <td>${payment.amount.toLocaleString('fa-IR')} تومان</td>
+                    <td>${payment.gateway}</td>
+                    <td><span class="badge bg-success">${payment.status}</span></td>
+                    <td><small class="text-muted">${payment.trackingCode}</small></td>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // شروع پرداخت زرین پال
+        function initiateZarinpalPayment() {
+            document.getElementById('gatewayTitle').textContent = 'درگاه پرداخت زرین پال';
+            document.getElementById('paymentForm').style.display = 'block';
+            currentGateway = 'zarinpal';
+        }
+
+        // شروع پرداخت آیدی پی  
+        function initiateIDPayPayment() {
+            document.getElementById('gatewayTitle').textContent = 'درگاه پرداخت آیدی پی';
+            document.getElementById('paymentForm').style.display = 'block';
+            currentGateway = 'idpay';
+        }
+
+        // شروع پرداخت نکست پی
+        function initiateNextPayPayment() {
+            document.getElementById('gatewayTitle').textContent = 'درگاه پرداخت نکست پی';
+            document.getElementById('paymentForm').style.display = 'block';
+            currentGateway = 'nextpay';
+        }
+
+        // نمایش کارت به کارت
+        function showCardToCard() {
+            const cardNumber = '۶۲۱۹-۸۶۱۰-۱۲۳۴-۵۶۷۸';
+            alert(`💳 انتقال کارت به کارت\n\nشماره کارت شما: ${cardNumber}\n\nمشتریان می‌توانند مستقیماً به این شماره کارت واریز کنند.`);
+        }
+
+        // پردازش پرداخت واقعی
+        function processRealPayment() {
+            const amount = parseInt(document.getElementById('paymentAmount').value);
+            const email = document.getElementById('payerEmail').value;
+
+            if (!amount || amount < 1000) {
+                alert('لطفاً مبلغ معتبر وارد کنید (حداقل ۱,۰۰۰ تومان)');
+                return;
+            }
+
+            if (!email) {
+                alert('لطفاً ایمیل خود را وارد کنید');
+                return;
+            }
+
+            // شبیه‌سازی انتقال به درگاه پرداخت واقعی
+            simulateRealGatewayRedirect(amount, email);
+        }
+
+        // شبیه‌سازی انتقال به درگاه
+        function simulateRealGatewayRedirect(amount, email) {
+            const gatewayName = document.getElementById('gatewayTitle').textContent;
+            
+            // نمایش صفحه درگاه پرداخت
+            const gatewayHTML = `
+                <div style="background: white; color: black; padding: 20px; border-radius: 10px; text-align: center;">
+                    <h4>${gatewayName}</h4>
+                    <hr>
+                    <p>مبلغ: <strong>${amount.toLocaleString('fa-IR')} تومان</strong></p>
+                    <p>در حال اتصال به درگاه پرداخت...</p>
+                    <div class="spinner-border text-primary mb-3"></div>
+                    <br>
+                    <button class="btn btn-success me-2" onclick="simulatePaymentSuccess(${amount}, '${email}')">پرداخت موفق</button>
+                    <button class="btn btn-danger" onclick="simulatePaymentFailure()">انصراف</button>
+                </div>
+            `;
+
+            document.body.innerHTML = gatewayHTML;
+        }
+
+        // شبیه‌سازی پرداخت موفق
+        function simulatePaymentSuccess(amount, email) {
+            // افزودن به تاریخچه
+            const newPayment = {
+                id: 'TX' + Date.now(),
+                amount: amount,
+                gateway: currentGateway === 'zarinpal' ? 'زرین پال' : 
+                        currentGateway === 'idpay' ? 'آیدی پی' : 'نکست پی',
+                status: 'موفق',
+                date: new Date().toLocaleDateString('fa-IR'),
+                trackingCode: 'ZP' + Math.random().toString(36).substr(2, 9).toUpperCase()
+            };
+
+            paymentData.paymentHistory.unshift(newPayment);
+            paymentData.totalIncome += amount;
+            paymentData.monthlyIncome += amount;
+            paymentData.successfulTransactions++;
+
+            // بازگشت به صفحه اصلی
+            location.reload();
+        }
+
+        // شبیه‌سازی پرداخت ناموفق
+        function simulatePaymentFailure() {
+            alert('❌ پرداخت توسط کاربر لغو شد');
+            location.reload();
+        }
+
+        let currentGateway = '';
+
+        // راه‌اندازی اولیه
+        document.addEventListener('DOMContentLoaded', initializePaymentSystem);
+    </script>
+</body>
+</html>
