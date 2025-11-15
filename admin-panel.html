@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        body {
+            background: #f8f9fa;
+            font-family: system-ui;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .users-card { border-left-color: var(--primary); }
+        .revenue-card { border-left-color: var(--success); }
+        .orders-card { border-left-color: var(--warning); }
+        .growth-card { border-left-color: var(--danger); }
+        
+        .data-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .live-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .refresh-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .refresh-btn:hover {
+            background: #4f46e5;
+        }
+        
+        .last-update {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <!-- نوار ناوبری -->
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="tetra-ecosystem.html">
+                <i class="bi bi-speedometer2"></i>
+                پنل مدیریت تترا
+            </a>
+            <div class="d-flex">
+                <span class="badge bg-success live-badge me-3">
+                    <i class="bi bi-circle-fill"></i> LIVE
+                </span>
+                <button class="refresh-btn" onclick="refreshData()">
+                    <i class="bi bi-arrow-clockwise"></i> بروزرسانی
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <!-- آمار فوری -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stats-card users-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="text-muted">کاربران فعال</h6>
+                            <h3 id="activeUsers">۱,۲۴۷</h3>
+                            <span class="badge bg-success" id="usersChange">+۱۲۴</span>
+                        </div>
+                        <i class="bi bi-people display-6 text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card revenue-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="text-muted">درآمد امروز</h6>
+                            <h3 id="todayRevenue">۱۲.۴M</h3>
+                            <span class="badge bg-success" id="revenueChange">+۸.۲٪</span>
+                        </div>
+                        <i class="bi bi-currency-dollar display-6 text-success"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card orders-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="text-muted">سفارشات جدید</h6>
+                            <h3 id="newOrders">۸۹</h3>
+                            <span class="badge bg-warning" id="ordersChange">+۵</span>
+                        </div>
+                        <i class="bi bi-cart display-6 text-warning"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card growth-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="text-muted">رشد هفتگی</h6>
+                            <h3 id="weeklyGrowth">۲۳.۷٪</h3>
+                            <span class="badge bg-danger" id="growthChange">+۳.۱٪</span>
+                        </div>
+                        <i class="bi bi-graph-up-arrow display-6 text-danger"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- آخرین به‌روزرسانی -->
+        <div class="alert alert-info d-flex justify-content-between align-items-center">
+            <div>
+                <i class="bi bi-info-circle"></i>
+                <span id="lastUpdateText">داده‌ها به صورت Real-time به‌روز می‌شوند</span>
+            </div>
+            <button class="btn btn-sm btn-outline-primary" onclick="forceRefresh()">
+                <i class="bi bi-lightning"></i> بروزرسانی فوری
+            </button>
+        </div>
+
+        <!-- جدول کاربران -->
+        <div class="data-table mb-4">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>نام کاربر</th>
+                            <th>ایمیل</th>
+                            <th>وضعیت</th>
+                            <th>آخرین فعالیت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                        <!-- داده‌ها با JavaScript پر می‌شوند -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- لاگ سیستم -->
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h6 class="mb-0">
+                    <i class="bi bi-terminal"></i>
+                    لاگ Real-time سیستم
+                </h6>
+            </div>
+            <div class="card-body">
+                <div id="systemLogs" style="height: 200px; overflow-y: auto; font-family: monospace; font-size: 0.9rem;">
+                    <!-- لاگ‌ها اینجا نمایش داده می‌شوند -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // داده‌های نمونه
+        let users = [
+            { id: 1, name: "محمد رضایی", email: "mohammad@example.com", status: "فعال", lastActive: "۲ دقیقه پیش" },
+            { id: 2, name: "فاطمه محمدی", email: "fatemeh@example.com", status: "فعال", lastActive: "۵ دقیقه پیش" },
+            { id: 3, name: "علی کریمی", email: "ali@example.com", status: "غیرفعال", lastActive: "۱ ساعت پیش" },
+            { id: 4, name: "زهرا احمدی", email: "zahra@example.com", status: "فعال", lastActive: "۱۵ دقیقه پیش" },
+            { id: 5, name: "رضا حسینی", email: "reza@example.com", status: "معلق", lastActive: "۲ روز پیش" }
+        ];
+
+        // تولید اعداد تصادفی برای آمار
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // بروزرسانی آمار
+        function updateStats() {
+            // کاربران فعال
+            const activeUsers = getRandomInt(1200, 1300);
+            document.getElementById('activeUsers').textContent = activeUsers.toLocaleString('fa-IR');
+            document.getElementById('usersChange').textContent = `+${getRandomInt(100, 150)}`;
+            
+            // درآمد
+            const revenue = (getRandomInt(10, 15) + Math.random()).toFixed(1);
+            document.getElementById('todayRevenue').textContent = `${revenue}M`;
+            document.getElementById('revenueChange').textContent = `+${getRandomInt(5, 10)}٪`;
+            
+            // سفارشات
+            const orders = getRandomInt(80, 100);
+            document.getElementById('newOrders').textContent = orders.toLocaleString('fa-IR');
+            document.getElementById('ordersChange').textContent = `+${getRandomInt(3, 8)}`;
+            
+            // رشد
+            const growth = (getRandomInt(20, 25) + Math.random()).toFixed(1);
+            document.getElementById('weeklyGrowth').textContent = `${growth}٪`;
+            document.getElementById('growthChange').textContent = `+${getRandomInt(2, 4)}٪`;
+            
+            // به‌روزرسانی زمان
+            const now = new Date().toLocaleString('fa-IR');
+            document.getElementById('lastUpdateText').textContent = `آخرین بروزرسانی: ${now}`;
+            
+            addLog(`✅ آمار سیستم در ${now} بروزرسانی شد`);
+        }
+
+        // بروزرسانی جدول کاربران
+        function updateUsersTable() {
+            const table = document.getElementById('usersTable');
+            table.innerHTML = '';
+            
+            users.forEach(user => {
+                // تغییر وضعیت تصادفی برای نمایش داینامیک
+                if (Math.random() > 0.7) {
+                    const statuses = ["فعال", "غیرفعال", "معلق"];
+                    user.status = statuses[Math.floor(Math.random() * statuses.length)];
+                    user.lastActive = `${getRandomInt(1, 60)} دقیقه پیش`;
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <span class="badge ${user.status === 'فعال' ? 'bg-success' : user.status === 'غیرفعال' ? 'bg-secondary' : 'bg-warning'}">
+                            ${user.status}
+                        </span>
+                    </td>
+                    <td>${user.lastActive}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="editUser(${user.id})">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger ms-1" onclick="deleteUser(${user.id})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // افزودن لاگ
+        function addLog(message) {
+            const logs = document.getElementById('systemLogs');
+            const logEntry = document.createElement('div');
+            const timestamp = new Date().toLocaleTimeString('fa-IR');
+            logEntry.innerHTML = `<span class="text-muted">[${timestamp}]</span> ${message}`;
+            logs.appendChild(logEntry);
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        // بروزرسانی داده‌ها
+        function refreshData() {
+            addLog('🔄 در حال بروزرسانی داده‌ها...');
+            
+            // شبیه‌سازی تاخیر در دریافت داده
+            setTimeout(() => {
+                updateStats();
+                updateUsersTable();
+                addLog('✅ داده‌ها با موفقیت بروزرسانی شدند');
+            }, 1000);
+        }
+
+        // بروزرسانی فوری
+        function forceRefresh() {
+            addLog('⚡ بروزرسانی فوری درخواست شد...');
+            updateStats();
+            updateUsersTable();
+            addLog('✅ بروزرسانی فوری انجام شد');
+        }
+
+        // عملیات کاربران
+        function editUser(userId) {
+            const user = users.find(u => u.id === userId);
+            addLog(`✏️ ویرایش کاربر: ${user.name} (ID: ${user.id})`);
+            alert(`ویرایش کاربر: ${user.name}\n\nاین قابلیت در نسخه کامل فعال خواهد شد.`);
+        }
+
+        function deleteUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (confirm(`آیا از حذف کاربر "${user.name}" مطمئن هستید؟`)) {
+                addLog(`🗑️ کاربر حذف شد: ${user.name} (ID: ${user.id})`);
+                alert(`کاربر "${user.name}" با موفقیت حذف شد.`);
+            }
+        }
+
+        // مقداردهی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            updateUsersTable();
+            addLog('🚀 پنل مدیریت Tetra Ecosystem راه‌اندازی شد');
+            addLog('📊 سیستم مانیتورینگ Real-time فعال شد');
+            
+            // بروزرسانی خودکار هر 30 ثانیه
+            setInterval(refreshData, 30000);
+        });
+    </script>
+</body>
+</html>
