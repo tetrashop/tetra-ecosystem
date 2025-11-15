@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اکوسیستم کامل تترا - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .nav-tabs .nav-link.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+        }
+        
+        .balance-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <!-- نویگیشن -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-wallet2"></i>
+                Tetra Ecosystem
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link active" href="#wallet">کیف پول</a>
+                <a class="nav-link" href="#shop">فروشگاه</a>
+                <a class="nav-link" href="#platform">پلتفرم</a>
+                <a class="nav-link" href="#nlp">NLP</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <!-- تب‌های اصلی -->
+        <ul class="nav nav-tabs justify-content-center mb-4" id="mainTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#wallet">💰 کیف پول</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#shop">🛍️ فروشگاه</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#platform">🚀 پلتفرم</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#nlp">🤖 NLP</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- تب کیف پول -->
+            <div class="tab-pane fade show active" id="wallet">
+                <div class="glass-card p-4 text-center mb-4">
+                    <h3>موجودی کل شما</h3>
+                    <div class="balance-display text-success" id="totalBalance">۱۲,۴۸۵,۰۰۰ تومان</div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="glass-card p-4 text-center">
+                            <button class="btn btn-success w-100 mb-3" onclick="showWithdrawalModal()">
+                                <i class="bi bi-cash-coin"></i> درخواست برداشت
+                            </button>
+                            <small>برداشت تا ۵۰۰ میلیون تومان در روز</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="glass-card p-4 text-center">
+                            <button class="btn btn-outline-light w-100 mb-3" onclick="showDepositModal()">
+                                <i class="bi bi-plus-circle"></i> واریز وجه
+                            </button>
+                            <small>واریز فوری از تمام درگاه‌ها</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-4">
+                    <h4>آخرین تراکنش‌ها</h4>
+                    <div id="transactionHistory"></div>
+                </div>
+            </div>
+
+            <!-- تب فروشگاه -->
+            <div class="tab-pane fade" id="shop">
+                <div class="glass-card p-4">
+                    <h3 class="text-center mb-4">🛍️ فروشگاه تترا</h3>
+                    <div class="row" id="productsList"></div>
+                </div>
+            </div>
+
+            <!-- تب پلتفرم -->
+            <div class="tab-pane fade" id="platform">
+                <div class="glass-card p-4 text-center">
+                    <h3>🚀 پلتفرم سرمایه‌گذاری تترا</h3>
+                    <p class="lead">سرمایه‌گذاری هوشمند با سود روزانه</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="glass-card p-3">
+                                <h5>طرح نقره‌ای</h5>
+                                <div class="text-warning">سود روزانه: ۱.۲٪</div>
+                                <button class="btn btn-outline-warning w-100 mt-2" onclick="invest('silver')">
+                                    سرمایه‌گذاری
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="glass-card p-3">
+                                <h5>طرح طلایی</h5>
+                                <div class="text-warning">سود روزانه: ۲.۵٪</div>
+                                <button class="btn btn-outline-warning w-100 mt-2" onclick="invest('gold')">
+                                    سرمایه‌گذاری
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="glass-card p-3">
+                                <h5>طرح پلاتینیوم</h5>
+                                <div class="text-warning">سود روزانه: ۴٪</div>
+                                <button class="btn btn-outline-warning w-100 mt-2" onclick="invest('platinum')">
+                                    سرمایه‌گذاری
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تب NLP -->
+            <div class="tab-pane fade" id="nlp">
+                <div class="glass-card p-4">
+                    <h3 class="text-center mb-4">🤖 پست‌های NLP</h3>
+                    <div id="nlpPosts">
+                        <!-- پست‌های NLP اینجا نمایش داده می‌شوند -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال‌ها -->
+    <div class="modal fade" id="withdrawalModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title">💰 درخواست برداشت</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>مبلغ برداشت (تومان):</label>
+                        <input type="number" class="form-control bg-secondary text-white" id="withdrawAmount" 
+                               placeholder="مثال: 1000000" min="10000" max="500000000">
+                    </div>
+                    <div class="mb-3">
+                        <label>شماره شبا:</label>
+                        <input type="text" class="form-control bg-secondary text-white" id="shabaNumber" 
+                               placeholder="IRxxxxxxxxxxxxxxxxxxxxx" dir="ltr">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-success" onclick="processWithdrawal()">تایید برداشت</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // داده‌های کامل اکوسیستم
+        const ecosystemData = {
+            wallet: {
+                totalBalance: 12485000,
+                withdrawableBalance: 8250000,
+                pendingBalance: 1150000,
+                investedBalance: 3085000,
+                transactions: [
+                    { id: 1, type: 'withdraw', amount: 500000, status: 'success', date: '۲ ساعت پیش', description: 'برداشت به حساب بانکی' },
+                    { id: 2, type: 'deposit', amount: 1000000, status: 'success', date: '۱ روز پیش', description: 'واریز از درگاه زرین‌پال' },
+                    { id: 3, type: 'investment', amount: 2000000, status: 'success', date: '۳ روز پیش', description: 'سرمایه‌گذاری در طرح سودآور' }
+                ]
+            },
+            shop: {
+                products: [
+                    { id: 1, name: 'شارژ همراه اول ۱۰۰۰۰ تومان', price: 10000, category: 'شارژ' },
+                    { id: 2, name: 'اینترنت ۵ گیگابایت', price: 25000, category: 'اینترنت' },
+                    { id: 3, name: 'کد شارژ استیم ۱۰ دلاری', price: 500000, category: 'کد اعتباری' },
+                    { id: 4, name: 'اشتراک نتفلیکس ۱ ماهه', price: 150000, category: 'اشتراک' }
+                ]
+            },
+            nlp: {
+                posts: Array.from({length: 164}, (_, i) => ({
+                    id: i + 1,
+                    title: `پست آموزشی NLP شماره ${i + 1}`,
+                    content: `این محتوای کامل پست شماره ${i + 1} در زمینه پردازش زبان طبیعی است.`,
+                    date: `${Math.floor(i/30) + 1} ماه پیش`,
+                    likes: Math.floor(Math.random() * 100)
+                }))
+            }
+        };
+
+        // راه‌اندازی اولیه
+        function initializeEcosystem() {
+            loadFromLocalStorage();
+            renderWallet();
+            renderShop();
+            renderNLP();
+            console.log('🚀 اکوسیستم تترا با موفقیت راه‌اندازی شد');
+        }
+
+        // مدیریت localStorage
+        function saveToLocalStorage() {
+            localStorage.setItem('tetraEcosystem', JSON.stringify(ecosystemData));
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('tetraEcosystem');
+            if (saved) {
+                Object.assign(ecosystemData, JSON.parse(saved));
+            }
+        }
+
+        // رندر کیف پول
+        function renderWallet() {
+            document.getElementById('totalBalance').textContent = 
+                ecosystemData.wallet.totalBalance.toLocaleString('fa-IR') + ' تومان';
+            
+            const historyContainer = document.getElementById('transactionHistory');
+            historyContainer.innerHTML = '';
+            
+            ecosystemData.wallet.transactions.forEach(transaction => {
+                const div = document.createElement('div');
+                div.className = `glass-card p-3 mb-2 ${transaction.status === 'success' ? 'border-success' : 'border-warning'}`;
+                div.innerHTML = `
+                    <div class="d-flex justify-content-between">
+                        <div>${transaction.description}</div>
+                        <div class="text-start">
+                            <div class="${transaction.type === 'withdraw' ? 'text-danger' : 'text-success'}">
+                                ${transaction.amount.toLocaleString('fa-IR')} تومان
+                            </div>
+                            <small>${transaction.date}</small>
+                        </div>
+                    </div>
+                `;
+                historyContainer.appendChild(div);
+            });
+        }
+
+        // رندر فروشگاه
+        function renderShop() {
+            const container = document.getElementById('productsList');
+            container.innerHTML = '';
+            
+            ecosystemData.shop.products.forEach(product => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 col-lg-3 mb-3';
+                col.innerHTML = `
+                    <div class="glass-card p-3 text-center">
+                        <h6>${product.name}</h6>
+                        <div class="text-warning mb-2">${product.price.toLocaleString('fa-IR')} تومان</div>
+                        <button class="btn btn-outline-light btn-sm w-100" onclick="buyProduct(${product.id})">
+                            خرید
+                        </button>
+                    </div>
+                `;
+                container.appendChild(col);
+            });
+        }
+
+        // رندر پست‌های NLP
+        function renderNLP() {
+            const container = document.getElementById('nlpPosts');
+            container.innerHTML = '';
+            
+            // نمایش ۱۰ پست آخر
+            const recentPosts = ecosystemData.nlp.posts.slice(-10).reverse();
+            
+            recentPosts.forEach(post => {
+                const postDiv = document.createElement('div');
+                postDiv.className = 'glass-card p-4 mb-3';
+                postDiv.innerHTML = `
+                    <h5>${post.title}</h5>
+                    <p>${post.content}</p>
+                    <div class="d-flex justify-content-between text-muted">
+                        <small>${post.date}</small>
+                        <small>❤️ ${post.likes} لایک</small>
+                    </div>
+                `;
+                container.appendChild(postDiv);
+            });
+            
+            // نمایش شماره آخرین پست
+            const lastPost = ecosystemData.nlp.posts[ecosystemData.nlp.posts.length - 1];
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'alert alert-info text-center';
+            infoDiv.innerHTML = `📊 تعداد کل پست‌ها: ۱۶۴ پست | آخرین پست: شماره ${lastPost.id}`;
+            container.prepend(infoDiv);
+        }
+
+        // پردازش برداشت
+        function processWithdrawal() {
+            const amount = parseInt(document.getElementById('withdrawAmount').value);
+            const shaba = document.getElementById('shabaNumber').value;
+
+            if (!amount || amount < 10000 || amount > ecosystemData.wallet.withdrawableBalance) {
+                alert('مبلغ برداشت معتبر نیست');
+                return;
+            }
+
+            if (!shaba || !shaba.startsWith('IR') || shaba.length !== 24) {
+                alert('شماره شبا معتبر نیست');
+                return;
+            }
+
+            // بروزرسانی موجودی
+            ecosystemData.wallet.withdrawableBalance -= amount;
+            ecosystemData.wallet.pendingBalance += amount;
+            
+            // افزودن به تاریخچه
+            ecosystemData.wallet.transactions.unshift({
+                id: ecosystemData.wallet.transactions.length + 1,
+                type: 'withdraw',
+                amount: amount,
+                status: 'pending',
+                date: 'همین الان',
+                description: `برداشت به شبا: ${shaba.slice(0,8)}...`
+            });
+
+            // ذخیره و رندر مجدد
+            saveToLocalStorage();
+            renderWallet();
+            
+            // بستن مودال
+            bootstrap.Modal.getInstance(document.getElementById('withdrawalModal')).hide();
+            
+            alert(`✅ درخواست برداشت شما ثبت شد!\nمبلغ: ${amount.toLocaleString('fa-IR')} تومان`);
+        }
+
+        // خرید محصول
+        function buyProduct(productId) {
+            const product = ecosystemData.shop.products.find(p => p.id === productId);
+            if (!product) return;
+
+            if (ecosystemData.wallet.withdrawableBalance < product.price) {
+                alert('موجودی کافی نیست');
+                return;
+            }
+
+            ecosystemData.wallet.withdrawableBalance -= product.price;
+            ecosystemData.wallet.transactions.unshift({
+                id: ecosystemData.wallet.transactions.length + 1,
+                type: 'purchase',
+                amount: product.price,
+                status: 'success',
+                date: 'همین الان',
+                description: `خرید: ${product.name}`
+            });
+
+            saveToLocalStorage();
+            renderWallet();
+            alert(`✅ خرید ${product.name} با موفقیت انجام شد!`);
+        }
+
+        // سرمایه‌گذاری
+        function invest(plan) {
+            const plans = {
+                silver: { name: 'نقره‌ای', min: 100000, profit: 1.2 },
+                gold: { name: 'طلایی', min: 500000, profit: 2.5 },
+                platinum: { name: 'پلاتینیوم', min: 1000000, profit: 4 }
+            };
+
+            const selectedPlan = plans[plan];
+            const amount = parseInt(prompt(`مبلغ سرمایه‌گذاری در طرح ${selectedPlan.name} (حداقل ${selectedPlan.min.toLocaleString('fa-IR')} تومان):`));
+
+            if (!amount || amount < selectedPlan.min) {
+                alert('مبلغ سرمایه‌گذاری معتبر نیست');
+                return;
+            }
+
+            if (amount > ecosystemData.wallet.withdrawableBalance) {
+                alert('موجودی کافی نیست');
+                return;
+            }
+
+            ecosystemData.wallet.withdrawableBalance -= amount;
+            ecosystemData.wallet.investedBalance += amount;
+            
+            ecosystemData.wallet.transactions.unshift({
+                id: ecosystemData.wallet.transactions.length + 1,
+                type: 'investment',
+                amount: amount,
+                status: 'success',
+                date: 'همین الان',
+                description: `سرمایه‌گذاری در طرح ${selectedPlan.name}`
+            });
+
+            saveToLocalStorage();
+            renderWallet();
+            alert(`✅ سرمایه‌گذاری ${amount.toLocaleString('fa-IR')} تومانی در طرح ${selectedPlan.name} ثبت شد!`);
+        }
+
+        // نمایش مودال‌ها
+        function showWithdrawalModal() {
+            const modal = new bootstrap.Modal(document.getElementById('withdrawalModal'));
+            document.getElementById('withdrawAmount').max = ecosystemData.wallet.withdrawableBalance;
+            modal.show();
+        }
+
+        function showDepositModal() {
+            alert('💳 درگاه واریز\n\n• زرین‌پال\n• رمزارز (USDT)\n• کارت به کارت\n\nبرای واریز با پشتیبانی تماس بگیرید.');
+        }
+
+        // راه‌اندازی هنگام لود صفحه
+        document.addEventListener('DOMContentLoaded', initializeEcosystem);
+    </script>
+</body>
+</html>
