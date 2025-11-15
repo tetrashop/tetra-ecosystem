@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تبدیل 2D به 3D - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .converter-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .upload-zone {
+            border: 3px dashed var(--primary);
+            border-radius: 15px;
+            padding: 60px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: rgba(99, 102, 241, 0.05);
+        }
+        
+        .upload-zone:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: #4f46e5;
+        }
+        
+        .upload-zone.dragover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: #3730a3;
+        }
+        
+        .preview-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), #059669);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- نوار ناوبری -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="tetra-ecosystem.html">
+                <i class="bi bi-box"></i>
+                تبدیل 2D به 3D
+            </a>
+            <div>
+                <a href="personal-dashboard.html" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-speedometer2"></i>
+                    پنل شخصی
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <!-- کارت اصلی -->
+                <div class="converter-card p-4 p-md-5">
+                    <div class="text-center mb-5">
+                        <h1 class="display-5 fw-bold">
+                            <i class="bi bi-magic"></i>
+                            تبدیل تصاویر 2D به 3D
+                        </h1>
+                        <p class="lead text-muted">پیشرفته‌ترین سرویس تبدیل با هوش مصنوعی Tetra</p>
+                    </div>
+
+                    <!-- ناحیه آپلود -->
+                    <div class="upload-zone mb-4" id="uploadZone">
+                        <div class="mb-3">
+                            <i class="bi bi-cloud-arrow-up display-1 text-primary"></i>
+                        </div>
+                        <h4>فایل تصویر خود را اینجا رها کنید</h4>
+                        <p class="text-muted mb-0">یا برای انتخاب فایل کلیک کنید</p>
+                        <p class="small text-muted">فرمت‌های پشتیبانی شده: JPG, PNG, SVG (حداکثر 10MB)</p>
+                        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.svg" style="display: none;">
+                    </div>
+
+                    <!-- پیشرفت -->
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="text-center">
+                            <small id="progressText" class="text-muted">آماده برای تبدیل...</small>
+                        </div>
+                    </div>
+
+                    <!-- پیش‌نمایش‌ها -->
+                    <div class="row mt-4">
+                        <div class="col-12 col-md-6 mb-4">
+                            <h5 class="text-center">
+                                <i class="bi bi-image text-info"></i>
+                                تصویر اصلی
+                            </h5>
+                            <div class="preview-box" id="originalPreview">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-image display-4"></i>
+                                    <p class="mt-2">پیش‌نمایش تصویر 2D</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <h5 class="text-center">
+                                <i class="bi bi-cube text-warning"></i>
+                                مدل 3D
+                            </h5>
+                            <div class="preview-box" id="modelPreview">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-cube display-4"></i>
+                                    <p class="mt-2">پیش‌نمایش مدل سه بعدی</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- تنظیمات -->
+                    <div class="row mt-4">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label">کیفیت مدل:</label>
+                            <select class="form-select bg-dark text-white" id="quality">
+                                <option value="low">پایین (سریع)</option>
+                                <option value="medium" selected>متوسط</option>
+                                <option value="high">بالا (دقیق)</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label">فرمت خروجی:</label>
+                            <select class="form-select bg-dark text-white" id="format">
+                                <option value="obj">OBJ</option>
+                                <option value="stl" selected>STL</option>
+                                <option value="gltf">GLTF</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- دکمه‌های اقدام -->
+                    <div class="text-center mt-5">
+                        <button class="btn btn-success btn-lg px-5 py-3 me-3" id="convertBtn">
+                            <i class="bi bi-gear"></i>
+                            شروع تبدیل
+                        </button>
+                        <button class="btn btn-outline-light btn-lg px-5 py-3" id="downloadBtn" disabled>
+                            <i class="bi bi-download"></i>
+                            دانلود مدل
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ویژگی‌ها -->
+                <div class="row mt-5">
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="feature-card">
+                            <i class="bi bi-lightning text-warning display-6"></i>
+                            <h5 class="mt-3">سریع و بهینه</h5>
+                            <p class="text-muted mb-0">تبدیل در کمتر از 30 ثانیه</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="feature-card">
+                            <i class="bi bi-shield-check text-success display-6"></i>
+                            <h5 class="mt-3">امنیت کامل</h5>
+                            <p class="text-muted mb-0">حفظ حریم خصوصی داده‌ها</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="feature-card">
+                            <i class="bi bi-graph-up text-info display-6"></i>
+                            <h5 class="mt-3">دقت بالا</h5>
+                            <p class="text-muted mb-0">الگوریتم‌های پیشرفته AI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer class="text-center py-4 mt-5">
+        <p class="text-muted mb-2">© 2024 Tetra Ecosystem - سرویس تبدیل 2D به 3D</p>
+        <div>
+            <a href="tetra-ecosystem.html" class="btn btn-outline-light btn-sm me-2">صفحه اصلی</a>
+            <a href="personal-dashboard.html" class="btn btn-outline-primary btn-sm">پنل شخصی</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadZone = document.getElementById('uploadZone');
+            const fileInput = document.getElementById('fileInput');
+            const convertBtn = document.getElementById('convertBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const originalPreview = document.getElementById('originalPreview');
+            const modelPreview = document.getElementById('modelPreview');
+
+            // مدیریت آپلود
+            uploadZone.addEventListener('click', () => fileInput.click());
+            
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.classList.add('dragover');
+            });
+
+            uploadZone.addEventListener('dragleave', () => {
+                uploadZone.classList.remove('dragover');
+            });
+
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.classList.remove('dragover');
+                if (e.dataTransfer.files.length) {
+                    handleFileSelect(e.dataTransfer.files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+
+            function handleFileSelect(file) {
+                if (file) {
+                    const fileName = file.name;
+                    progressText.textContent = 'فایل انتخاب شد: ' + fileName;
+                    originalPreview.innerHTML = `
+                        <div class="text-center text-success">
+                            <i class="bi bi-check-circle display-4"></i>
+                            <p class="mt-2">${fileName}</p>
+                            <small class="text-muted">حجم: ${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+                        </div>
+                    `;
+                }
+            }
+
+            // شبیه‌سازی تبدیل
+            convertBtn.addEventListener('click', function() {
+                if (!fileInput.files.length) {
+                    alert('لطفا ابتدا یک فایل تصویر انتخاب کنید');
+                    return;
+                }
+
+                progressFill.style.width = '0%';
+                progressText.textContent = 'در حال آنالیز تصویر...';
+                convertBtn.disabled = true;
+
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 2;
+                    progressFill.style.width = progress + '%';
+                    
+                    if (progress === 20) progressText.textContent = 'در حال استخراج ویژگی‌ها...';
+                    if (progress === 50) progressText.textContent = 'در حال ساخت مدل سه بعدی...';
+                    if (progress === 80) progressText.textContent = 'در حال بهینه‌سازی مدل...';
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        progressText.textContent = 'تبدیل با موفقیت انجام شد!';
+                        convertBtn.disabled = false;
+                        downloadBtn.disabled = false;
+                        
+                        modelPreview.innerHTML = `
+                            <div class="text-center text-success">
+                                <i class="bi bi-check-circle display-4"></i>
+                                <p class="mt-2">مدل 3D آماده است</p>
+                                <small class="text-muted">برای دانلود کلیک کنید</small>
+                            </div>
+                        `;
+                    }
+                }, 100);
+            });
+
+            downloadBtn.addEventListener('click', function() {
+                alert('✅ مدل 3D با موفقیت دانلود شد!\n\nفایل: model_3d.stl\nحجم: 2.4 MB');
+            });
+
+            console.log('🎨 سرویس تبدیل 2D به 3D Tetra Ecosystem بارگذاری شد');
+        });
+    </script>
+</body>
+</html>
