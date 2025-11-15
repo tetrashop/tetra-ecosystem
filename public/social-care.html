@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>سیستم حمایت از محرومین - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --card-bg: #1e293b;
+            --border: #334155;
+            --humanitarian: #dc2626;
+        }
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, #1e1b4b 100%);
+            color: #e2e8f0;
+            font-family: 'Vazir', sans-serif;
+            min-height: 100vh;
+        }
+        .humanitarian-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, #431407 100%);
+            border: 2px solid var(--humanitarian);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .humanitarian-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+        }
+        .urgent-need {
+            background: linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%);
+            border: 2px solid #fef3c7;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .donation-progress {
+            height: 20px;
+            border-radius: 10px;
+            background: #374151;
+            overflow: hidden;
+        }
+        .donation-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success) 0%, #34d399 100%);
+            transition: width 0.5s ease;
+        }
+        .impact-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .community-hero {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.9) 0%, rgba(101, 163, 13, 0.8) 100%);
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <!-- هدر قهرمانانه -->
+        <div class="community-hero">
+            <h1 class="display-4 text-white mb-3">
+                <i class="bi bi-heart-pulse"></i>
+                سیستم حمایت از محروم‌ترین‌ها
+            </h1>
+            <p class="lead text-white">
+                "همراهی برای تبدیل محرومیت به فرصت"
+            </p>
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="text-white">
+                        <div class="impact-number" id="familiesHelped">۱,۲۴۷</div>
+                        <small>خانواده تحت پوشش</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-white">
+                        <div class="impact-number" id="mealsProvided">۴۵,۸۹۲</div>
+                        <small>وعده غذایی توزیع شده</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-white">
+                        <div class="impact-number" id="childrenEducated">۸۹۳</div>
+                        <small>کودک بازگشته به تحصیل</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-white">
+                        <div class="impact-number" id="jobsCreated">۱۵۶</div>
+                        <small>شغل ایجاد شده</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- نیازهای فوری -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="humanitarian-card urgent-need">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3 class="text-white">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                نیاز فوری: کمک به خانواده‌های زلزله‌زده
+                            </h3>
+                            <p class="text-white mb-0">
+                                ۱۵۰ خانواده در منطقه آسیب‌دیده نیازمند کمک‌های اولیه هستند
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="text-white mb-2">
+                                <div style="font-size: 2.5rem;">۷۵٪</div>
+                                <small>میزان پیشرفت جمع‌آوری کمک</small>
+                            </div>
+                            <button class="btn btn-warning btn-lg">
+                                <i class="bi bi-lightning-fill me-2"></i>
+                                کمک فوری
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- بخش کمک‌های مردمی -->
+            <div class="col-md-8">
+                <!-- پروژه‌های فعال -->
+                <div class="humanitarian-card">
+                    <h3 class="text-warning mb-4">
+                        <i class="bi bi-activity me-2"></i>
+                        پروژه‌های فعال حمایتی
+                    </h3>
+                    
+                    <div class="row">
+                        <!-- پروژه ۱ -->
+                        <div class="col-md-6 mb-4">
+                            <div class="bg-dark p-3 rounded h-100">
+                                <h5 class="text-success">🎒 بسته‌های آموزشی</h5>
+                                <p class="text-light small">
+                                    تأمین لوازم التحریر و البسه برای کودکان محروم
+                                </p>
+                                <div class="donation-progress mb-2">
+                                    <div class="donation-bar" style="width: 85%"></div>
+                                </div>
+                                <div class="d-flex justify-content-between text-light small">
+                                    <span>۸۵٪ جمع‌آوری شده</span>
+                                    <span>۱۲۵M تومان</span>
+                                </div>
+                                <button class="btn btn-outline-success btn-sm w-100 mt-2">
+                                    مشارکت در این پروژه
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- پروژه ۲ -->
+                        <div class="col-md-6 mb-4">
+                            <div class="bg-dark p-3 rounded h-100">
+                                <h5 class="text-info">🏥 درمان رایگان</h5>
+                                <p class="text-light small">
+                                    ارائه خدمات درمانی و پزشکی به نیازمندان
+                                </p>
+                                <div class="donation-progress mb-2">
+                                    <div class="donation-bar" style="width: 60%"></div>
+                                </div>
+                                <div class="d-flex justify-content-between text-light small">
+                                    <span>۶۰٪ جمع‌آوری شده</span>
+                                    <span>۸۰M تومان</span>
+                                </div>
+                                <button class="btn btn-outline-info btn-sm w-100 mt-2">
+                                    مشارکت در این پروژه
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- پروژه ۳ -->
+                        <div class="col-md-6 mb-4">
+                            <div class="bg-dark p-3 rounded h-100">
+                                <h5 class="text-warning">🍞 سبد غذایی</h5>
+                                <p class="text-light small">
+                                    توزیع ماهانه سبد کالا بین خانواده‌های نیازمند
+                                </p>
+                                <div class="donation-progress mb-2">
+                                    <div class="donation-bar" style="width: 92%"></div>
+                                </div>
+                                <div class="d-flex justify-content-between text-light small">
+                                    <span>۹۲٪ جمع‌آوری شده</span>
+                                    <span>۲۰۰M تومان</span>
+                                </div>
+                                <button class="btn btn-outline-warning btn-sm w-100 mt-2">
+                                    مشارکت در این پروژه
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- پروژه ۴ -->
+                        <div class="col-md-6 mb-4">
+                            <div class="bg-dark p-3 rounded h-100">
+                                <h5 class="text-primary">💼 اشتغال‌زایی</h5>
+                                <p class="text-light small">
+                                    آموزش مهارت‌های شغلی و ایجاد فرصت‌های کاری
+                                </p>
+                                <div class="donation-progress mb-2">
+                                    <div class="donation-bar" style="width: 45%"></div>
+                                </div>
+                                <div class="d-flex justify-content-between text-light small">
+                                    <span>۴۵٪ جمع‌آوری شده</span>
+                                    <span>۱۵۰M تومان</span>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm w-100 mt-2">
+                                    مشارکت در این پروژه
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- داستان‌های موفقیت -->
+                <div class="humanitarian-card">
+                    <h3 class="text-success mb-4">
+                        <i class="bi bi-stars me-2"></i>
+                        داستان‌های موفقیت
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="bg-dark p-3 rounded mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="bg-success rounded-circle p-2 me-3">
+                                        <i class="bi bi-person-check text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="text-white mb-0">فاطمه محمدی</h6>
+                                        <small class="text-muted">بازگشت به تحصیل</small>
+                                    </div>
+                                </div>
+                                <p class="text-light small mb-0">
+                                    "با کمک بورسیه تحصیلی توانستم ادامه تحصیل دهم و امروز معلم شده‌ام..."
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bg-dark p-3 rounded mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="bg-warning rounded-circle p-2 me-3">
+                                        <i class="bi bi-shop-window text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="text-white mb-0">علی رضایی</h6>
+                                        <small class="text-muted">کارآفرینی</small>
+                                    </div>
+                                </div>
+                                <p class="text-light small mb-0">
+                                    "با وام قرض‌الحسنه توانستم مغازه کوچکم را راه‌اندازی کنم..."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- سایدبار اقدامات سریع -->
+            <div class="col-md-4">
+                <!-- کمک سریع -->
+                <div class="humanitarian-card">
+                    <h5 class="text-white mb-3">
+                        <i class="bi bi-lightning-charge me-2"></i>
+                        کمک سریع
+                    </h5>
+                    
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success btn-lg">
+                            <i class="bi bi-droplet me-2"></i>
+                            کمک نقدی
+                        </button>
+                        <button class="btn btn-warning btn-lg">
+                            <i class="bi bi-basket me-2"></i>
+                            کمک غیرنقدی
+                        </button>
+                        <button class="btn btn-info btn-lg">
+                            <i class="bi bi-clock me-2"></i>
+                            کمک مستمری
+                        </button>
+                        <button class="btn btn-danger btn-lg">
+                            <i class="bi bi-heart me-2"></i>
+                            داوطلبی
+                        </button>
+                    </div>
+                </div>
+
+                <!-- آمار زنده -->
+                <div class="humanitarian-card">
+                    <h5 class="text-white mb-3">
+                        <i class="bi bi-graph-up-arrow me-2"></i>
+                        آمار زنده کمک‌ها
+                    </h5>
+                    
+                    <div class="bg-dark p-3 rounded">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-light">کمک امروز:</span>
+                            <span class="text-success">۱۲,۴۵۰,۰۰۰ تومان</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-light">کمک این ماه:</span>
+                            <span class="text-warning">۱۵۶,۸۰۰,۰۰۰ تومان</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-light">تعداد حامیان:</span>
+                            <span class="text-info">۲,۴۵۶ نفر</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-light">پروژه‌های فعال:</span>
+                            <span class="text-primary">۱۲ پروژه</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- فرم ثبت نیاز -->
+                <div class="humanitarian-card">
+                    <h5 class="text-white mb-3">
+                        <i class="bi bi-megaphone me-2"></i>
+                        ثبت نیازمندی
+                    </h5>
+                    
+                    <form id="needRegistration">
+                        <div class="mb-3">
+                            <label class="form-label text-light">نوع نیاز</label>
+                            <select class="form-select bg-dark text-light">
+                                <option>درمانی</option>
+                                <option>معیشتی</option>
+                                <option>تحصیلی</option>
+                                <option>مسکن</option>
+                                <option>اشتغال</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">توضیحات</label>
+                            <textarea class="form-control bg-dark text-light" rows="3" placeholder="شرح کامل نیاز..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-outline-warning w-100">
+                            ثبت درخواست
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- نقشه مناطق محروم -->
+        <div class="humanitarian-card mt-4">
+            <h3 class="text-info mb-4">
+                <i class="bi bi-geo-alt me-2"></i>
+                نقشه مناطق محروم
+            </h3>
+            
+            <div class="bg-dark p-4 rounded text-center">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="text-danger">
+                            <i class="bi bi-geo-fill" style="font-size: 2rem;"></i>
+                            <div>سیستان و بلوچستان</div>
+                            <small class="text-muted">۴۵۰ خانواده</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="text-warning">
+                            <i class="bi bi-geo-fill" style="font-size: 2rem;"></i>
+                            <div>کهگیلویه و بویراحمد</div>
+                            <small class="text-muted">۳۲۰ خانواده</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="text-primary">
+                            <i class="bi bi-geo-fill" style="font-size: 2rem;"></i>
+                            <div>خراسان جنوبی</div>
+                            <small class="text-muted">۲۸۰ خانواده</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="text-success">
+                            <i class="bi bi-geo-fill" style="font-size: 2rem;"></i>
+                            <div>کرمان</div>
+                            <small class="text-muted">۱۹۰ خانواده</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // شبیه‌سازی داده‌های زنده
+        function updateLiveStats() {
+            // افزایش آمار به صورت پویا
+            const families = document.getElementById('familiesHelped');
+            const meals = document.getElementById('mealsProvided');
+            const children = document.getElementById('childrenEducated');
+            const jobs = document.getElementById('jobsCreated');
+            
+            let familiesCount = parseInt(families.textContent.replace(/,/g, ''));
+            let mealsCount = parseInt(meals.textContent.replace(/,/g, ''));
+            let childrenCount = parseInt(children.textContent.replace(/,/g, ''));
+            let jobsCount = parseInt(jobs.textContent.replace(/,/g, ''));
+            
+            // افزایش تدریجی آمار
+            familiesCount += Math.floor(Math.random() * 3);
+            mealsCount += Math.floor(Math.random() * 50);
+            childrenCount += Math.floor(Math.random() * 2);
+            jobsCount += Math.floor(Math.random() * 1);
+            
+            families.textContent = familiesCount.toLocaleString();
+            meals.textContent = mealsCount.toLocaleString();
+            children.textContent = childrenCount.toLocaleString();
+            jobs.textContent = jobsCount.toLocaleString();
+        }
+
+        // مدیریت فرم ثبت نیاز
+        document.getElementById('needRegistration').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('درخواست شما با موفقیت ثبت شد. همکاران ما به زودی با شما تماس خواهند گرفت.');
+            this.reset();
+        });
+
+        // به‌روزرسانی هر 10 ثانیه
+        setInterval(updateLiveStats, 10000);
+
+        // بارگذاری اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLiveStats();
+        });
+    </script>
+</body>
+</html>

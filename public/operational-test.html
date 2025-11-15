@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تست عملیاتی Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-dark text-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="text-success">
+                <i class="bi bi-check-circle-fill"></i>
+                تست عملیاتی Tetra Ecosystem
+            </h1>
+            <p class="lead">بررسی عملکرد همه ماژول‌ها</p>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card bg-primary text-white">
+                    <div class="card-body text-center">
+                        <h4>✅ سیستم فعال است!</h4>
+                        <p>همه ماژول‌ها آماده تست هستند</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- تست ۱: سیستم داده -->
+            <div class="col-md-6 mb-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>🗃️ تست سیستم داده</h5>
+                        <button class="btn btn-outline-light w-100 mb-2" onclick="testDataSystem()">
+                            تست پایگاه داده
+                        </button>
+                        <div id="dataTestResult"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تست ۲: مالی -->
+            <div class="col-md-6 mb-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>💰 تست سیستم مالی</h5>
+                        <button class="btn btn-outline-success w-100 mb-2" onclick="testFinancialSystem()">
+                            تست تراکنش‌ها
+                        </button>
+                        <div id="financeTestResult"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تست ۳: کاربران -->
+            <div class="col-md-6 mb-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>👥 تست کاربران</h5>
+                        <button class="btn btn-outline-info w-100 mb-2" onclick="testUserSystem()">
+                            تست مدیریت کاربران
+                        </button>
+                        <div id="userTestResult"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تست ۴: محرومین -->
+            <div class="col-md-6 mb-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>🤝 تست سیستم محرومین</h5>
+                        <button class="btn btn-outline-warning w-100 mb-2" onclick="testSocialSystem()">
+                            تست کمک‌های مردمی
+                        </button>
+                        <div id="socialTestResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- نتایج کلی -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card bg-dark">
+                    <div class="card-body">
+                        <h5 class="text-center">📊 نتایج تست عملیاتی</h5>
+                        <div id="overallResults"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ناوبری سریع -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card bg-secondary">
+                    <div class="card-body text-center">
+                        <h5>🚀 انتقال به ماژول‌ها</h5>
+                        <div class="btn-group">
+                            <a href="admin-real-data.html" class="btn btn-success">پنل مدیریت</a>
+                            <a href="system-status.html" class="btn btn-info">وضعیت سیستم</a>
+                            <a href="social-care.html" class="btn btn-warning">سیستم محرومین</a>
+                            <a href="donation-system.html" class="btn btn-primary">کمک مالی</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data-manager.js"></script>
+    <script>
+        const testResults = {
+            data: false,
+            financial: false,
+            users: false,
+            social: false
+        };
+
+        function testDataSystem() {
+            const resultDiv = document.getElementById('dataTestResult');
+            resultDiv.innerHTML = '<div class="text-warning">🔍 در حال تست پایگاه داده...</div>';
+
+            try {
+                if (!window.tetraData) {
+                    throw new Error('سیستم داده بارگذاری نشده');
+                }
+
+                // تست خواندن از همه جداول
+                const tables = ['users', 'transactions', 'conversions', 'socialProjects', 'donations'];
+                let allTablesOk = true;
+
+                tables.forEach(table => {
+                    try {
+                        const data = tetraData.getAll(table);
+                        console.log(`✅ ${table}: ${data.length} رکورد`);
+                    } catch (error) {
+                        console.error(`❌ ${table}: ${error.message}`);
+                        allTablesOk = false;
+                    }
+                });
+
+                if (allTablesOk) {
+                    testResults.data = true;
+                    resultDiv.innerHTML = `
+                        <div class="text-success">
+                            ✅ پایگاه داده سالم است
+                            <br>
+                            <small class="text-muted">همه جداول قابل دسترسی هستند</small>
+                        </div>
+                    `;
+                } else {
+                    throw new Error('برخی جداول مشکل دارند');
+                }
+
+            } catch (error) {
+                testResults.data = false;
+                resultDiv.innerHTML = `
+                    <div class="text-danger">
+                        ❌ خطا در پایگاه داده
+                        <br>
+                        <small class="text-muted">${error.message}</small>
+                    </div>
+                `;
+            }
+
+            updateOverallResults();
+        }
+
+        function testFinancialSystem() {
+            const resultDiv = document.getElementById('financeTestResult');
+            resultDiv.innerHTML = '<div class="text-warning">💳 در حال تست سیستم مالی...</div>';
+
+            try {
+                const stats = tetraData.getFinancialStats();
+                
+                // ایجاد یک تراکنش تست
+                const testTransaction = tetraData.create('transactions', {
+                    userId: 1,
+                    type: 'test',
+                    amount: 50000,
+                    description: 'تراکنش تست سیستم',
+                    status: 'completed'
+                });
+
+                testResults.financial = true;
+                resultDiv.innerHTML = `
+                    <div class="text-success">
+                        ✅ سیستم مالی فعال است
+                        <br>
+                        <small class="text-muted">
+                            درآمد کل: ${stats.totalRevenue.toLocaleString()} تومان
+                            <br>
+                            تراکنش تست ایجاد شد
+                        </small>
+                    </div>
+                `;
+
+            } catch (error) {
+                testResults.financial = false;
+                resultDiv.innerHTML = `
+                    <div class="text-danger">
+                        ❌ خطا در سیستم مالی
+                        <br>
+                        <small class="text-muted">${error.message}</small>
+                    </div>
+                `;
+            }
+
+            updateOverallResults();
+        }
+
+        function testUserSystem() {
+            const resultDiv = document.getElementById('userTestResult');
+            resultDiv.innerHTML = '<div class="text-warning">👤 در حال تست سیستم کاربران...</div>';
+
+            try {
+                const userStats = tetraData.getUserStats();
+                
+                // ایجاد کاربر تست
+                const testUser = tetraData.create('users', {
+                    name: 'کاربر تست',
+                    email: 'test@tetra.ir',
+                    role: 'user',
+                    balance: 100000,
+                    joined: new Date().toLocaleString('fa-IR')
+                });
+
+                testResults.users = true;
+                resultDiv.innerHTML = `
+                    <div class="text-success">
+                        ✅ سیستم کاربران فعال است
+                        <br>
+                        <small class="text-muted">
+                            ${userStats.totalUsers} کاربر
+                            <br>
+                            کاربر تست ایجاد شد
+                        </small>
+                    </div>
+                `;
+
+            } catch (error) {
+                testResults.users = false;
+                resultDiv.innerHTML = `
+                    <div class="text-danger">
+                        ❌ خطا در سیستم کاربران
+                        <br>
+                        <small class="text-muted">${error.message}</small>
+                    </div>
+                `;
+            }
+
+            updateOverallResults();
+        }
+
+        function testSocialSystem() {
+            const resultDiv = document.getElementById('socialTestResult');
+            resultDiv.innerHTML = '<div class="text-warning">🤝 در حال تست سیستم محرومین...</div>';
+
+            try {
+                const socialStats = tetraData.getSocialStats();
+                
+                // ایجاد کمک تست
+                const testDonation = tetraData.create('donations', {
+                    amount: 250000,
+                    projectId: 1,
+                    donorName: 'حامی تست',
+                    method: 'bank',
+                    date: new Date().toLocaleString('fa-IR')
+                });
+
+                testResults.social = true;
+                resultDiv.innerHTML = `
+                    <div class="text-success">
+                        ✅ سیستم محرومین فعال است
+                        <br>
+                        <small class="text-muted">
+                            ${socialStats.totalDonations.toLocaleString()} تومان کمک
+                            <br>
+                            کمک تست ثبت شد
+                        </small>
+                    </div>
+                `;
+
+            } catch (error) {
+                testResults.social = false;
+                resultDiv.innerHTML = `
+                    <div class="text-danger">
+                        ❌ خطا در سیستم محرومین
+                        <br>
+                        <small class="text-muted">${error.message}</small>
+                    </div>
+                `;
+            }
+
+            updateOverallResults();
+        }
+
+        function updateOverallResults() {
+            const resultsDiv = document.getElementById('overallResults');
+            const passedTests = Object.values(testResults).filter(result => result).length;
+            const totalTests = Object.values(testResults).length;
+
+            let html = `
+                <div class="progress mb-3" style="height: 30px;">
+                    <div class="progress-bar ${passedTests === totalTests ? 'bg-success' : 'bg-warning'}" 
+                         style="width: ${(passedTests / totalTests) * 100}%">
+                        ${passedTests} از ${totalTests}
+                    </div>
+                </div>
+                <div class="row text-center">
+            `;
+
+            Object.entries(testResults).forEach(([test, passed]) => {
+                const testNames = {
+                    data: 'پایگاه داده',
+                    financial: 'سیستم مالی', 
+                    users: 'کاربران',
+                    social: 'محرومین'
+                };
+
+                html += `
+                    <div class="col-3">
+                        <div class="${passed ? 'text-success' : 'text-danger'}">
+                            ${passed ? '✅' : '❌'}
+                        </div>
+                        <small>${testNames[test]}</small>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+
+            if (passedTests === totalTests) {
+                html += `
+                    <div class="alert alert-success mt-3 text-center">
+                        <h5>🎉 همه تست‌ها موفق بودند!</h5>
+                        <p class="mb-0">سیستم Tetra Ecosystem کاملاً عملیاتی است</p>
+                    </div>
+                `;
+            }
+
+            resultsDiv.innerHTML = html;
+        }
+
+        // تست خودکار هنگام بارگذاری
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Tetra Ecosystem - Operational Test Ready');
+            setTimeout(testDataSystem, 1000);
+        });
+    </script>
+</body>
+</html>

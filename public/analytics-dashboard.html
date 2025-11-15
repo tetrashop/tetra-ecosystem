@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>آنالیتیکس پیشرفته - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .analytics-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .growth-positive { color: #10b981; }
+        .growth-negative { color: #ef4444; }
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 300px;
+        }
+        .data-table {
+            font-size: 0.9rem;
+        }
+        .trend-indicator {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="tetra-ecosystem.html">
+                <i class="bi bi-graph-up"></i>
+                آنالیتیکس پیشرفته
+            </a>
+        </div>
+    </nav>
+
+    <!-- هدر -->
+    <div class="analytics-hero">
+        <div class="container">
+            <h1 class="display-5 mb-3">📈 آنالیتیکس پیشرفته Tetra</h1>
+            <p class="lead mb-4">تحلیل کامل عملکرد، کاربران و درآمد سرویس‌ها</p>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- کارت‌های آمار کلی -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="text-primary mb-2">
+                        <i class="bi bi-people" style="font-size: 2rem;"></i>
+                    </div>
+                    <h3 id="totalUsers">۱۲,۴۵۶</h3>
+                    <small class="text-muted">کاربران کل</small>
+                    <div class="growth-positive trend-indicator bg-success text-white mt-2">
+                        <i class="bi bi-arrow-up"></i> ۱۲.۵٪
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="text-success mb-2">
+                        <i class="bi bi-currency-exchange" style="font-size: 2rem;"></i>
+                    </div>
+                    <h3 id="totalRevenue">۴۵۶M</h3>
+                    <small class="text-muted">درآمد کل</small>
+                    <div class="growth-positive trend-indicator bg-success text-white mt-2">
+                        <i class="bi bi-arrow-up"></i> ۸.۷٪
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="text-warning mb-2">
+                        <i class="bi bi-clock" style="font-size: 2rem;"></i>
+                    </div>
+                    <h3 id="avgSession">۱۲:۳۴</h3>
+                    <small class="text-muted">میانگین زمان</small>
+                    <div class="growth-positive trend-indicator bg-success text-white mt-2">
+                        <i class="bi bi-arrow-up"></i> ۵.۲٪
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="text-danger mb-2">
+                        <i class="bi bi-arrow-left-right" style="font-size: 2rem;"></i>
+                    </div>
+                    <h3 id="conversionRate">۳.۴٪</h3>
+                    <small class="text-muted">نرخ تبدیل</small>
+                    <div class="growth-negative trend-indicator bg-danger text-white mt-2">
+                        <i class="bi bi-arrow-down"></i> ۰.۸٪
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- سرویس‌های پربازدید -->
+            <div class="col-md-8">
+                <div class="chart-container">
+                    <h5>📊 عملکرد سرویس‌ها</h5>
+                    <div id="servicesChart">
+                        <div class="text-center text-muted py-5">
+                            <i class="bi bi-bar-chart" style="font-size: 3rem;"></i>
+                            <p class="mt-2">نمودار مقایسه عملکرد سرویس‌ها</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h5>📈 رشد ماهانه کاربران</h5>
+                    <div id="growthChart">
+                        <div class="text-center text-muted py-5">
+                            <i class="bi bi-graph-up-arrow" style="font-size: 3rem;"></i>
+                            <p class="mt-2">نمودار رشد کاربران</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- آمار Real-time -->
+            <div class="col-md-4">
+                <div class="chart-container">
+                    <h5>🎯 توزیع کاربران</h5>
+                    <div id="usersChart">
+                        <div class="text-center text-muted py-5">
+                            <i class="bi bi-pie-chart" style="font-size: 3rem;"></i>
+                            <p class="mt-2">نمودار توزیع کاربران</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h5>💰 درآمد سرویس‌ها</h5>
+                    <div id="revenueChart">
+                        <div class="text-center text-muted py-5">
+                            <i class="bi bi-currency-dollar" style="font-size: 3rem;"></i>
+                            <p class="mt-2">نمودار درآمد سرویس‌ها</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- جداول داده -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h5>🏆 پرفروش‌ترین سرویس‌ها</h5>
+                    <div class="table-responsive">
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>سرویس</th>
+                                    <th>درآمد</th>
+                                    <th>کاربران</th>
+                                    <th>رشد</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topServices">
+                                <!-- داده‌های سرویس‌ها -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h5>📋 فعالیت‌های اخیر</h5>
+                    <div class="table-responsive">
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>کاربر</th>
+                                    <th>عملیات</th>
+                                    <th>زمان</th>
+                                    <th>وضعیت</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentActivities">
+                                <!-- فعالیت‌های اخیر -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- گزارش‌های پیشرفته -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="chart-container">
+                    <h5>🔍 گزارش‌های تحلیلی</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <h6>تحلیل رفتار کاربران</h6>
+                                    <small class="text-muted">میانگین زمان استفاده: ۱۵ دقیقه</small>
+                                    <br>
+                                    <small class="text-muted">بازگشت کاربران: ۶۸٪</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <h6>تحلیل درآمد</h6>
+                                    <small class="text-muted">میانگین سبد خرید: ۱۲۴,۰۰۰ تومان</small>
+                                    <br>
+                                    <small class="text-muted">نرخ تبدیل: ۳.۲٪</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <h6>تحلیل عملکرد</h6>
+                                    <small class="text-muted">آپتایم متوسط: ۹۹.۸٪</small>
+                                    <br>
+                                    <small class="text-muted">زمان پاسخ: ۴۲ms</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data-manager.js"></script>
+    <script>
+        // داده‌های نمونه برای آنالیتیکس
+        const analyticsData = {
+            services: [
+                { name: 'نویسنده هوشمند', revenue: 125000000, users: 3456, growth: 15.2 },
+                { name: 'تبدیل تصاویر', revenue: 98700000, users: 2345, growth: 12.8 },
+                { name: 'نویسنده کوانتومی', revenue: 85600000, users: 1890, growth: 23.4 },
+                { name: 'شطرنج هوشمند', revenue: 45600000, users: 1567, growth: 8.7 },
+                { name: 'نطق مصطلح', revenue: 34500000, users: 1234, growth: 5.6 }
+            ],
+            activities: [
+                { user: 'کاربر #۱۲۴۵', action: 'خرید اشتراک', time: '۲ دقیقه پیش', status: 'موفق' },
+                { user: 'کاربر #۰۸۹۳', action: 'استفاده از نویسنده', time: '۵ دقیقه پیش', status: 'موفق' },
+                { user: 'کاربر #۲۳۴۱', action: 'تبدیل تصویر', time: '۸ دقیقه پیش', status: 'موفق' },
+                { user: 'کاربر #۱۵۶۷', action: 'پرداخت کمک', time: '۱۲ دقیقه پیش', status: 'موفق' },
+                { user: 'کاربر #۰۷۸۹', action: 'بازی شطرنج', time: '۱۵ دقیقه پیش', status: 'موفق' }
+            ],
+            userDistribution: {
+                new: 35,
+                returning: 45,
+                premium: 20
+            },
+            monthlyGrowth: [1250, 1345, 1456, 1567, 1678, 1789, 1890, 2012, 2156, 2345, 2567, 2789]
+        };
+
+        function initAnalytics() {
+            updateTopServices();
+            updateRecentActivities();
+            updateCharts();
+            startAnalyticsUpdates();
+        }
+
+        function updateTopServices() {
+            const tbody = document.getElementById('topServices');
+            
+            tbody.innerHTML = analyticsData.services.map(service => {
+                const growthClass = service.growth > 0 ? 'growth-positive' : 'growth-negative';
+                const growthIcon = service.growth > 0 ? 'bi-arrow-up' : 'bi-arrow-down';
+                
+                return `
+                    <tr>
+                        <td>${service.name}</td>
+                        <td>${(service.revenue / 1000000).toFixed(1)}M</td>
+                        <td>${service.users.toLocaleString()}</td>
+                        <td class="${growthClass}">
+                            <i class="bi ${growthIcon}"></i>
+                            ${service.growth}%
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateRecentActivities() {
+            const tbody = document.getElementById('recentActivities');
+            
+            tbody.innerHTML = analyticsData.activities.map(activity => {
+                const statusClass = activity.status === 'موفق' ? 'text-success' : 'text-danger';
+                
+                return `
+                    <tr>
+                        <td>${activity.user}</td>
+                        <td>${activity.action}</td>
+                        <td>${activity.time}</td>
+                        <td class="${statusClass}">${activity.status}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateCharts() {
+            // در نسخه واقعی از کتابخانه‌های chart استفاده می‌شود
+            // اینجا شبیه‌سازی می‌کنیم
+            
+            // آپدیت کارت‌های آماری
+            document.getElementById('totalUsers').textContent = '۱۲,۴۵۶';
+            document.getElementById('totalRevenue').textContent = '۴۵۶M';
+            document.getElementById('avgSession').textContent = '۱۲:۳۴';
+            document.getElementById('conversionRate').textContent = '۳.۴٪';
+        }
+
+        function startAnalyticsUpdates() {
+            // به‌روزرسانی Real-time آمار
+            setInterval(() => {
+                // شبیه‌سازی تغییرات آمار
+                const users = parseInt(document.getElementById('totalUsers').textContent.replace(/,/g, ''));
+                const newUsers = users + Math.floor(Math.random() * 10);
+                document.getElementById('totalUsers').textContent = newUsers.toLocaleString();
+                
+                // افزودن فعالیت جدید
+                const newActivity = {
+                    user: `کاربر #${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`,
+                    action: ['خرید اشتراک', 'استفاده از سرویس', 'تبدیل تصویر', 'بازی شطرنج'][Math.floor(Math.random() * 4)],
+                    time: 'هم اکنون',
+                    status: 'موفق'
+                };
+                
+                analyticsData.activities.unshift(newActivity);
+                if (analyticsData.activities.length > 5) analyticsData.activities.pop();
+                updateRecentActivities();
+                
+            }, 10000); // هر 10 ثانیه
+        }
+
+        // بارگذاری اولیه
+        document.addEventListener('DOMContentLoaded', initAnalytics);
+    </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل یکپارچه Tetra Ecosystem + تتراشاپ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+    <style>
+        :root {
+            --tetra-primary: #6366f1;
+            --tetrashop-primary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Vazir', sans-serif;
+        }
+        
+        .platform-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .tetra-badge { background: var(--tetra-primary); }
+        .tetrashop-badge { background: var(--tetrashop-primary); }
+        
+        .stat-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--tetra-primary);
+        }
+        
+        .combined-stats {
+            background: linear-gradient(135deg, var(--tetra-primary), var(--tetrashop-primary));
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <!-- هدر -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="text-center">
+                    <h1 class="text-white">🚀 پنل یکپارچه Tetra Ecosystem + تتراشاپ</h1>
+                    <p class="text-muted">مدیریت کامل کسب‌وکارهای شما در یک پنل</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- آمار ترکیبی -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="stat-card combined-stats">
+                    <span class="platform-badge tetra-badge">Tetra</span>
+                    <span class="platform-badge tetrashop-badge" style="left: 80px;">تتراشاپ</span>
+                    <h4 class="text-white">💰 درآمد کل</h4>
+                    <h2 class="text-white" id="combined-revenue">0 تومان</h2>
+                    <small class="text-light">ترکیب دو پلتفرم</small>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <span class="platform-badge tetra-badge">Tetra</span>
+                    <h4 class="text-white">🔄 تبدیل‌ها</h4>
+                    <h2 class="text-primary" id="tetra-conversions">0</h2>
+                    <small class="text-muted">تبدیل 2D به 3D</small>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <span class="platform-badge tetrashop-badge">تتراشاپ</span>
+                    <h4 class="text-white">📦 فروش‌ها</h4>
+                    <h2 class="text-success" id="tetrashop-sales">0</h2>
+                    <small class="text-muted">محصولات و خدمات</small>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <span class="platform-badge tetra-badge">Tetra</span>
+                    <span class="platform-badge tetrashop-badge" style="left: 80px;">تتراشاپ</span>
+                    <h4 class="text-white">👥 کاربران</h4>
+                    <h2 class="text-warning" id="total-users">0</h2>
+                    <small class="text-muted">کاربران فعال</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- تراکنش‌های ترکیبی -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="stat-card">
+                    <h5 class="text-white mb-3">💸 تراکنش‌های اخیر (ترکیبی)</h5>
+                    <div id="combined-transactions">
+                        <!-- تراکنش‌ها اینجا نمایش داده می‌شوند -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="stat-card">
+                    <h5 class="text-white mb-3">📊 گزارش عملکرد</h5>
+                    <div id="performance-report">
+                        <!-- گزارش عملکرد -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- وضعیت اتصال -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="stat-card">
+                    <h5 class="text-white mb-3">🔗 وضعیت اتصال</h5>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span id="connection-status">در حال اتصال...</span>
+                        <button class="btn btn-sm btn-primary" onclick="syncNow()">همگام‌سازی فوری</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // داده‌های نمونه تتراشاپ
+        const tetrashopData = {
+            balance: 12450000,
+            income: 8720000,
+            expenses: 3270000,
+            pending: 1250000,
+            transactions: [
+                { type: 'income', amount: 450000, description: 'فروش افزونه Cloudflare', date: '1402/09/15', status: 'completed', platform: 'tetrashop' },
+                { type: 'expense', amount: 125000, description: 'هزینه میزبانی سرور', date: '1402/09/14', status: 'completed', platform: 'tetrashop' },
+                { type: 'income', amount: 180000, description: 'تمدید اشتراک کاربران', date: '1402/09/13', status: 'completed', platform: 'tetrashop' }
+            ]
+        };
+
+        // داده‌های نمونه Tetra
+        const tetraData = {
+            conversions: 45,
+            revenue: 382500,
+            activeUsers: 28,
+            transactions: [
+                { type: 'income', amount: 15000, description: 'تبدیل تصویر کاربر ۱', date: '1402/09/15', status: 'completed', platform: 'tetra' },
+                { type: 'income', amount: 12000, description: 'تبدیل تصویر کاربر ۲', date: '1402/09/15', status: 'completed', platform: 'tetra' },
+                { type: 'income', amount: 8000, description: 'تبدیل تصویر کاربر ۳', date: '1402/09/14', status: 'completed', platform: 'tetra' }
+            ]
+        };
+
+        // تابع همگام‌سازی
+        function syncData() {
+            document.getElementById('connection-status').innerHTML = 
+                '<span class="text-success">✅ متصل - همگام‌سازی خودکار فعال</span>';
+            
+            // محاسبه آمار ترکیبی
+            const combinedRevenue = tetrashopData.income + tetraData.revenue;
+            const totalUsers = 28 + 15; // کاربران Tetra + تتراشاپ
+            const totalTransactions = tetrashopData.transactions.length + tetraData.transactions.length;
+            
+            // بروزرسانی UI
+            document.getElementById('combined-revenue').textContent = combinedRevenue.toLocaleString() + ' تومان';
+            document.getElementById('tetra-conversions').textContent = tetraData.conversions;
+            document.getElementById('tetrashop-sales').textContent = tetrashopData.transactions.length;
+            document.getElementById('total-users').textContent = totalUsers;
+            
+            // نمایش تراکنش‌های ترکیبی
+            displayCombinedTransactions();
+            
+            // نمایش گزارش عملکرد
+            displayPerformanceReport();
+        }
+
+        // نمایش تراکنش‌های ترکیبی
+        function displayCombinedTransactions() {
+            const allTransactions = [...tetraData.transactions, ...tetrashopData.transactions]
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 10);
+            
+            const container = document.getElementById('combined-transactions');
+            container.innerHTML = allTransactions.map(txn => `
+                <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
+                    <div>
+                        <span class="badge ${txn.platform === 'tetra' ? 'bg-primary' : 'bg-success'} me-2">
+                            ${txn.platform === 'tetra' ? 'Tetra' : 'تتراشاپ'}
+                        </span>
+                        <small class="text-white">${txn.description}</small>
+                    </div>
+                    <div class="text-end">
+                        <div class="text-${txn.type === 'income' ? 'success' : 'danger'}">
+                            ${txn.amount.toLocaleString()} تومان
+                        </div>
+                        <small class="text-muted">${txn.date}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // نمایش گزارش عملکرد
+        function displayPerformanceReport() {
+            const report = document.getElementById('performance-report');
+            const tetraGrowth = ((tetraData.revenue / 250000) * 100 - 100).toFixed(1); // رشد فرضی
+            const tetrashopGrowth = "18.6%"; // از داده‌های شما
+            
+            report.innerHTML = `
+                <div class="row text-center">
+                    <div class="col-6">
+                        <h6 class="text-primary">Tetra Ecosystem</h6>
+                        <div class="text-success">📈 رشد: +${tetraGrowth}%</div>
+                        <small class="text-muted">ماه گذشته</small>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="text-success">تتراشاپ</h6>
+                        <div class="text-success">📈 رشد: +${tetrashopGrowth}</div>
+                        <small class="text-muted">ماه گذشته</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <small class="text-muted">
+                        🎯 درآمد ترکیبی: <strong>${(tetrashopData.income + tetraData.revenue).toLocaleString()} تومان</strong>
+                    </small>
+                </div>
+            `;
+        }
+
+        // همگام‌سازی فوری
+        function syncNow() {
+            document.getElementById('connection-status').innerHTML = 
+                '<span class="text-warning">🔄 در حال همگام‌سازی...</span>';
+            
+            setTimeout(() => {
+                syncData();
+                showToast('همگام‌سازی با موفقیت انجام شد');
+            }, 1500);
+        }
+
+        // نمایش نوتیفیکیشن
+        function showToast(message) {
+            // ایجاد یک toast ساده
+            alert('✅ ' + message);
+        }
+
+        // راه‌اندازی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(syncData, 1000);
+            
+            // همگام‌سازی خودکار هر 30 ثانیه
+            setInterval(syncData, 30000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>پنل مدیریت - داده‌های واقعی | Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --card-bg: #1e293b;
+            --border: #334155;
+        }
+        body {
+            background: var(--dark);
+            color: #e2e8f0;
+            font-family: 'Vazir', sans-serif;
+        }
+        .data-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        .data-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .real-badge {
+            background: var(--success);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+        .data-source {
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <!-- هدر -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="text-white">
+                    <i class="bi bi-database-check"></i>
+                    پنل مدیریت - داده‌های واقعی
+                </h3>
+                <small class="text-muted">همه داده‌ها از پایگاه داده واقعی سیستم خوانده می‌شوند</small>
+            </div>
+            <div class="real-badge">
+                <i class="bi bi-check-circle me-1"></i>
+                داده‌های زنده
+            </div>
+        </div>
+
+        <!-- کارت‌های وضعیت با داده واقعی -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="data-card">
+                    <h6 class="text-white">💰 درآمد کل</h6>
+                    <h4 class="text-success" id="realTotalRevenue">۰ تومان</h4>
+                    <small class="text-muted" id="realRevenueSource">منبع: پایگاه داده مالی</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="data-card">
+                    <h6 class="text-white">🔄 تبدیل‌ها</h6>
+                    <h4 class="text-primary" id="realTotalConversions">۰</h4>
+                    <small class="text-muted" id="realConversionSource">منبع: سیستم تبدیل تصاویر</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="data-card">
+                    <h6 class="text-white">👥 کاربران</h6>
+                    <h4 class="text-warning" id="realTotalUsers">۰</h4>
+                    <small class="text-muted" id="realUserSource">منبع: مدیریت کاربران</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="data-card">
+                    <h6 class="text-white">🤝 کمک‌ها</h6>
+                    <h4 class="text-info" id="realTotalDonations">۰ تومان</h4>
+                    <small class="text-muted" id="realDonationSource">منبع: سیستم محرومین</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- بخش داده‌های مالی -->
+            <div class="col-md-6">
+                <div class="data-card">
+                    <h5 class="text-white mb-3">
+                        <i class="bi bi-currency-exchange me-2"></i>
+                        داده‌های مالی واقعی
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <small class="text-muted">تراکنش‌های اخیر:</small>
+                        <div id="realTransactionsList" class="mt-2">
+                            <!-- داده‌های واقعی -->
+                        </div>
+                    </div>
+                    
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <small class="text-muted">امروز</small>
+                            <div class="text-success" id="todayRevenue">۰</div>
+                        </div>
+                        <div class="col-4">
+                            <small class="text-muted">موفق</small>
+                            <div class="text-primary" id="successfulTx">۰</div>
+                        </div>
+                        <div class="col-4">
+                            <small class="text-muted">میانگین</small>
+                            <div class="text-warning" id="avgTransaction">۰</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- داده‌های کاربران -->
+                <div class="data-card">
+                    <h5 class="text-white mb-3">
+                        <i class="bi bi-people me-2"></i>
+                        آمار کاربران واقعی
+                    </h5>
+                    
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="text-primary" id="activeUsers">۰</div>
+                            <small class="text-muted">فعال</small>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-success" id="newUsersToday">۰</div>
+                            <small class="text-muted">جدید امروز</small>
+                        </div>
+                    </div>
+                    
+                    <div id="recentUsers" class="mt-3">
+                        <!-- کاربران اخیر -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- بخش سیستم و لاگ -->
+            <div class="col-md-6">
+                <!-- وضعیت سیستم -->
+                <div class="data-card">
+                    <h5 class="text-white mb-3">
+                        <i class="bi bi-heart-pulse me-2"></i>
+                        سلامت سیستم
+                    </h5>
+                    
+                    <div class="row text-center mb-3">
+                        <div class="col-4">
+                            <div class="text-success" id="systemStatus">✅</div>
+                            <small class="text-muted">وضعیت</small>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-info" id="systemUptime">۰٪</div>
+                            <small class="text-muted">آپتایم</small>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-warning" id="errorCount">۰</div>
+                            <small class="text-muted">خطاها</small>
+                        </div>
+                    </div>
+                    
+                    <small class="text-muted">آخرین بروزرسانی: <span id="lastUpdate">-</span></small>
+                </div>
+
+                <!-- لاگ سیستم -->
+                <div class="data-card">
+                    <h5 class="text-white mb-3">
+                        <i class="bi bi-list-check me-2"></i>
+                        لاگ سیستم
+                    </h5>
+                    
+                    <div style="max-height: 300px; overflow-y: auto;" id="systemLogs">
+                        <!-- لاگ‌های واقعی -->
+                    </div>
+                </div>
+
+                <!-- مدیریت داده -->
+                <div class="data-card">
+                    <h5 class="text-white mb-3">
+                        <i class="bi bi-gear me-2"></i>
+                        مدیریت داده
+                    </h5>
+                    
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-warning btn-sm" onclick="refreshAllData()">
+                            <i class="bi bi-arrow-clockwise me-2"></i>
+                            بروزرسانی داده‌ها
+                        </button>
+                        <button class="btn btn-outline-info btn-sm" onclick="exportData()">
+                            <i class="bi bi-download me-2"></i>
+                            خروجی داده‌ها
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="clearTestData()">
+                            <i class="bi bi-trash me-2"></i>
+                            پاک کردن داده‌های تست
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- جدول داده‌های کامل -->
+        <div class="data-card">
+            <h5 class="text-white mb-3">
+                <i class="bi bi-table me-2"></i>
+                نمای کلی داده‌ها
+            </h5>
+            
+            <div class="table-responsive">
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th>ماژول</th>
+                            <th>تعداد رکوردها</th>
+                            <th>آخرین بروزرسانی</th>
+                            <th>وضعیت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataOverview">
+                        <!-- داده‌های ماژول‌ها -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data-manager.js"></script>
+    <script>
+        // بارگذاری و نمایش همه داده‌های واقعی
+        function loadRealData() {
+            if (!window.tetraData) {
+                console.error('سیستم داده‌ها بارگذاری نشده است');
+                return;
+            }
+
+            // داده‌های مالی
+            const financialStats = tetraData.getFinancialStats();
+            document.getElementById('realTotalRevenue').textContent = 
+                financialStats.totalRevenue.toLocaleString() + ' تومان';
+            document.getElementById('todayRevenue').textContent = 
+                financialStats.todayRevenue.toLocaleString();
+            document.getElementById('successfulTx').textContent = 
+                financialStats.totalTransactions;
+            document.getElementById('avgTransaction').textContent = 
+                financialStats.totalTransactions > 0 ? 
+                (financialStats.totalRevenue / financialStats.totalTransactions).toLocaleString() : '۰';
+
+            // نمایش تراکنش‌ها
+            displayRealTransactions(financialStats.recentTransactions);
+
+            // داده‌های کاربران
+            const userStats = tetraData.getUserStats();
+            document.getElementById('realTotalUsers').textContent = userStats.totalUsers;
+            document.getElementById('activeUsers').textContent = userStats.activeUsers;
+            document.getElementById('newUsersToday').textContent = userStats.newToday;
+            displayRecentUsers(tetraData.getAll('users').slice(-3).reverse());
+
+            // داده‌های تبدیل
+            const conversionStats = tetraData.getConversionStats();
+            document.getElementById('realTotalConversions').textContent = conversionStats.total;
+
+            // داده‌های کمک‌ها
+            const socialStats = tetraData.getSocialStats();
+            document.getElementById('realTotalDonations').textContent = 
+                socialStats.totalDonations.toLocaleString() + ' تومان';
+
+            // وضعیت سیستم
+            const systemHealth = tetraData.getSystemHealth();
+            document.getElementById('systemStatus').textContent = 
+                systemHealth.status === 'healthy' ? '✅' : '⚠️';
+            document.getElementById('systemUptime').textContent = systemHealth.uptime;
+            document.getElementById('errorCount').textContent = 
+                systemHealth.lastError ? '۱+' : '۰';
+
+            // لاگ سیستم
+            displaySystemLogs(tetraData.getAll('systemLogs').slice(0, 10));
+
+            // نمای کلی داده‌ها
+            displayDataOverview();
+
+            // زمان بروزرسانی
+            document.getElementById('lastUpdate').textContent = 
+                new Date().toLocaleString('fa-IR');
+        }
+
+        function displayRealTransactions(transactions) {
+            const container = document.getElementById('realTransactionsList');
+            
+            if (transactions.length === 0) {
+                container.innerHTML = '<p class="text-muted">هنوز تراکنشی ثبت نشده است</p>';
+                return;
+            }
+            
+            container.innerHTML = transactions.map(txn => `
+                <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
+                    <div>
+                        <small class="text-white">${txn.description || 'تراکنش مالی'}</small>
+                        <br>
+                        <small class="text-muted">${txn.date || '-'}</small>
+                    </div>
+                    <div class="text-success">
+                        ${(txn.amount || 0).toLocaleString()} تومان
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayRecentUsers(users) {
+            const container = document.getElementById('recentUsers');
+            
+            if (users.length === 0) {
+                container.innerHTML = '<p class="text-muted">کاربری یافت نشد</p>';
+                return;
+            }
+            
+            container.innerHTML = users.map(user => `
+                <div class="d-flex justify-content-between align-items-center py-1">
+                    <small class="text-white">${user.name || 'کاربر'}</small>
+                    <small class="text-muted">${user.joined || '-'}</small>
+                </div>
+            `).join('');
+        }
+
+        function displaySystemLogs(logs) {
+            const container = document.getElementById('systemLogs');
+            
+            if (logs.length === 0) {
+                container.innerHTML = '<p class="text-muted">لاگی یافت نشد</p>';
+                return;
+            }
+            
+            container.innerHTML = logs.map(log => `
+                <div class="border-bottom border-secondary pb-2 mb-2">
+                    <small class="text-light">${log.message}</small>
+                    <br>
+                    <small class="text-muted">${log.timestamp}</small>
+                </div>
+            `).join('');
+        }
+
+        function displayDataOverview() {
+            const modules = [
+                { name: 'کاربران', key: 'users', icon: '👥' },
+                { name: 'تراکنش‌ها', key: 'transactions', icon: '💰' },
+                { name: 'تبدیل‌ها', key: 'conversions', icon: '🔄' },
+                { name: 'پروژه‌ها', key: 'socialProjects', icon: '🤝' },
+                { name: 'کمک‌ها', key: 'donations', icon: '🎁' },
+                { name: 'لاگ‌ها', key: 'systemLogs', icon: '📝' }
+            ];
+
+            const container = document.getElementById('dataOverview');
+            
+            container.innerHTML = modules.map(module => {
+                const data = tetraData.getAll(module.key);
+                const lastItem = data[data.length - 1];
+                const lastUpdate = lastItem ? 
+                    (lastItem.updatedAt || lastItem.createdAt || lastItem.timestamp || lastItem.date) : 
+                    '---';
+
+                return `
+                    <tr>
+                        <td>${module.icon} ${module.name}</td>
+                        <td>${data.length.toLocaleString()}</td>
+                        <td>${lastUpdate}</td>
+                        <td>
+                            <span class="badge bg-success">فعال</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-info" onclick="viewModuleData('${module.key}')">
+                                مشاهده
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // توابع مدیریت
+        function refreshAllData() {
+            loadRealData();
+            alert('همه داده‌ها با موفقیت بروزرسانی شدند');
+        }
+
+        function exportData() {
+            const allData = {};
+            ['users', 'transactions', 'conversions', 'socialProjects', 'donations', 'systemLogs'].forEach(key => {
+                allData[key] = tetraData.getAll(key);
+            });
+            
+            const dataStr = JSON.stringify(allData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `tetra-export-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        function clearTestData() {
+            if (confirm('آیا از پاک کردن همه داده‌های تست اطمینان دارید؟')) {
+                ['users', 'transactions', 'conversions', 'socialProjects', 'donations', 'systemLogs'].forEach(key => {
+                    localStorage.removeItem(`tetra_${key}`);
+                });
+                window.tetraData.initDatabase();
+                loadRealData();
+                alert('داده‌های تست با موفقیت پاک شدند');
+            }
+        }
+
+        function viewModuleData(moduleKey) {
+            const data = tetraData.getAll(moduleKey);
+            alert(`داده‌های ${moduleKey}:\n\n${JSON.stringify(data.slice(0, 5), null, 2)}${data.length > 5 ? '\n\n... و ' + (data.length - 5) + ' رکورد دیگر' : ''}`);
+        }
+
+        // بارگذاری اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            // اطمینان از بارگذاری سیستم داده
+            if (!window.tetraData) {
+                setTimeout(() => {
+                    loadRealData();
+                }, 1000);
+            } else {
+                loadRealData();
+            }
+            
+            // بروزرسانی خودکار هر 30 ثانیه
+            setInterval(loadRealData, 30000);
+        });
+    </script>
+</body>
+</html>

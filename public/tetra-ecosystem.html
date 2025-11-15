@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Tetra Ecosystem - پلتفرم هوش مصنوعی</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        .price-tag {
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر اصلی -->
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Tetra Ecosystem</h1>
+            <p class="lead mb-4">پلتفرم جامع هوش مصنوعی برای تمام نیازهای دیجیتال</p>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="text-white">
+                        <div class="h2">+۵۰K</div>
+                        <small>کاربر فعال</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-white">
+                        <div class="h2">+۲۰۰K</div>
+                        <small>درخواست روزانه</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-white">
+                        <div class="h2">۹۹.۸٪</div>
+                        <small>رضایت کاربران</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-white">
+                        <div class="h2">۲۴/۷</div>
+                        <small>پشتیبانی</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- سرویس‌ها -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- تبدیل تصاویر 2D به 3D -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-primary mb-3">
+                        <i class="bi bi-arrow-repeat" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>تبدیل تصاویر 2D به 3D</h4>
+                    <p class="text-muted">تبدیل هوشمند تصاویر دو بعدی به مدل‌های سه بعدی با کیفیت بالا</p>
+                    <div class="price-tag d-inline-block mb-3">شروع از ۵۰,۰۰۰ تومان</div>
+                    <br>
+                    <a href="converter.html" class="btn btn-primary w-100">استفاده از سرویس</a>
+                </div>
+            </div>
+
+            <!-- نویسنده هوشمند -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-success mb-3">
+                        <i class="bi bi-pencil-square" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>نویسنده هوشمند</h4>
+                    <p class="text-muted">تولید محتوای متنی هوشمند برای وبلاگ، شبکه‌های اجتماعی و مقالات</p>
+                    <div class="price-tag d-inline-block mb-3">شروع از ۳۰,۰۰۰ تومان</div>
+                    <br>
+                    <button class="btn btn-success w-100" onclick="launchService('ai-writer')">استفاده از سرویس</button>
+                </div>
+            </div>
+
+            <!-- نویسنده کوانتومی -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-warning mb-3">
+                        <i class="bi bi-cpu" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>نویسنده کوانتومی</h4>
+                    <p class="text-muted">تولید محتوای پیشرفته با الگوریتم‌های کوانتومی برای متون تخصصی</p>
+                    <div class="price-tag d-inline-block mb-3">شروع از ۱۰۰,۰۰۰ تومان</div>
+                    <br>
+                    <button class="btn btn-warning w-100" onclick="launchService('quantum-writer')">استفاده از سرویس</button>
+                </div>
+            </div>
+
+            <!-- شطرنج هوشمند -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-info mb-3">
+                        <i class="bi bi-plus-square" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>شطرنج هوشمند</h4>
+                    <p class="text-muted">حریف هوش مصنوعی برای تمرین و بهبود مهارت‌های شطرنج</p>
+                    <div class="price-tag d-inline-block mb-3">رایگان - حرفه‌ای: ۸۰,۰۰۰ تومان</div>
+                    <br>
+                    <button class="btn btn-info w-100" onclick="launchService('chess-ai')">بازی کنید</button>
+                </div>
+            </div>
+
+            <!-- سامانه ضد چندپارگی -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-danger mb-3">
+                        <i class="bi bi-shield-check" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>سامانه ضد چندپارگی</h4>
+                    <p class="text-muted">یکپارچه‌سازی و مدیریت داده‌های پراکنده در سازمان‌ها</p>
+                    <div class="price-tag d-inline-block mb-3">قیمت بر اساس نیاز</div>
+                    <br>
+                    <button class="btn btn-danger w-100" onclick="launchService('anti-fragmentation')">دریافت دمو</button>
+                </div>
+            </div>
+
+            <!-- نطق مصطلح -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-secondary mb-3">
+                        <i class="bi bi-mic" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>نطق مصطلح</h4>
+                    <p class="text-muted">سیستم تبدیل متن به گفتار با لهجه طبیعی فارسی</p>
+                    <div class="price-tag d-inline-block mb-3">شروع از ۲۰,۰۰۰ تومان</div>
+                    <br>
+                    <button class="btn btn-secondary w-100" onclick="launchService('speech')">استفاده از سرویس</button>
+                </div>
+            </div>
+
+            <!-- نگار کوانتوم -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-purple mb-3">
+                        <i class="bi bi-brush" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>نگار کوانتوم</h4>
+                    <p class="text-muted">طراحی و تولید گرافیک با الگوریتم‌های کوانتومی</p>
+                    <div class="price-tag d-inline-block mb-3">شروع از ۱۵۰,۰۰۰ تومان</div>
+                    <br>
+                    <button class="btn btn-dark w-100" onclick="launchService('quantum-design')">استفاده از سرویس</button>
+                </div>
+            </div>
+
+            <!-- پردازش زبان طبیعی -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-success mb-3">
+                        <i class="bi bi-chat-left-text" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>پردازش زبان فارسی</h4>
+                    <p class="text-muted">تحلیل، درک و تولید زبان فارسی با هوش مصنوعی</p>
+                    <div class="price-tag d-inline-block mb-3">شروع از ۴۰,۰۰۰ تومان</div>
+                    <br>
+                    <a href="nlp.html" class="btn btn-success w-100">استفاده از سرویس</a>
+                </div>
+            </div>
+
+            <!-- سیستم حمایتی -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="text-warning mb-3">
+                        <i class="bi bi-heart" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>پروژه‌های حمایتی</h4>
+                    <p class="text-muted">همکاری در پروژه‌های خیریه و حمایت از محرومین</p>
+                    <div class="price-tag d-inline-block mb-3">کمک‌های داوطلبانه</div>
+                    <br>
+                    <a href="social-care.html" class="btn btn-warning w-100">مشارکت کنید</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- سیستم پرداخت -->
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h3>💰 سیستم پرداخت یکپارچه</h3>
+                    <p class="text-muted">پرداخت امن با multiple gateways</p>
+                    <ul>
+                        <li>درگاه‌های بانکی ایرانی</li>
+                        <li>پرداخت با ارزهای دیجیتال</li>
+                        <li>کیف پول داخلی</li>
+                        <li>پشتیبانی از USDT</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <h5>شارژ حساب</h5>
+                        <input type="number" class="form-control mb-3" placeholder="مبلغ به تومان" id="chargeAmount">
+                        <button class="btn btn-primary w-100" onclick="chargeAccount()">شارژ حساب</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Tetra Ecosystem</h5>
+                    <p class="text-muted">پلتفرم هوش مصنوعی نسل بعدی</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p>پشتیبانی: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    <p>ایمیل: support@tetra-ecosystem.ir</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data-manager.js"></script>
+    <script>
+        function launchService(serviceName) {
+            const services = {
+                'ai-writer': 'نویسنده هوشمند',
+                'quantum-writer': 'نویسنده کوانتومی', 
+                'chess-ai': 'شطرنج هوشمند',
+                'anti-fragmentation': 'سامانه ضد چندپارگی',
+                'speech': 'نطق مصطلح',
+                'quantum-design': 'نگار کوانتوم'
+            };
+
+            const serviceTitle = services[serviceName];
+            alert(`🚀 سرویس ${serviceTitle} در حال راه‌اندازی...\n\nاین سرویس به زودی فعال خواهد شد.`);
+            
+            // ثبت درخواست در سیستم
+            if (window.tetraData) {
+                tetraData.create('serviceRequests', {
+                    service: serviceName,
+                    title: serviceTitle,
+                    timestamp: new Date().toLocaleString('fa-IR'),
+                    status: 'pending'
+                });
+            }
+        }
+
+        function chargeAccount() {
+            const amount = document.getElementById('chargeAmount').value;
+            if (!amount || amount < 10000) {
+                alert('لطفاً مبلغ معتبری وارد کنید (حداقل ۱۰,۰۰۰ تومان)');
+                return;
+            }
+
+            alert(`درخواست شارژ حساب به مبلغ ${amount} تومان ثبت شد.\n\nبه صفحه پرداخت هدایت می‌شوید...`);
+            
+            // ثبت تراکنش
+            if (window.tetraData) {
+                tetraData.create('transactions', {
+                    type: 'charge',
+                    amount: parseInt(amount),
+                    description: 'شارژ حساب کاربری',
+                    status: 'pending',
+                    timestamp: new Date().toLocaleString('fa-IR')
+                });
+            }
+        }
+
+        // بارگذاری اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🌐 Tetra Ecosystem - Public Portal Loaded');
+            
+            // ایجاد جدول درخواست‌های سرویس اگر وجود ندارد
+            if (window.tetraData && !localStorage.getItem('tetra_serviceRequests')) {
+                localStorage.setItem('tetra_serviceRequests', JSON.stringify([]));
+            }
+        });
+    </script>
+</body>
+</html>

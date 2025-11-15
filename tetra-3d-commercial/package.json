@@ -1,0 +1,9 @@
+{
+  "name": "tetra-3d-business",
+  "version": "1.0.0",
+  "description": "Professional 2D to 3D Conversion System",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "build": "echo 'Static business site - no build needed'"
+  }
+}

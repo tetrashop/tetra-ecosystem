@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نظارت کامل اکوسیستم تترا - Tetra Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .monitoring-hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .metric-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+        }
+        .metric-healthy { border-left-color: #10b981; }
+        .metric-warning { border-left-color: #f59e0b; }
+        .metric-critical { border-left-color: #ef4444; }
+        .service-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        .status-up { background: #10b981; }
+        .status-down { background: #ef4444; }
+        .status-warning { background: #f59e0b; }
+        .live-chart {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 1rem;
+            height: 200px;
+            position: relative;
+        }
+        .alert-badge {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .traffic-light {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="tetra-ecosystem.html">
+                <i class="bi bi-graph-up-arrow"></i>
+                نظارت کامل اکوسیستم تترا
+            </a>
+            <div class="navbar-text">
+                <span class="badge bg-success">Real-time</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- هدر -->
+    <div class="monitoring-hero">
+        <div class="container">
+            <h1 class="display-5 mb-3">📊 نظارت Real-time اکوسیستم تترا</h1>
+            <p class="lead mb-4">مانیتورینگ کامل تمام سرویس‌ها، عملکرد و امنیت</p>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="h4" id="overallUptime">۹۹.۹٪</div>
+                    <small>آپتایم کلی</small>
+                </div>
+                <div class="col-md-3">
+                    <div class="h4" id="activeUsers">۱۲۴</div>
+                    <small>کاربران فعال</small>
+                </div>
+                <div class="col-md-3">
+                    <div class="h4" id="totalRequests">۸۹,۴۵۶</div>
+                    <small>درخواست امروز</small>
+                </div>
+                <div class="col-md-3">
+                    <div class="h4" id="responseTime">۴۲ms</div>
+                    <small>میانگین پاسخ</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- کارت‌های وضعیت -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="metric-card metric-healthy">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">🔄 سلامت کلی</h6>
+                        <span class="service-status status-up"></span>
+                    </div>
+                    <h4 class="text-success mt-2" id="healthScore">۹۸.۵٪</h4>
+                    <small class="text-muted">همه سرویس‌ها فعال</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="metric-card metric-healthy">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">🚀 عملکرد</h6>
+                        <span class="service-status status-up"></span>
+                    </div>
+                    <h4 class="text-primary mt-2" id="performanceScore">۹۶.۲٪</h4>
+                    <small class="text-muted">بهینه و سریع</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="metric-card metric-warning">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">🛡️ امنیت</h6>
+                        <span class="service-status status-warning"></span>
+                    </div>
+                    <h4 class="text-warning mt-2" id="securityScore">۸۷.۳٪</h4>
+                    <small class="text-muted">نیاز به بررسی</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="metric-card metric-healthy">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">💾 منابع</h6>
+                        <span class="service-status status-up"></span>
+                    </div>
+                    <h4 class="text-info mt-2" id="resourceScore">۷۸.۹٪</h4>
+                    <small class="text-muted">استفاده بهینه</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- وضعیت سرویس‌ها -->
+            <div class="col-md-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">🔧 وضعیت سرویس‌ها</h5>
+                        <span class="badge bg-primary" id="lastUpdate">هم اکنون</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>سرویس</th>
+                                        <th>وضعیت</th>
+                                        <th>آپتایم</th>
+                                        <th>پاسخ (ms)</th>
+                                        <th>درخواست‌ها</th>
+                                        <th>عملکرد</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="servicesStatus">
+                                    <!-- وضعیت سرویس‌ها -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- چارت‌های عملکرد -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">📈 ترافیک سرویس‌ها</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="live-chart" id="trafficChart">
+                                    <div class="text-center text-light py-5">
+                                        <i class="bi bi-bar-chart" style="font-size: 2rem;"></i>
+                                        <p class="mt-2">نمودار ترافیک Real-time</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">⚡ زمان پاسخ</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="live-chart" id="responseChart">
+                                    <div class="text-center text-light py-5">
+                                        <i class="bi bi-speedometer2" style="font-size: 2rem;"></i>
+                                        <p class="mt-2">نمودار زمان پاسخ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- پنل کناری -->
+            <div class="col-md-4">
+                <!-- هشدارها -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">🚨 هشدارهای فعال</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="activeAlerts">
+                            <div class="alert alert-warning d-flex align-items-center">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <div>
+                                    <small>بررسی امنیتی مورد نیاز</small>
+                                    <br>
+                                    <small class="text-muted">۲ ساعت پیش</small>
+                                </div>
+                            </div>
+                            <div class="alert alert-info d-flex align-items-center">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                <div>
+                                    <small>افزایش ترافیک غیرمعمول</small>
+                                    <br>
+                                    <small class="text-muted">۳۰ دقیقه پیش</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- لاگ‌های سیستم -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">📝 لاگ Real-time</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="systemLogs" style="max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 0.8rem;">
+                            <!-- لاگ‌های سیستم -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- منابع سیستم -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">💻 منابع سیستم</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <small>CPU استفاده از</small>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-success" style="width: 45%" id="cpuUsage">۴۵٪</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <small>حافظه</small>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-info" style="width: 68%" id="memoryUsage">۶۸٪</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <small>ذخیره‌سازی</small>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-warning" style="width: 32%" id="storageUsage">۳۲٪</div>
+                            </div>
+                        </div>
+                        <div>
+                            <small>پهنای باند</small>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" style="width: 55%" id="bandwidthUsage">۵۵٪</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- آمار مالی -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">💰 آمار مالی و درآمد</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-2">
+                                <div class="h5 text-primary" id="todayRevenue">۱۲.۴M</div>
+                                <small>درآمد امروز</small>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="h5 text-success" id="monthlyRevenue">۲۴۵M</div>
+                                <small>درآمد ماهانه</small>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="h5 text-warning" id="activeSubscriptions">۱,۲۴۵</div>
+                                <small>اشتراک فعال</small>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="h5 text-info" id="conversionRate">۳.۲٪</div>
+                                <small>نرخ تبدیل</small>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="h5 text-danger" id="churnRate">۱.۸٪</div>
+                                <small>نرخ لغو</small>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="h5 text-secondary" id="avgTransaction">۱۲۴K</div>
+                                <small>میانگین تراکنش</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- امنیت -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0">🛡️ وضعیت امنیتی</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <div class="traffic-light bg-success" id="firewallStatus"></div>
+                                <small>فایروال</small>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div class="traffic-light bg-success" id="sslStatus"></div>
+                                <small>SSL/TLS</small>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div class="traffic-light bg-warning" id="backupStatus"></div>
+                                <small>بک‌آپ</small>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div class="traffic-light bg-success" id="ddosStatus"></div>
+                                <small>حفاظت DDoS</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data-manager.js"></script>
+    <script>
+        // داده‌های نمونه برای نظارت
+        const services = [
+            { name: 'تبدیل تصاویر 2D/3D', status: 'up', uptime: '99.9%', response: 42, requests: 1245, performance: 'عالی' },
+            { name: 'پردازش زبان طبیعی', status: 'up', uptime: '99.8%', response: 38, requests: 892, performance: 'عالی' },
+            { name: 'نویسنده هوشمند', status: 'up', uptime: '99.7%', response: 45, requests: 1567, performance: 'عالی' },
+            { name: 'نویسنده کوانتومی', status: 'up', uptime: '99.9%', response: 52, requests: 734, performance: 'بهینه' },
+            { name: 'شطرنج هوشمند', status: 'up', uptime: '99.6%', response: 28, requests: 456, performance: 'عالی' },
+            { name: 'سامانه ضد چندپارگی', status: 'warning', uptime: '98.2%', response: 67, requests: 289, performance: 'متوسط' },
+            { name: 'نطق مصطلح', status: 'up', uptime: '99.5%', response: 35, requests: 623, performance: 'عالی' },
+            { name: 'نگار کوانتوم', status: 'up', uptime: '99.8%', response: 48, requests: 512, performance: 'بهینه' },
+            { name: 'سیستم محرومین', status: 'up', uptime: '99.9%', response: 32, requests: 834, performance: 'عالی' },
+            { name: 'سیستم کمک مالی', status: 'up', uptime: '99.7%', response: 41, requests: 967, performance: 'عالی' }
+        ];
+
+        function initMonitoring() {
+            updateServicesStatus();
+            updateSystemMetrics();
+            updateFinancialStats();
+            updateSecurityStatus();
+            startRealTimeUpdates();
+        }
+
+        function updateServicesStatus() {
+            const tbody = document.getElementById('servicesStatus');
+            
+            tbody.innerHTML = services.map(service => {
+                const statusIcon = service.status === 'up' ? 'status-up' : 
+                                 service.status === 'warning' ? 'status-warning' : 'status-down';
+                const statusText = service.status === 'up' ? 'فعال' : 
+                                 service.status === 'warning' ? 'هشدار' : 'غیرفعال';
+                const performanceClass = service.performance === 'عالی' ? 'text-success' : 
+                                       service.performance === 'بهینه' ? 'text-warning' : 'text-danger';
+
+                return `
+                    <tr>
+                        <td>${service.name}</td>
+                        <td>
+                            <span class="service-status ${statusIcon}"></span>
+                            ${statusText}
+                        </td>
+                        <td>${service.uptime}</td>
+                        <td>${service.response}ms</td>
+                        <td>${service.requests.toLocaleString()}</td>
+                        <td class="${performanceClass}">${service.performance}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateSystemMetrics() {
+            // شبیه‌سازی داده‌های Real-time
+            document.getElementById('healthScore').textContent = '۹۸.۵٪';
+            document.getElementById('performanceScore').textContent = '۹۶.۲٪';
+            document.getElementById('securityScore').textContent = '۸۷.۳٪';
+            document.getElementById('resourceScore').textContent = '۷۸.۹٪';
+            
+            // به‌روزرسانی منابع
+            updateResourceUsage();
+        }
+
+        function updateResourceUsage() {
+            // شبیه‌سازی استفاده از منابع
+            const cpu = Math.floor(Math.random() * 30) + 40;
+            const memory = Math.floor(Math.random() * 25) + 60;
+            const storage = Math.floor(Math.random() * 20) + 25;
+            const bandwidth = Math.floor(Math.random() * 30) + 45;
+
+            document.getElementById('cpuUsage').style.width = cpu + '%';
+            document.getElementById('cpuUsage').textContent = cpu + '%';
+            
+            document.getElementById('memoryUsage').style.width = memory + '%';
+            document.getElementById('memoryUsage').textContent = memory + '%';
+            
+            document.getElementById('storageUsage').style.width = storage + '%';
+            document.getElementById('storageUsage').textContent = storage + '%';
+            
+            document.getElementById('bandwidthUsage').style.width = bandwidth + '%';
+            document.getElementById('bandwidthUsage').textContent = bandwidth + '%';
+        }
+
+        function updateFinancialStats() {
+            // آمار مالی
+            document.getElementById('todayRevenue').textContent = '۱۲.۴M';
+            document.getElementById('monthlyRevenue').textContent = '۲۴۵M';
+            document.getElementById('activeSubscriptions').textContent = '۱,۲۴۵';
+            document.getElementById('conversionRate').textContent = '۳.۲٪';
+            document.getElementById('churnRate').textContent = '۱.۸٪';
+            document.getElementById('avgTransaction').textContent = '۱۲۴K';
+        }
+
+        function updateSecurityStatus() {
+            // وضعیت امنیتی
+            document.getElementById('firewallStatus').className = 'traffic-light bg-success';
+            document.getElementById('sslStatus').className = 'traffic-light bg-success';
+            document.getElementById('backupStatus').className = 'traffic-light bg-warning';
+            document.getElementById('ddosStatus').className = 'traffic-light bg-success';
+        }
+
+        function addSystemLog(message, type = 'info') {
+            const logsDiv = document.getElementById('systemLogs');
+            const timestamp = new Date().toLocaleString('fa-IR');
+            const typeIcon = type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = `text-${type === 'error' ? 'danger' : type === 'warning' ? 'warning' : 'light'}`;
+            logEntry.innerHTML = `<small>[${timestamp}] ${typeIcon} ${message}</small>`;
+            
+            logsDiv.prepend(logEntry);
+            
+            // محدود کردن تعداد لاگ‌ها
+            if (logsDiv.children.length > 20) {
+                logsDiv.removeChild(logsDiv.lastChild);
+            }
+        }
+
+        function startRealTimeUpdates() {
+            // به‌روزرسانی Real-time
+            setInterval(() => {
+                // به‌روزرسانی زمان
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleString('fa-IR');
+                
+                // به‌روزرسانی منابع
+                updateResourceUsage();
+                
+                // به‌روزرسانی کاربران فعال
+                const activeUsers = Math.floor(Math.random() * 50) + 100;
+                document.getElementById('activeUsers').textContent = activeUsers.toLocaleString();
+                
+                // افزودن لاگ تصادفی
+                if (Math.random() > 0.7) {
+                    const messages = [
+                        'بررسی سلامت سرویس‌ها انجام شد',
+                        'بک‌آپ خودکار اجرا شد',
+                        'افزایش ترافیک در سرویس نویسنده هوشمند',
+                        'بروزرسانی امنیتی اعمال شد',
+                        'مانیتورینگ عملکرد طبیعی است'
+                    ];
+                    addSystemLog(messages[Math.floor(Math.random() * messages.length)]);
+                }
+                
+                // شبیه‌سازی هشدار
+                if (Math.random() > 0.9) {
+                    addSystemLog('هشدار: افزایش غیرمعمول درخواست‌ها', 'warning');
+                }
+                
+            }, 5000); // هر 5 ثانیه
+
+            // لاگ اولیه
+            addSystemLog('سیستم مانیتورینگ راه‌اندازی شد');
+            addSystemLog('همه سرویس‌ها در حال مانیتورینگ هستند');
+        }
+
+        // بارگذاری اولیه
+        document.addEventListener('DOMContentLoaded', initMonitoring);
+    </script>
+</body>
+</html>

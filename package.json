@@ -1,8 +1,28 @@
 {
   "name": "tetra-ecosystem",
   "version": "1.0.0",
-  "description": "پلتفرم تبدیل تصویر به مدل 3D",
+  "description": "پلتفرم هوش مصنوعی Tetra Ecosystem - شامل سرویس‌های تبدیل تصاویر، نویسنده هوشمند، شطرنج هوشمند و...",
+  "type": "module",
   "scripts": {
-    "dev": "python -m http.server 8080"
+    "dev": "python3 -m http.server 8080",
+    "build": "echo 'Building Tetra Ecosystem...'"
+  },
+  "keywords": [
+    "ai",
+    "artificial-intelligence",
+    "persian",
+    "image-conversion",
+    "quantum-computing",
+    "chess-ai",
+    "text-to-speech"
+  ],
+  "author": "Tetra Ecosystem Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tetra-ecosystem/tetra-platform"
   }
 }
