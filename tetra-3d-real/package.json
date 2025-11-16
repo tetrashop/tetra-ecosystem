@@ -1,8 +1,0 @@
-{
-  "name": "tetra-3d-real",
-  "version": "1.0.0",
-  "description": "Real 2D to 3D Conversion System",
-  "scripts": {
-    "dev": "python3 -m http.server 3000"
-  }
-}
