@@ -1,0 +1,36 @@
+#!/bin/bash
+echo "🔧 تشخیص و تعمیر خودکار submodule..."
+
+# بررسی وجود پوشه submodule
+if [ ! -d "modules/3d-converter" ]; then
+    echo "❌ پوشه submodule وجود ندارد"
+    exit 1
+fi
+
+# بررسی محتوای submodule
+echo "📁 محتوای submodule:"
+ls -la modules/3d-converter/ | head -10
+
+# اگر خالی است یا فایل‌های ضروری وجود ندارند
+if [ ! -f "modules/3d-converter/requirements.txt" ]; then
+    echo "📝 ایجاد فایل‌های ضروری..."
+    
+    # ایجاد requirements.txt
+    cat > modules/3d-converter/requirements.txt << 'END'
+fastapi>=0.99.1
+uvicorn[standard]>=0.38.0
+python-multipart>=0.0.20
+pillow>=10.0.1
+numpy>=1.24.3
+python-dateutil>=2.8.2
+END
+
+    # ایجاد ساختار پوشه‌ها
+    mkdir -p modules/3d-converter/{app,converters,models,temp}
+    
+    echo "✅ فایل‌های پایه ایجاد شدند"
+fi
+
+# بررسی نهایی
+echo "✅ بررسی نهایی:"
+find modules/3d-converter/ -type f -name "*.py" -o -name "*.txt" -o -name "*.json" 2>/dev/null

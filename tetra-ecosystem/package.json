@@ -1,0 +1,8 @@
+{
+  "name": "tetra-ecosystem",
+  "version": "1.0.0",
+  "description": "Tetra Ecosystem - 3D Conversion Platform",
+  "scripts": {
+    "dev": "python -m http.server 8080"
+  }
+}
