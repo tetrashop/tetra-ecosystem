@@ -1,0 +1,9 @@
+{
+  "name": "tetra-3d-final",
+  "version": "1.0.0",
+  "description": "Tetra 3D Advanced - Static HTML Site",
+  "scripts": {
+    "build": "echo 'No build process needed for static HTML'",
+    "start": "echo 'Open index.html in browser'"
+  }
+}
