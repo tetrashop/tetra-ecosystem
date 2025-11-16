@@ -1,0 +1,9 @@
+name = "tetra-ecosystem-olympic"
+compatibility_date = "2024-09-01"
+
+[env.production]
+workers_dev = false
+
+[[routes]]
+pattern = "tetra-ecosystem.com/*"
+custom_domain = true
