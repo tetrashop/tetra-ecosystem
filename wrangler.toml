@@ -1,6 +1,0 @@
-name = "tetra-ecosystem"
-compatibility_date = "2023-10-01"
-
-[pages]
-build_command = ""
-output_dir = "."
