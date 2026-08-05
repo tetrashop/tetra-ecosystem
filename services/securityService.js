@@ -8,17 +8,20 @@ const validate = require('../middleware/validate');
 const { AppError } = require('../middleware/errorHandler');
 const router = express.Router();
 
-const usersFile = process.env.USERS_FILE || './data/users.json';
+const usersFile = process.env.USERS_FILE || ':memory:';
 
 const loadUsers = () => {
-  try {
-    if (fs.existsSync(usersFile)) return JSON.parse(fs.readFileSync(usersFile, 'utf8'));
-  } catch (e) { console.error('Error loading users:', e); }
-  return [];
-};
+    if (usersFile === ':memory:') return [];
+    try {
+      if (fs.existsSync(usersFile)) return JSON.parse(fs.readFileSync(usersFile, 'utf8'));
+    } catch (e) { console.error('Error loading users:', e); }
+    return [];
+  };
 const saveUsers = (users) => {
-  try { fs.writeFileSync(usersFile, JSON.stringify(users, null, 2)); } catch (e) { console.error('Error saving users:', e); }
-};
+    if (usersFile === ':memory:') return;
+    try { fs.writeFileSync(usersFile, JSON.stringify(users, null, 2)); }
+    catch (e) { console.error('Error saving users:', e); }
+  };
 
 let users = loadUsers();
 

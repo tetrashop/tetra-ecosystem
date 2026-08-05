@@ -5,7 +5,7 @@ const fs = require('fs');
 const validate = require('../middleware/validate');
 const router = express.Router();
 
-const blockchainFile = process.env.BLOCKCHAIN_FILE || './data/blockchain.json';
+const blockchainFile = process.env.BLOCKCHAIN_FILE || ':memory:';
 
 class Block {
   constructor(index, timestamp, data, previousHash = '') {
@@ -55,6 +55,7 @@ class Blockchain {
     return true;
   }
   loadChain() {
+    if (blockchainFile === ':memory:') return null; // استفاده از زنجیره in-memory
     try {
       if (fs.existsSync(blockchainFile)) {
         const raw = fs.readFileSync(blockchainFile, 'utf8');
@@ -70,9 +71,10 @@ class Blockchain {
     return null;
   }
   saveChain() {
-    try {
-      fs.writeFileSync(blockchainFile, JSON.stringify(this.chain, null, 2));
-    } catch (e) { console.error('Error saving blockchain:', e); }
+    if (blockchainFile === ':memory:') return;
+    try { fs.writeFileSync(blockchainFile, JSON.stringify(this.chain, null, 2)); }
+    catch (e) { console.error('Error saving blockchain:', e); }
+  } catch (e) { console.error('Error saving blockchain:', e); }
   }
 }
 
