@@ -1,0 +1,30 @@
+{
+  "name": "tetra-ecosystem",
+  "version": "3.2.0",
+  "description": "Tetra Ecosystem - Integrated Platform (AI, Blockchain, NLP, Security) with persistence",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js",
+    "terminal": "node terminal-ui.js",
+    "vercel": "node api/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "joi": "^17.11.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "natural": "^6.10.4",
+    "express-rate-limit": "^6.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
