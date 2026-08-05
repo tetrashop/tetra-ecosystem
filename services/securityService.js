@@ -11,14 +11,14 @@ const router = express.Router();
 const usersFile = process.env.USERS_FILE || ':memory:';
 
 const loadUsers = () => {
-    if (usersFile === ':memory:') return [];
+    if (!usersFile || usersFile === ':memory:') return [];
     try {
       if (fs.existsSync(usersFile)) return JSON.parse(fs.readFileSync(usersFile, 'utf8'));
     } catch (e) { console.error('Error loading users:', e); }
     return [];
   };
 const saveUsers = (users) => {
-    if (usersFile === ':memory:') return;
+    if (!usersFile || usersFile === ':memory:') return;
     try { fs.writeFileSync(usersFile, JSON.stringify(users, null, 2)); }
     catch (e) { console.error('Error saving users:', e); }
   };

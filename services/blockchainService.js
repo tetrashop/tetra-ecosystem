@@ -38,6 +38,7 @@ class Blockchain {
       this.saveChain();
     }
   }
+  }
   createGenesisBlock() { return new Block(0, '01/01/2020', 'Genesis Block', '0'); }
   getLatestBlock() { return this.chain[this.chain.length - 1]; }
   addBlock(newBlock) {
@@ -55,7 +56,7 @@ class Blockchain {
     return true;
   }
   loadChain() {
-    if (blockchainFile === ':memory:') return null; // استفاده از زنجیره in-memory
+    if (!blockchainFile || blockchainFile === ':memory:') return null;
     try {
       if (fs.existsSync(blockchainFile)) {
         const raw = fs.readFileSync(blockchainFile, 'utf8');
@@ -71,8 +72,10 @@ class Blockchain {
     return null;
   }
   saveChain() {
-    if (blockchainFile === ':memory:') return;
+    if (!blockchainFile || blockchainFile === ':memory:') return;
     try { fs.writeFileSync(blockchainFile, JSON.stringify(this.chain, null, 2)); }
+    catch (e) { console.error('Error saving blockchain:', e); }
+  }
     catch (e) { console.error('Error saving blockchain:', e); }
   } catch (e) { console.error('Error saving blockchain:', e); }
   }
