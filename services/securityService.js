@@ -4,24 +4,27 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const Joi = require('joi');
 const fs = require('fs');
+const path = require('path');
 const validate = require('../middleware/validate');
 const { AppError } = require('../middleware/errorHandler');
 const router = express.Router();
 
-const usersFile = process.env.USERS_FILE || ':memory:';
+const usersFile = process.env.USERS_FILE;
 
 const loadUsers = () => {
-    if (!usersFile || usersFile === ':memory:') return [];
-    try {
-      if (fs.existsSync(usersFile)) return JSON.parse(fs.readFileSync(usersFile, 'utf8'));
-    } catch (e) { console.error('Error loading users:', e); }
-    return [];
-  };
+  try {
+    if (fs.existsSync(usersFile)) return JSON.parse(fs.readFileSync(usersFile, 'utf8'));
+  } catch (e) { /* محیط فقط خواندنی */ }
+  return [];
+};
 const saveUsers = (users) => {
-    if (!usersFile || usersFile === ':memory:') return;
-    try { fs.writeFileSync(usersFile, JSON.stringify(users, null, 2)); }
-    catch (e) { console.error('Error saving users:', e); }
-  };
+  try {
+    if (!fs.existsSync(usersFile)) {
+      fs.mkdirSync(path.dirname(usersFile), { recursive: true });
+    }
+    fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
+  } catch (e) { /* محیط فقط خواندنی */ }
+};
 
 let users = loadUsers();
 

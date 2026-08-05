@@ -5,7 +5,7 @@ const fs = require('fs');
 const validate = require('../middleware/validate');
 const router = express.Router();
 
-const blockchainFile = process.env.BLOCKCHAIN_FILE || ':memory:';
+const blockchainFile = process.env.BLOCKCHAIN_FILE;
 
 class Block {
   constructor(index, timestamp, data, previousHash = '') {
@@ -38,7 +38,6 @@ class Blockchain {
       this.saveChain();
     }
   }
-  }
   createGenesisBlock() { return new Block(0, '01/01/2020', 'Genesis Block', '0'); }
   getLatestBlock() { return this.chain[this.chain.length - 1]; }
   addBlock(newBlock) {
@@ -56,7 +55,6 @@ class Blockchain {
     return true;
   }
   loadChain() {
-    if (!blockchainFile || blockchainFile === ':memory:') return null;
     try {
       if (fs.existsSync(blockchainFile)) {
         const raw = fs.readFileSync(blockchainFile, 'utf8');
@@ -68,16 +66,17 @@ class Blockchain {
           return block;
         });
       }
-    } catch (e) { console.error('Error loading blockchain:', e); }
+    } catch (e) { /* محیط فقط خواندنی */ }
     return null;
   }
   saveChain() {
-    if (!blockchainFile || blockchainFile === ':memory:') return;
-    try { fs.writeFileSync(blockchainFile, JSON.stringify(this.chain, null, 2)); }
-    catch (e) { console.error('Error saving blockchain:', e); }
-  }
-    catch (e) { console.error('Error saving blockchain:', e); }
-  } catch (e) { console.error('Error saving blockchain:', e); }
+    try {
+      if (!fs.existsSync(blockchainFile)) {
+        // ایجاد فایل در صورت امکان
+        fs.mkdirSync(require('path').dirname(blockchainFile), { recursive: true });
+      }
+      fs.writeFileSync(blockchainFile, JSON.stringify(this.chain, null, 2));
+    } catch (e) { /* محیط فقط خواندنی */ }
   }
 }
 
